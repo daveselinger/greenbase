@@ -23,7 +23,20 @@ makeDirIfNeeded('./remoteimages/');
 makeDirIfNeeded('./remoteimages/originals/');
 makeDirIfNeeded('./remoteimages/snapshot/');
 
-$handle = fopen('http://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Weather_Channel_logo_2005-present.svg/500px-The_Weather_Channel_logo_2005-present.svg.png', 'rb');
+$query = "SELECT logo_url FROM orgs WHERE id=?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $org_id);
+$stmt->execute();
+$stmt->bind_result($logo_url);
+
+if (!$stmt->fetch()) {
+  exit ("Invalid org");
+}
+if (!isset($logo_url)) {
+  exit ("Invalid url");
+}
+
+$handle = fopen($logo_url, 'rb');
 $img = new Imagick();
 $img->readImageFile($handle);
 $img->thumbnailImage(100, 0);
