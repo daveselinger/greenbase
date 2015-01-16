@@ -6,7 +6,7 @@
 <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>Greenbase - About</title>
+        <title>Greenbase Home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,24 +26,25 @@
 			  <div class="double-bounce2"></div>
 			</div>
     	</div>
-				<?php include '_templates/navigation.php'; ?>
-			<div class="main-container">
-		<section class="video-inline">
+			<?php include '_templates/navigation.php'; ?>
+<div class="main-container">
+  <section class="inline-image-right">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
-							<p class="lead space-bottom-medium">
-								Short description. Visual presentation of the different organizations by Organization Type and Area of Focus
-						  </p>
+						<div class="col-sm-6 align-vertical no-align-mobile">
+							<h1>Greenbase is a living database of organizations working to address climate change.</h1>
+							<h6><a href="organizations.php">Research organizations</a> to partner with or invest in, or <a href="signup.php">add an organization</a>.<br><br><br><br>
+							  <a href="organizations.php" class="btn btn-primary btn-filled">Research Organizations</a>
+                               <br><br> 
+                               <a href="signup.php" class="btn btn-primary btn-filled">Add an Organization</a>							</h6>
+						</div>
+						
+						<div class="col-sm-6 text-center">
+							<img alt="Product Image" class="product-image" src="img/home_lumascape.gif">
 						</div>
 					</div>
-						
-				  <div class="row"> <div class="col-sm-12">
-          <p>visual goes in here</p>
-        </div></div>       
 				</div>
-			</section>
-		</div>
+  </section>
 		
 		<div class="footer-container">
 		</div>

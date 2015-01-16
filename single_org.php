@@ -6,7 +6,7 @@
 <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>Greenbase - About</title>
+        <title>Greenbase Snapshot</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,26 +27,44 @@
 			</div>
     	</div>
 				<?php include '_templates/navigation.php'; ?>
-			<div class="main-container">
-		<section class="video-inline">
+	
+		<div class="main-container">
+		<section class="article-single">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
-							<p class="lead space-bottom-medium">
-								Short description. Visual presentation of the different organizations by Organization Type and Area of Focus
-						  </p>
+		
+						<div class="col-sm-4 col-md-3">
+							<div class="author-details no-pad-top">
+								<img alt="Organization Logo" src="img/org_logo_placeholder.png">
+								
+							</div>
+						</div>
+									
+						<div class="col-sm-8">
+							<div class="article-body">
+								<p class="lead">Organization Name</p>
+							
+								<p><span>144 character short description about the organization given at signup</span></p>
+								<p>
+									another text field
+                                    <br>
+                                    just placeholder can be removed
+								</p>
+								
+								
+								<blockquote>
+									"possible tagline"
+                                    <br>
+                                    just placeholder can be removed
+								</blockquote>
+								
+							</div>
 						</div>
 					</div>
-						
-				  <div class="row"> <div class="col-sm-12">
-          <p>visual goes in here</p>
-        </div></div>       
-				</div>
+				</div>	
 			</section>
 		</div>
-		
-		<div class="footer-container">
-		</div>
+
 				
 		<script src="https://www.youtube.com/iframe_api"></script>
 		<script src="js/jquery.min.js"></script>
