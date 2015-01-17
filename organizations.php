@@ -60,27 +60,7 @@
 					<div class="row">
 					
 
-
-				
-						<a href="#">
-        					<div id="listbox">
-          						<img src="#">
-            					<p>
-                					Company Name Goes In Here
-            					</p>    
-        					</div>
-   						 </a>
-
-				
-						<a href="#">
-        					<div id="listbox">
-          						<img src="#">
-            					<p>
-                					Company Name Goes In Here
-            					</p>    
-        					</div>
-   						 </a>
-			
+<?php include './organizations_logic.php'; ?>
 					
 					</div>
 		</div>

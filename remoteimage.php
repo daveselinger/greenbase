@@ -10,6 +10,16 @@ if (!isset($_GET['org'])) {
 }
 
 $org_id = $_GET['org'];
+$width = 100;
+//Default value
+if (isset($_GET['width'])) {
+  $width = intval($_GET['width']);
+}
+if (!isset($width) || $width <= 0) {
+  $width = 100;
+  exit("INVALID WIDTH");
+  //Default value just in case
+}
 
 $con = new mysqli("mysql.climatebase.dreamhosters.com", "climatebase", "climatebas3");
 if ($con->connect_error) {
@@ -38,8 +48,14 @@ if (!isset($logo_url)) {
 
 $handle = fopen($logo_url, 'rb');
 $img = new Imagick();
+//exit ( "version" . $img->getVersion()['versionString']);
 $img->readImageFile($handle);
-$img->thumbnailImage(100, 0);
-header('Content-type: image/png');
+if (!$img->trimImage(0.4)) {
+  exit ("Trim failed");
+}
+$img->setImagePage(0, 0, 0, 0);
+//$img->thumbnailImage($width, 0);
+header('Content-type: image/' . $img->getImageFormat());
 echo $img;
+$con->close();
 ?>
