@@ -25,18 +25,23 @@
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
+	margin-bottom: 2px;
 }
 #listbox p {
-	text-align: center;	
+	text-align: center;
+	line-height: 90%;
 }
 #listbox {
-	margin: 8px;
-	padding: 15px;
+	margin: 6px;
+	padding: 11px;
+	height: 100px;
 	width: 220px;
 	float: left;
 	border: 1px solid #C8C8C8;
 } 
-
+a:hover {
+    color: #0000FF;
+}
 	</style>
     <body>
     	<div class="loader">
@@ -60,7 +65,27 @@
 					<div class="row">
 					
 
-<?php include './organizations_logic.php'; ?>
+
+				
+						<a href="#">
+        					<div id="listbox">
+          						<img src="#">
+            					<p>
+                					Company Name Goes In Here
+            					</p>    
+        					</div>
+   						 </a>
+
+				
+						<a href="#">
+        					<div id="listbox">
+          						<img src="#">
+            					<p>
+                					Company Name Goes In Here
+            					</p>    
+        					</div>
+   						 </a>
+			
 					
 					</div>
 		</div>
