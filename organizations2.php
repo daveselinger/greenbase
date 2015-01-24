@@ -18,36 +18,37 @@
         <link href="css/theme.css" rel="stylesheet" type="text/css" media="all"/>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
         <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <?php include 'google_analytics_include.php'; ?>
     </head>
     <style>
 #listbox img {
-	width: 200px;
-	margin-left: auto;
-	margin-right: auto;
+	width: 216px;
+	margin: 1px;
 	display: block;
-	margin-bottom: 2px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);	
 }
 #listbox p {
 	text-align: center;
 	line-height: 90%;
 	width: 100%;
-		position:absolute;
-		bottom:0;
-		left:0;
 }
 #listbox {
 	margin: 6px;
-	padding: 11px;
-	height: 100px;
+	height: 180px;
 	width: 220px;
 	float: left;
 	border: 1px solid #C8C8C8;
-	position:relative;
 } 
-#nameandlogobox {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);	
+#logobox {
+	width: 220px;
+	height: 140px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#textbox {
+	position: relative;	
 }
 a:hover {
     color: #0000FF;
@@ -73,26 +74,29 @@ a:hover {
 						</div>
 					</div>
                     
-					<div class="row">
-						<a href="#">
+                    <a href="#">
         					<div id="listbox">
                             	<div id="logobox">
                                     <img src="http://staging.proterra.com/wp-content/uploads/2014/05/logo.png">
+                                </div>
+                                <div id="textbox">
                                     <p>
-                                        Test Company Name Goes In Here
-                                    </p> 
-                                </div>   
-                             </div>
+                                    Test Company Name Goes In Here Test Company
+                                	</p> 
+                                </div>
+        					</div>
    						 </a>
-						<a href="#">
+                         
+					  <a href="#">
         					<div id="listbox">
                             	<div id="logobox">
                                     <img src="http://generation819.com/wp-content/uploads/2014/08/Sungevity-Installations-Logo.jpg">
+                                </div>
+                                <div id="textbox">
                                     <p>
-                                    Test Company Name Goes In Here
+                                    Test Company Name Goes In Here Test Company
                                 	</p> 
-                                </div> 
- 
+                                </div>
         					</div>
    						 </a>
 					</div>

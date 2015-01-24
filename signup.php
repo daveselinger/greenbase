@@ -18,6 +18,7 @@
         <link href="css/theme.css" rel="stylesheet" type="text/css" media="all"/>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
         <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<?php include 'google_analytics_include.php'; ?>
     </head>
     <body>
     	<div class="loader">
@@ -45,15 +46,15 @@
 								<form class="form-contact email-form">
 									<div class="inputs-wrapper">
 <input class="form-name validate-required" type="text" placeholder="Organization Name" name="name">
-<input class="form-name validate-required" type="number" min="1900" max="2014" placeholder="Year Founded" name="yearfounded">
+<input class="form-name validate-required" type="number" min="1900" max="2015" placeholder="Year Founded" name="yearfounded">
 <textarea class="form-message validate-required" name="message" placeholder="Organization Description (144 character limit)"  maxlength="144"></textarea>
 <input class="form-name validate-required" type="text" placeholder="Address" name="address">
 <input class="form-name validate-required" type="text" placeholder="City" name="city">
 <input class="form-name validate-required" type="text" placeholder="State" name="state" maxlength="2">
 <input class="form-name validate-required" type="tel" placeholder="Phone Number" name="phone">
 <input class="form-email validate-required validate-email" type="email" name="email" placeholder="Email Address">
-<input class="form-name validate-required" type="url" placeholder="Organization Website" name="website">
-<br>Organization Type  
+<input class="form-name validate-required" type="text" placeholder="Organization Website" name="website">
+<br>.<br>Organization Type  
 <select>
   <option value="Science and Research">Science and Research</option>
   <option value="Adaptation">Adaptation</option>
@@ -71,14 +72,6 @@ Area of Focus
   <option value="Manufacturing">Manufacturing</option>
 </select>
 <br>.<br>
-Sub-Area of Focus
-<select>
-  <option value="1">First</option>
-  <option value="2">Second</option>
-  <option value="3">Third</option>
-  <option value="4">Fourth</option>
-  <option value="5">Fifth</option>
-</select>
 <br>
 									</div>
 									<input type="submit" class="send-form" value="Submit">
