@@ -54,7 +54,7 @@ if (!$img->trimImage(0.4)) {
   exit ("Trim failed");
 }
 $img->setImagePage(0, 0, 0, 0);
-//$img->thumbnailImage($width, 0);
+$img->thumbnailImage($width, 0);
 header('Content-type: image/' . $img->getImageFormat());
 echo $img;
 $con->close();

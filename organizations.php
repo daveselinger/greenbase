@@ -68,42 +68,14 @@ a:hover {
 						<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
 							<h1>Organizations List</h1>
 							<p class="lead">
-								Here are the list of organizations that have signed up on our Visual Snapshot list in a gallery view.
+								Here are the list of organizations that have signed up on greenbase in a gallery view.
 							</p>	
 						</div>
 					</div>
                     
-					<div class="row">
-						<a href="#">
-        					<div id="listbox">
-                            	<div id="logobox">
-                                    <img src="http://staging.proterra.com/wp-content/uploads/2014/05/logo.png">
-                                    <p>
-                                        Test Company Name Goes In Here
-                                    </p> 
-                                </div>   
-                             </div>
-   						 </a>
-						<a href="#">
-        					<div id="listbox">
-                            	<div id="logobox">
-                                    <img src="http://generation819.com/wp-content/uploads/2014/08/Sungevity-Installations-Logo.jpg">
-                                    <p>
-                                    Test Company Name Goes In Here
-                                	</p> 
-                                </div> 
- 
-        					</div>
-   						 </a>
-					</div>
                     
-                    
-					<div class="row">
+<?php include './organizations_logic.php'; ?>
 					
-
-<?php // include './organizations_logic.php'; ?>
-					
-					</div>
 		</div>
 		
 
