@@ -39,8 +39,10 @@
 						</div>
 					</div>
 						
-				  <div class="row"> <div class="col-sm-12">
+				<section class="article-single">
           <p>
+test text box
+
 <?php include 'snapshot_logic.php'; ?>
 </p>
         </div></div>       
