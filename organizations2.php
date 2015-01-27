@@ -99,22 +99,16 @@ a:hover {
                                 </div>
         					</div>
    						 </a>
+<?php include './organizations_logic.php'; ?> 
 					</div>
+                    </div>
                     
-                    
-					<div class="row">
-					
-
-<?php // include './organizations_logic.php'; ?>
-					
-					</div>
-		</div>
-		
 
 
 		
 
-		</div>
+
+
 				
 		<script src="https://www.youtube.com/iframe_api"></script>
 		<script src="js/jquery.min.js"></script>
