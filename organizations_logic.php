@@ -5,6 +5,8 @@ function writeOrg ($id, $orgName, $logoUrl, $description) {
   echo '<a href="' . substr($orgName, 0 ,1) . '">';
   echo '<div id="listbox">';
   echo ' <div id="logobox"><img src="' . $logoUrl . '">';
+  echo ' </div> '
+  echo ' <div id="textbox"> '
   echo '<p>' . $orgName . '</p></div></div></a>';
 }
 

@@ -6,7 +6,7 @@
 <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>Greenbase - About</title>
+        <title>Greenbase - Visual Snapshot</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,8 +39,10 @@
 						</div>
 					</div>
 						
-				  <div class="row"> <div class="col-sm-12">
+				<section class="article-single">
           <p>
+test text box
+
 <?php include 'snapshot_logic.php'; ?>
 </p>
         </div></div>       
