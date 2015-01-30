@@ -3,8 +3,7 @@
     <div class="container">
       <div class="row nav-menu">
         <div class="col-md-2 col-sm-3 columns">
-          <img class="logo logo-light" alt="Logo" src="img/logo-light.png">
-          <img class="logo logo-dark" alt="Logo" src="img/logo01.gif">
+          <a href="index.php"><img class="logo logo-dark" alt="Logo" src="img/greenbase_logo.gif"></a>
         </div>
         <div class="col-md-10 col-sm-9 columns">
           <ul class="menu ui-sortable">

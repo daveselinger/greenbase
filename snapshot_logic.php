@@ -32,6 +32,7 @@ xmlhttp2.onreadystatechange = function() {
     try {
       layout = JSON.parse(xmlhttp2.responseText);
     } catch (e) {
+      alert("2");
       alert(e);
     }
     done++;

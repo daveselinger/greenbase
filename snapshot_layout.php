@@ -1,15 +1,11 @@
 [
-{
-"display": "JavaScript Tutorial",
-"url": "http://www.w3schools.com/js/default.asp"
-},
-{
-"display": "HTML Tutorial",
-"url": "http://www.w3schools.com/html/default.asp"
-},
-{
-"display": "CSS Tutorial",
-"url": "http://www.w3schools.com/css/default.asp""
-}
+[
+{"type": "title", "title": "Energy"},
+{"type": "data", "layout": "1", "orgs": "2,3"}
+],
+[
+{"type": "title", "title": "Adaptation"},
+{"type": "data", "layout": "1", "orgs": "1"}
+]
 ]
 

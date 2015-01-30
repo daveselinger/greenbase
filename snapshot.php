@@ -41,14 +41,10 @@
 						
 				<section class="article-single">
           <p>
-test text box
-
 <?php include 'snapshot_logic.php'; ?>
 </p>
-        </div></div>       
-				</div>
-			</section>
-		</div>
+                </section>
+		</div></section></div>
 		
 		<div class="footer-container">
 		</div>
