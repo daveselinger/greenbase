@@ -36,6 +36,7 @@ function getDBConnection($db_config) {
 	return $con;
 }
 
+/*
 //Basic test
 $con = getDBConnection($db_config);
 $results = $con->query("Select count(1) as COUNT from orgs");
@@ -44,4 +45,5 @@ if ($row = $results->fetch_assoc()) {
 }
 $results->close();
 $con->close();
+*/
 ?>

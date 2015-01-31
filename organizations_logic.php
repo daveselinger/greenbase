@@ -5,14 +5,14 @@ function writeOrg ($id, $orgName, $logoUrl, $description) {
   echo '<a href="' . substr($orgName, 0 ,1) . '">';
   echo '<div id="listbox">';
   echo ' <div id="logobox"><img src="' . $logoUrl . '">';
-  echo ' </div> '
-  echo ' <div id="textbox"> '
+  echo ' </div> ';
+  echo ' <div id="textbox"> ';
   echo '<p>' . $orgName . '</p></div></div></a>';
 }
 
 include 'database_init.php';
 
-$con = getDBConnection();
+$con = getDBConnection($db_config);
 $query = "SELECT id, name, logo_url, description FROM orgs ORDER BY name";
 $results = $con->query($query);
 $i=0;

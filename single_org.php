@@ -32,37 +32,10 @@
 		<div class="main-container">
 		<section class="article-single">
 				<div class="container">
-					<div class="row">
-		
-						<div class="col-sm-4 col-md-3">
-							<div class="author-details no-pad-top">
-								<img alt="Organization Logo" src="img/org_logo_placeholder.png">
-								
-							</div>
-						</div>
-									
-						<div class="col-sm-8">
-							<div class="article-body">
-								<p class="lead">Organization Name</p>
-							
-								<p><span>144 character short description about the organization given at signup</span></p>
-								<p>
-									another text field
-                                    <br>
-                                    just placeholder can be removed
-								</p>
-								
-								
-								<blockquote>
-									"possible tagline"
-                                    <br>
-                                    just placeholder can be removed
-								</blockquote>
-								
-							</div>
-						</div>
-					</div>
-				</div>	
+          <?php
+          include 'single_org_logic.php';
+          ?>
+				</div>
 			</section>
 		</div>
 

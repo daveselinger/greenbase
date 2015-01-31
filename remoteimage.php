@@ -1,4 +1,6 @@
 <?php
+include 'database_init.php';
+
 function makeDirIfNeeded($path) {
   if (!file_exists($path)) {
     mkdir($path, 0777, true);
@@ -21,12 +23,7 @@ if (!isset($width) || $width <= 0) {
   //Default value just in case
 }
 
-$con = new mysqli("mysql.climatebase.dreamhosters.com", "climatebase", "climatebas3");
-if ($con->connect_error) {
-	exit ('Connect error (' .mysqli_connect_errno() .') '.mysqli_connect_error());
-} else {
-}
-$con->select_db("climatebase");
+$con = getDBConnection($db_config);
 
 // First see if the file is available locally. If not, then download and revise.
 makeDirIfNeeded('./remoteimages/');
