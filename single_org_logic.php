@@ -32,11 +32,11 @@ $con->close();
   </div>
   <div class="col-sm-8">
     <div class="article-body">
-      <p class="lead"><?php echo ($name); ?></p>
+      <p class="lead"><?php echo ($name); ?> (founded <?php echo($founding_year); ?>)</p>
 
       <p><span><a href="<?php echo ($website);?>"><?php echo ($website);?></a></span></p>
-      <p><span>Contact Info:<br>
-          <?php echo ($address);?><br>
+      <p><span>Address:
+          <?php echo ($address);?>,
           <?php echo ($city);?>, <?php echo ($state);?><br>
           <?php echo ($phone);?></span></p>
       <p>
