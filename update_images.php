@@ -2,7 +2,6 @@
 include 'database_init.php';
 $con = getDBConnection($db_config);
 
-// PHP code
 function updateOrg($con, $id, $valid, $orientation) {
   $query = "UPDATE logo_details_temp SET valid = ?, orientation=? where id=?";
   $stmt = $con->prepare($query);
@@ -25,7 +24,7 @@ if (!$con->query($query)) {
 }
 
 // Create a table with the image details -- named temp so we do the swap one time only.
-$query = "CREATE TABLE logo_details_temp AS SELECT id, logo_url, 0 as valid, 'square' as orientation FROM orgs";
+$query = "CREATE TABLE logo_details_temp AS SELECT id, logo_url, 0 as valid, 'square' as orientation FROM orgs WHERE org_status = 1";
 if (!$con->query($query)) {
   exit ("Unable to make table logo_details_temp");
 }
@@ -34,7 +33,33 @@ if (!$con->query($query)) {
   exit ("Temp table index add failed.");
 }
 
-//TODO: Download each logo sequentially and update it!
+$query = "SELECT id, logo_url, valid, orientation FROM logo_details_temp";
+$results = $con->query($query);
+if (is_null($results)) {
+  exit ("Unable to access logo_details_temp");
+}
+$logos = [];
+while ($row = $results->fetch_assoc()) {
+  $logo = [];
+  $logo["id"] = $row["id"];
+  $logo["logo_url"] = $row["logo_url"];
+  $logo["valid"] = $row["valid"];
+  $logo["orientation"] = $row["orientation"];
+
+//TODO: Download the image, store its validity and orientation in an array
+  $logos[] = $logo;
+}
+$results->free_result();
+
+foreach ($logos as $v) {
+  $id = $v["id"];
+  $valid = $v["valid"];
+  $logo_url = $v["logo_url"];
+  $orientation = $v["orientation"];
+  $orientation = "tall";
+  echo "LOGO ROW: $id = $valid, $logo_url.<br>\n";
+  updateOrg($con, $id, $valid, $orientation);
+}
 
 $query = "RENAME TABLE logo_details to logo_details_old, logo_details_temp to logo_details";
 if (!$con->query($query)) {
