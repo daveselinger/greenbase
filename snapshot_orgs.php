@@ -9,7 +9,7 @@ function writeOrg($orgName, $id, $description, $orientation) {
 
 $con = getDBConnection($db_config);
 
-$query = "SELECT orgs.id, name, headline, description, org_type, focus, logo_details.orientation FROM orgs LEFT JOIN logo_details ON (orgs.id = logo_details.id)";
+$query = "SELECT orgs.id, name, headline, description, org_type, focus, logo_details.orientation FROM orgs LEFT JOIN logo_details ON (orgs.id = logo_details.id) WHERE orgs.org_status = 1 AND logo_details.valid = 1";
 $results = $con->query($query);
 if (is_null($results)) {
   exit ("Unable to access orgs");
