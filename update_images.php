@@ -11,6 +11,23 @@ function updateOrg($con, $id, $valid, $orientation) {
   }
 }
 
+/**
+ *
+ * Used to set up all of the filesystem directory tree
+ */
+function makeDirIfNeeded($path) {
+  if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+  }
+}
+
+function initFilesystem() {
+  // First see if the file is available locally. If not, then download and revise.
+  makeDirIfNeeded('./remoteimages/');
+  makeDirIfNeeded('./remoteimages/originals/');
+  makeDirIfNeeded('./remoteimages/snapshot/');
+}
+
 // Init and drop old tables if they're hanging around.
 $query = "DROP TABLE IF EXISTS logo_details_temp, logo_details_old";
 if (!$con->query($query)) {
@@ -39,6 +56,7 @@ if (is_null($results)) {
   exit ("Unable to access logo_details_temp");
 }
 $logos = [];
+$img = new Imagick();
 while ($row = $results->fetch_assoc()) {
   $logo = [];
   $logo["id"] = $row["id"];
@@ -46,7 +64,39 @@ while ($row = $results->fetch_assoc()) {
   $logo["valid"] = $row["valid"];
   $logo["orientation"] = $row["orientation"];
 
-//TODO: Download the image, store its validity and orientation in an array
+  initFilesystem();
+
+//Default value
+  $width = 100;
+
+  $handle = fopen($logo["logo_url"], 'rb');
+  $loaded = false;
+  try {
+    $loaded =$img->readImageFile($handle);
+  }  catch (Exception $e) {
+    echo("Exception on id(" . $logo["id"] . "):" . $e->getMessage() . "<br>");
+  }
+  if ($loaded){
+    //Read image was a success
+    $width = $img->getImageWidth();
+    $height = $img->getImageHeight();
+    $ratio = $width / $height;
+
+    if ($ratio < .85) {
+      $logo["orientation"] = "up";
+    } else if ($ratio >  1.17) {
+      $logo["orientation"] = "across";
+    } else {
+      $logo["orientation"] = "square";
+    }
+    $img->setImageFormat("png");
+    $img->writeImage("./remoteimages/originals/logo_" . $logo["id"] . ".png");
+    $logo["valid"] = 1;
+  } else {
+    // Invalid image
+    $logo["valid"] = 0;
+  }
+
   $logos[] = $logo;
 }
 $results->free_result();
@@ -56,8 +106,7 @@ foreach ($logos as $v) {
   $valid = $v["valid"];
   $logo_url = $v["logo_url"];
   $orientation = $v["orientation"];
-  $orientation = "tall";
-  echo "LOGO ROW: $id = $valid, $logo_url.<br>\n";
+//  echo "LOGO ROW: $id = $valid, $logo_url.<br>\n";
   updateOrg($con, $id, $valid, $orientation);
 }
 
