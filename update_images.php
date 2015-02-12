@@ -83,9 +83,9 @@ while ($row = $results->fetch_assoc()) {
     $ratio = $width / $height;
 
     if ($ratio < .85) {
-      $logo["orientation"] = "up";
+      $logo["orientation"] = "vertical";
     } else if ($ratio >  1.17) {
-      $logo["orientation"] = "across";
+      $logo["orientation"] = "horizontal";
     } else {
       $logo["orientation"] = "square";
     }
