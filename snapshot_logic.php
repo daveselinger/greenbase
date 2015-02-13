@@ -63,6 +63,7 @@ function drawSnapshot() {
 
       var logoImage = document.createElement("div");
       logoImage.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
+      console.log("cellLeft: " + cellLeft + ";cellTop" + cellTop);
       logoImage.style.left = cellLeft + "px";
       logoImage.style.top = cellTop + "px";
       logoImage.style.position = "absolute";
@@ -73,8 +74,9 @@ function drawSnapshot() {
   }
 }
 
-function printCell(cellLayout, left, top, sizer, addTo) {
+function printCell(cellLayout,  left, top, sizer, addTo) {
   var totalInCell = cellLayout[0];
+  console.log("PRINTCELL: cellLeft: " + left + ";cellTop" + top);
 
   var rowNum;
   // Start at 1 to skip the total in the first array value
@@ -85,9 +87,13 @@ function printCell(cellLayout, left, top, sizer, addTo) {
       console.log("Noll row");
       continue;
     }
-    for (colNum = 0; colNum < row.length; colNum++) {
+    for (var colNum = 0; colNum < row.length; colNum++) {
       var value = parseInt(row[colNum]);
-      putLogo(left + colNum * sizer, top + rowNum * sizer, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
+      var newLeft = parseInt(left) + colNum * sizer;
+      var newTop = parseInt(top) + rowNum * sizer;
+//      console.log("New Left: " + newLeft);
+
+      putLogo(newLeft, newTop, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
     }
   }
 }
@@ -96,17 +102,16 @@ function putLogo(left, top, src, hoverText, addTo) {
   console.log ("PutLogo ( Left:" + left + "; top:" + top+ ";src:"+ src + ";hovertext:" + hoverText + ";addTo:" + addTo);
 
   var logoImage = document.createElement("img");
-  logoImage.style.src = src;
+  logoImage.src = src;
+/*
   logoImage.style.left = "10px";
   logoImage.style.top = "10px";
   addTo.appendChild(logoImage);
+*/
 
-  /*
   var miniDiv = document.createElement("div");
   miniDiv.style.left = left + "px";
   miniDiv.style.top = top + "px";
-  miniDiv.style.left = "10px";
-  miniDiv.style.top = "10px";
   miniDiv.style.position = "absolute";
 
   addTo.appendChild(miniDiv);
@@ -116,9 +121,8 @@ function putLogo(left, top, src, hoverText, addTo) {
   miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");
-  logoImage.style.src = src;
+  logoImage.src = src;
   anchor.appendChild(logoImage);
-  */
 }
 
 xmlhttp.onreadystatechange = function() {
