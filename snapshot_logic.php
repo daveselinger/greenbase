@@ -57,19 +57,68 @@ function drawSnapshot() {
       if (cellLayout == null) {
         continue;
       }
-      console.log("Org:" + org + "; focus:" + focus + "Layout:");
-      console.log(cellLayout);
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
-      var logoImage = document.createElement("div");
       var totalInCell = cellLayout[0];
+
+      var logoImage = document.createElement("div");
       logoImage.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
       logoImage.style.left = cellLeft + "px";
       logoImage.style.top = cellTop + "px";
       logoImage.style.position = "absolute";
       snapshotDiv.appendChild(logoImage);
+
+      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv);
     }
   }
+}
+
+function printCell(cellLayout, left, top, sizer, addTo) {
+  var totalInCell = cellLayout[0];
+
+  var rowNum;
+  // Start at 1 to skip the total in the first array value
+  for (rowNum = 0; rowNum< cellLayout.length - 1; rowNum++) {
+    var row = cellLayout[rowNum + 1];
+    console.log ("Row:" + row);
+    if (row == null || !Array.isArray(row)) {
+      console.log("Noll row");
+      continue;
+    }
+    for (colNum = 0; colNum < row.length; colNum++) {
+      var value = parseInt(row[colNum]);
+      putLogo(left + colNum * sizer, top + rowNum * sizer, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
+    }
+  }
+}
+
+function putLogo(left, top, src, hoverText, addTo) {
+  console.log ("PutLogo ( Left:" + left + "; top:" + top+ ";src:"+ src + ";hovertext:" + hoverText + ";addTo:" + addTo);
+
+  var logoImage = document.createElement("img");
+  logoImage.style.src = src;
+  logoImage.style.left = "10px";
+  logoImage.style.top = "10px";
+  addTo.appendChild(logoImage);
+
+  /*
+  var miniDiv = document.createElement("div");
+  miniDiv.style.left = left + "px";
+  miniDiv.style.top = top + "px";
+  miniDiv.style.left = "10px";
+  miniDiv.style.top = "10px";
+  miniDiv.style.position = "absolute";
+
+  addTo.appendChild(miniDiv);
+
+  var anchor = document.createElement("a");
+  anchor.title = hoverText;
+  miniDiv.appendChild(anchor);
+
+  var logoImage = document.createElement("img");
+  logoImage.style.src = src;
+  anchor.appendChild(logoImage);
+  */
 }
 
 xmlhttp.onreadystatechange = function() {
