@@ -10,14 +10,6 @@ var layout;
 
 function drawSnapshot() {
   var snapshotDiv = document.getElementById("snapshot");
-  var table = document.createElement("table");
-  var row = table.insertRow(0);
-  var cell = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  cell.innerHtml="Cell 1";
-  cell2.innerHtml = "Cell 2";
-
-  snapshotDiv.appendChild(table);
   var width = window.innerWidth;
   var orgCount = Object.keys(orgs).length;
 
@@ -26,8 +18,36 @@ function drawSnapshot() {
   var tableLayout = layout["layout"];
 
   var sizer = parseInt (width / focusList.length / 3);
-  console.log("Max size:" + sizer);
-  snapshotDiv.style.height = "" + width + "px";
+  var cellWidth = sizer * 3;
+  var height = cellWidth * (orgList.length +1);
+  snapshotDiv.style.height = height + "px";
+
+  var baseTop = snapshotDiv.style.top;
+  var baseLeft = snapshotDiv.style.left;
+
+  for (j=0;j<focusList.length;j++) {
+    var focusLabel = document.createElement("div");
+    focusLabel.id="" + focusList[j] + "_div";
+    snapshotDiv.appendChild(focusLabel);
+    focusLabel.style.position = "absolute";
+    focusLabel.style.margin = "0px";
+    focusLabel.innerHTML = focusList[j];
+    focusLabel.style.width = cellWidth + "px";
+    focusLabel.style.left = j * cellWidth  + baseLeft + "px";
+    focusLabel.style.top = baseTop + height +  "px";
+  }
+
+  for (i=0;i<orgList.length;i++) {
+    var orgLabel = document.createElement("div");
+    orgLabel.id="" + orgList[j] + "_div";
+    snapshotDiv.appendChild(orgLabel);
+    orgLabel.style.position = "absolute";
+    orgLabel.style.margin = "0px";
+    orgLabel.innerHTML = orgList[i];
+    orgLabel.style.width = cellWidth + "px";
+    orgLabel.style.left = baseLeft + "px";
+    orgLabel.style.top = baseTop + i * cellWidth + "px";
+  }
 
   for (i=0;i<orgList.length;i++) {
     var org = orgList[i];
@@ -39,6 +59,15 @@ function drawSnapshot() {
       }
       console.log("Org:" + org + "; focus:" + focus + "Layout:");
       console.log(cellLayout);
+      var cellLeft = j * cellWidth + baseLeft;
+      var cellTop = i * cellWidth + baseTop;
+      var logoImage = document.createElement("div");
+      var totalInCell = cellLayout[0];
+      logoImage.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
+      logoImage.style.left = cellLeft + "px";
+      logoImage.style.top = cellTop + "px";
+      logoImage.style.position = "absolute";
+      snapshotDiv.appendChild(logoImage);
     }
   }
 }
