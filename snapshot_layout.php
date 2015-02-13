@@ -60,26 +60,26 @@ function getAllOrgs(mysqli $con, $org_type, $focus)
 
 function writeList($name, $list)
 {
-  echo "\"$name\": [";
+  echo "\"".htmlspecialchars($name) ."\": [";
   $first = true;
   foreach ($list as $item) {
     if (!$first) {
       echo(",");
     }
     $first = false;
-    echo $item;
+    echo "\"".htmlspecialchars($item)."\"";
   }
   echo "]";
 }
 
-function printLayout($focus, $width, $height, $cell)
+function printLayout($focus, $total, $width, $height, $cell)
 {
-  echo "    \"$focus\": \n";
+  echo "    \"".htmlspecialchars($focus) ."\": \n    [ $total, \n";
   for ($i = 0; $i < $height; $i++) {
     if ($i != 0) {
       echo ",\n";
     }
-    echo "[";
+    echo "    [";
 
     $first_width = true;
     for ($j = 0; $j < $width; $j++) {
@@ -87,12 +87,11 @@ function printLayout($focus, $width, $height, $cell)
         echo ",";
       }
 
-      echo "[";
-        echo $cell[$i][$j];
-      echo "]";
+      echo $cell[$i][$j];
     }
     echo "]";
   }
+  echo "]";
 }
 
 // Now populate 2 local arrays (focus_list and org_type_list with these in the right order)
@@ -116,8 +115,15 @@ echo ",\n";
 writeList("focus_types", $focus_list);
 echo ",\n\"layout\": {\n";
 
+$first_org = true;
 foreach ($org_type_list as $org_type) {
-  echo("  \"$org_type\": {\n");
+  if (!$first_org) {
+    echo ",\n";
+  }
+  $first_org = false;
+  echo("  \"". htmlspecialchars($org_type) ."\": {\n");
+
+  $first_focus = true;
   foreach ($focus_list as $focus) {
     $orgs = getAllOrgs($con, $org_type, $focus);
     $total = $orgs["total"];
@@ -176,7 +182,7 @@ foreach ($org_type_list as $org_type) {
         $second = $s[0];
       } else {
         // All squares
-        $vertical = false;
+        $vertical = true;
         $first = $s[0];
         $second = $s[1];
       }
@@ -198,27 +204,22 @@ foreach ($org_type_list as $org_type) {
         $row0 ["1"] = $second;
         $cell["0"] = $row0;
       }
-    }
-    if ($total <= 3) {
-      // Easy base case
-      // TODO: Flip a coin to decide direction triangle points
-      if (count($h) >= 2) {
-
-      }
-    } else if ($total <= 5) {
-      //Next base case
+    } else {
+      continue;
     }
 
-    printLayout($focus, $width, $height, $cell);
-    echo "\n";
+    if (!$first_focus) {
+      echo ",\n";
+    }
+    $first_focus = false;
+
+    printLayout($focus, $total, $width, $height, $cell);
   }
-  echo "  }\n";
-}
-foreach ($focus_list as $focus) {
+  echo "  }";
 }
 $con->close();
 ?>
 
-}
+  }
 }
 
