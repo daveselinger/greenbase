@@ -5,10 +5,42 @@ var url = "./snapshot_orgs.php";
 var done = 0;
 var xmlhttp2 = new XMLHttpRequest();
 var url2 = "./snapshot_layout.php";
+var orgs;
+var layout;
 
 function drawSnapshot() {
   var snapshotDiv = document.getElementById("snapshot");
-  snapshotDiv.innerHTML = "COMPLETE Snapshot is here";
+  var table = document.createElement("table");
+  var row = table.insertRow(0);
+  var cell = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  cell.innerHtml="Cell 1";
+  cell2.innerHtml = "Cell 2";
+
+  snapshotDiv.appendChild(table);
+  var width = window.innerWidth;
+  var orgCount = Object.keys(orgs).length;
+
+  var orgList = layout["orgs"];
+  var focusList = layout["focus_types"];
+  var tableLayout = layout["layout"];
+
+  var sizer = parseInt (width / focusList.length / 3);
+  console.log("Max size:" + sizer);
+  snapshotDiv.style.height = "" + width + "px";
+
+  for (i=0;i<orgList.length;i++) {
+    var org = orgList[i];
+    for (j=0;j<focusList.length;j++) {
+      var focus = focusList[j];
+      var cellLayout = tableLayout[org][focus];
+      if (cellLayout == null) {
+        continue;
+      }
+      console.log("Org:" + org + "; focus:" + focus + "Layout:");
+      console.log(cellLayout);
+    }
+  }
 }
 
 xmlhttp.onreadystatechange = function() {
