@@ -1,3 +1,6 @@
+<?php
+header('Content-Type: application/json');
+?>
 {
 <?php
 include 'database_init.php';
