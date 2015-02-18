@@ -24,9 +24,9 @@ if(isset($_POST['email'])) {
 	// or if you prefer/need to fall back to use PHP's inbuilt mail() function:
 	// $transport = Swift_MailTransport::newInstance();
 	
-	$transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
-	  ->setUsername('greenbaseform@gmail.com')
-	  ->setPassword('greenbase2000')
+	$transport = Swift_SmtpTransport::newInstance('mail.greenbase.org', 465, 'tls')
+	  ->setUsername('survey@0greenbase.org')
+	  ->setPassword('greenbas3')
 	  ;
 
 	
@@ -34,7 +34,8 @@ if(isset($_POST['email'])) {
 	
 	
 	// Creating the message text using fields sent through POST
-	
+
+	$messageText = "";
 	foreach ($_POST as $key => $value)
 		$messageText .= ucfirst($key).": ".$value."\n\n";
 	

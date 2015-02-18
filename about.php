@@ -41,19 +41,24 @@
 						<div class="col-sm-4">
 							<h5>About Us</h5>
 							<p>
-								In a February 2014 conversation with a Silicon Valley billionaire with a genuine desire to donate substantial sums of capital to make the world a better place, when the topic of climate change came up, the shocking response was "I have no idea who is doing what, or even what can be done, so I'm not allocating any capital to it."
-                                </p>
-                            <p>
-                            	Knowing the dire need for financial resources to fight the ever growing threat of climate change, we quickly realized that while there are hundreds of incredible organizations working to raise awareness around or do something to directly address the issue, there was no "map" of these organizations — something not only to drive investment, but collaboration & partnership, and so the idea for Greenbase was born. 
-                                </p>
-                             <p>
-                             	Greenbase is a part of Climate Collaborative, a non-profit working to increase innovation in the areas of climate change awareness, mitigation and adaption. If you'd like to support our efforts with a donation, please do so here (and thank you!)
-                             <p>
-                             	We'd be delighted to hear your input on how we can improve greenbase, or stories of how it has helped you do what you do. Please get in touch! 
-                                </p>
-                             <p>
-                             Sundeep Ahuja & David Selinger
-                             	</p>
+								In a recent conversation with a Silicon Valley billionaire with a genuine desire to donate substantial
+								sums of capital to make the world a better place, when the topic of climate change came up the shocking
+								response was "I have no idea who is doing what, or even what can be done,
+								so I'm not allocating any capital to it."</p>
+							<p>
+								It was then that the idea for Greenbase was born: a living "map" of the hundreds of organizations
+								working to address the massive threat of climate change in order to drive investment as well as
+								partnership.</p>
+								<p>
+									Greenbase is a part of Climate Collaborative, a non-profit working to spur innovation at the
+									intersection of Silicon Valley and climate change. We'd be delighted to hear your input on how we
+									can improve greenbase, or stories of how it has helped you do what you do. Please get in touch!
+									</p>
+							<p></p>
+							<p></p>
+							<p>
+								Sundeep Ahuja & David Selinger
+							</p>
 						</div>
 						
 						<div class="col-sm-4">
