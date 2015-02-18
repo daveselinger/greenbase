@@ -2,9 +2,7 @@
 include 'database_init.php';
 $con = getDBConnection($db_config);
 
-function updateOrg($con, $id, $valid, $orientation) {
-  $query = "UPDATE logo_details_temp SET valid = ?, orientation=? where id=?";
-  $stmt = $con->prepare($query);
+function updateOrg($con, $id, $valid, $orientation, $stmt) {
   $stmt->bind_param("isi", $valid, $orientation, $id);
   if (!$stmt->execute() ){
     exit ("Unable to update id=" . $id ." valid=". $valid ." orientation=".$orientation);
@@ -92,6 +90,7 @@ while ($row = $results->fetch_assoc()) {
     $img->setImageFormat("png");
     $img->writeImage("./remoteimages/originals/logo_" . $logo["id"] . ".png");
     $logo["valid"] = 1;
+    $img->clear();
   } else {
     // Invalid image
     $logo["valid"] = 0;
@@ -101,14 +100,17 @@ while ($row = $results->fetch_assoc()) {
 }
 $results->free_result();
 
+$query = "UPDATE logo_details_temp SET valid = ?, orientation=? where id=?";
+$stmt = $con->prepare($query);
 foreach ($logos as $v) {
   $id = $v["id"];
   $valid = $v["valid"];
   $logo_url = $v["logo_url"];
   $orientation = $v["orientation"];
 //  echo "LOGO ROW: $id = $valid, $logo_url.<br>\n";
-  updateOrg($con, $id, $valid, $orientation);
+  updateOrg($con, $id, $valid, $orientation, $stmt);
 }
+$stmt->close();
 
 $query = "RENAME TABLE logo_details to logo_details_old, logo_details_temp to logo_details";
 if (!$con->query($query)) {
