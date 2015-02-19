@@ -84,13 +84,18 @@ function printLayout($focus, $total, $width, $height, $cell)
     }
     echo "    [";
 
-    $first_width = true;
     for ($j = 0; $j < $width; $j++) {
-      if ($j!=0) {
+      if ($j != 0) {
         echo ",";
       }
 
-      echo $cell[$i][$j];
+      $row = $cell [$i];
+      if (count($row) > $j) {
+//        echo ("row(" . count($row) . "): Accessing " . $j .";");
+        echo $row[$j];
+      } else {
+        echo "-1";
+      }
     }
     echo "]";
   }
@@ -208,7 +213,34 @@ foreach ($org_type_list as $org_type) {
         $cell["0"] = $row0;
       }
     } else {
-      continue;
+      $size = intval(sqrt($total)) + 1;
+
+      $width = $height = $size;
+      $index = 0;
+      for ($rowNum = 0; $rowNum < $size; $rowNum++) {
+        $row = [];
+
+        for ($colNum = 0; $colNum < $size; $colNum++) {
+          if ($index >= $total) {
+            continue;
+          }
+          $key = "" + $colNum;
+
+          if ($index < count($h)) {
+            //Horizontal first...
+            $row[$key] = $h[$index];
+          } else if ($index - count($h) < count($s)) {
+            //Square next..
+            $row[$key] = $s[$index - count($h)];
+          } else if ($index - count($h) - count($s) < count($v)) {
+            //Finally the verticals at the bottom
+            $row[$key] = $v[$index - count($h) - count($s)];
+          }
+          $index++;
+        }
+        $key = "" + $rowNum;
+        $cell[$key] = $row;
+      }
     }
 
     if (!$first_focus) {

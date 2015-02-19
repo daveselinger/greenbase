@@ -1,4 +1,4 @@
-<div id="snapshot">Snapshot loading... <img src="./img/lightbox/loading.gif"></div>
+<div id="snapshot"><div id="loading">Snapshot loading... <img src="./img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "./snapshot_orgs.php";
@@ -33,8 +33,8 @@ function drawSnapshot() {
     focusLabel.style.margin = "0px";
     focusLabel.innerHTML = focusList[j];
     focusLabel.style.width = cellWidth + "px";
-    focusLabel.style.left = j * cellWidth  + baseLeft + "px";
-    focusLabel.style.top = baseTop + height +  "px";
+    focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
+    focusLabel.style.top = (baseTop + height) +  "px";
   }
 
   for (i=0;i<orgList.length;i++) {
@@ -55,23 +55,37 @@ function drawSnapshot() {
       var focus = focusList[j];
       var cellLayout = tableLayout[org][focus];
       if (cellLayout == null) {
+        //no items
         continue;
       }
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
       var totalInCell = cellLayout[0];
 
-      var logoImage = document.createElement("div");
-      logoImage.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
+      /*
+      var cellLabel = document.createElement("div");
+      cellLabel.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
       console.log("cellLeft: " + cellLeft + ";cellTop" + cellTop);
-      logoImage.style.left = cellLeft + "px";
-      logoImage.style.top = cellTop + "px";
-      logoImage.style.position = "absolute";
-      snapshotDiv.appendChild(logoImage);
+      cellLabel.style.left = cellLeft + "px";
+      cellLabel.style.top = cellTop + "px";
+      cellLabel.style.position = "absolute";
+      snapshotDiv.appendChild(cellLabel);
+      */
 
-      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv);
+      var cellSizer = sizer;
+
+      /*
+      if (totalInCell > 9) {
+        cellSizer = parseInt(cellWidth / 4);
+      }
+      if (totalInCell > 16) {
+        cellSizer = parseInt (cellWidth /5);
+      }
+*/
+      printCell(cellLayout, cellLeft, cellTop, cellSizer, snapshotDiv);
     }
   }
+  var loadingDiv = document.getElementById("loading").innerHTML="";
 }
 
 function printCell(cellLayout,  left, top, sizer, addTo) {
@@ -92,8 +106,9 @@ function printCell(cellLayout,  left, top, sizer, addTo) {
       var newLeft = parseInt(left) + colNum * sizer;
       var newTop = parseInt(top) + rowNum * sizer;
 //      console.log("New Left: " + newLeft);
-
-      putLogo(newLeft, newTop, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
+      if (value > 0) {
+        putLogo(newLeft, newTop, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
+      }
     }
   }
 }
