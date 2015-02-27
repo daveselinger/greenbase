@@ -72,22 +72,18 @@ function drawSnapshot() {
 
 function printCell(cellLayout,  left, top, sizer, addTo) {
   var totalInCell = cellLayout[0];
-  console.log("PRINTCELL: cellLeft: " + left + ";cellTop" + top);
 
   var rowNum;
   // Start at 1 to skip the total in the first array value
   for (rowNum = 0; rowNum< cellLayout.length - 1; rowNum++) {
     var row = cellLayout[rowNum + 1];
-    console.log ("Row:" + row);
     if (row == null || !Array.isArray(row)) {
-      console.log("Noll row");
       continue;
     }
     for (var colNum = 0; colNum < row.length; colNum++) {
       var value = parseInt(row[colNum]);
       var newLeft = parseInt(left) + colNum * sizer;
       var newTop = parseInt(top) + rowNum * sizer;
-//      console.log("New Left: " + newLeft);
       if (value > 0) {
         putLogo(newLeft, newTop, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
       }
@@ -96,7 +92,6 @@ function printCell(cellLayout,  left, top, sizer, addTo) {
 }
 
 function putLogo(left, top, src, hoverText, addTo) {
-  console.log ("PutLogo ( Left:" + left + "; top:" + top+ ";src:"+ src + ";hovertext:" + hoverText + ";addTo:" + addTo);
 
   var logoImage = document.createElement("img");
   logoImage.src = src;
