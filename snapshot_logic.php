@@ -62,26 +62,8 @@ function drawSnapshot() {
       var cellTop = i * cellWidth + baseTop;
       var totalInCell = cellLayout[0];
 
-      /*
-      var cellLabel = document.createElement("div");
-      cellLabel.innerHTML = "org: " + org + ";<br>focus: " + focus + ";<br>Total:"+totalInCell;
-      console.log("cellLeft: " + cellLeft + ";cellTop" + cellTop);
-      cellLabel.style.left = cellLeft + "px";
-      cellLabel.style.top = cellTop + "px";
-      cellLabel.style.position = "absolute";
-      snapshotDiv.appendChild(cellLabel);
-      */
-
       var cellSizer = sizer;
 
-      /*
-      if (totalInCell > 9) {
-        cellSizer = parseInt(cellWidth / 4);
-      }
-      if (totalInCell > 16) {
-        cellSizer = parseInt (cellWidth /5);
-      }
-*/
       printCell(cellLayout, cellLeft, cellTop, cellSizer, snapshotDiv);
     }
   }
@@ -118,11 +100,6 @@ function putLogo(left, top, src, hoverText, addTo) {
 
   var logoImage = document.createElement("img");
   logoImage.src = src;
-/*
-  logoImage.style.left = "10px";
-  logoImage.style.top = "10px";
-  addTo.appendChild(logoImage);
-*/
 
   var miniDiv = document.createElement("div");
   miniDiv.style.left = left + "px";
