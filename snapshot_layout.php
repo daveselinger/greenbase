@@ -46,10 +46,12 @@ function getAllOrgs(mysqli $con, $org_type, $focus)
     $total++;
     if ($orientation == "horizontal") {
       $h[] = $id;
-    } else if ($orientation == "up") {
+    } else if ($orientation == "vertical") {
       $v[] = $id;
-    } else {
+    } else if ($orientation == "square" ) {
       $s[] = $id;
+    } else {
+      exit ("Invalid orientation:" . $orientation);
     }
   }
 

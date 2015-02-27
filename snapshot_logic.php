@@ -137,6 +137,7 @@ function putLogo(left, top, src, hoverText, addTo) {
 
   var logoImage = document.createElement("img");
   logoImage.src = src;
+  logoImage.style.border = "0";
   anchor.appendChild(logoImage);
 }
 
