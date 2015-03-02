@@ -8,6 +8,94 @@ var url2 = "./snapshot_layout.php";
 var orgs;
 var layout;
 
+function drawBorders(focusList, orgList, snapshotDiv, width) {
+  //TODO: Populate
+  var baseTop = snapshotDiv.style.top;
+  var baseLeft = snapshotDiv.style.left;
+
+  var sizer = parseInt (width / focusList.length / 3);
+  var cellWidth = sizer * 3;
+  var height = cellWidth * (orgList.length);
+
+  var orgBackground = document.createElement("div");
+  snapshotDiv.appendChild(orgBackground);
+  orgBackground.style.zIndex=1;
+  orgBackground.style.position="absolute";
+  orgBackground.style.margin="0px";
+  orgBackground.style.width= cellWidth + "px";
+  orgBackground.style.left = (baseLeft) + "px";
+  orgBackground.style.top=(baseTop - cellWidth) + "px";
+  orgBackground.style.height=((orgList.length + 2) * cellWidth) + "px";
+  orgBackground.style.backgroundColor = "#4674a2";
+
+  var dataBackground = document.createElement("div");
+  snapshotDiv.appendChild(dataBackground);
+  dataBackground.style.zIndex=1;
+  dataBackground.style.position="absolute";
+  dataBackground.style.margin="0px";
+  dataBackground.style.width= (focusList.length * cellWidth) + "px";
+  dataBackground.style.left = (baseLeft + cellWidth) + "px";
+  dataBackground.style.top=(baseTop - cellWidth) + "px";
+  dataBackground.style.height=((orgList.length + 1) * cellWidth) + "px";
+  dataBackground.style.backgroundColor = "#ffffff";
+
+  var focusBackground = document.createElement("div");
+  snapshotDiv.appendChild(focusBackground);
+  focusBackground.style.zIndex=1;
+  focusBackground.style.position="absolute";
+  focusBackground.style.margin="0px";
+  focusBackground.style.width= (focusList.length * cellWidth) + "px";
+  focusBackground.style.left = (baseLeft + cellWidth) + "px";
+  focusBackground.style.top= ((orgList.length) * cellWidth) + "px";
+  focusBackground.style.height=(cellWidth) + "px";
+  focusBackground.style.backgroundColor = "#919191";
+
+}
+
+function drawLabels(focusList, orgList, snapshotDiv, width) {
+  var baseTop = snapshotDiv.style.top;
+  var baseLeft = snapshotDiv.style.left;
+
+  var sizer = parseInt (width / focusList.length / 3);
+  var cellWidth = sizer * 3;
+  var height = cellWidth * (orgList.length);
+  snapshotDiv.style.height = height + "px";
+
+  for (j=0;j<focusList.length;j++) {
+    var focusLabel = document.createElement("div");
+    focusLabel.id="" + focusList[j] + "_div";
+    snapshotDiv.appendChild(focusLabel);
+    focusLabel.style.position = "absolute";
+    focusLabel.style.margin = "0px";
+    focusLabel.style.width = cellWidth + "px";
+    focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
+    focusLabel.style.top = (baseTop + height) +  "px";
+    focusLabel.style.zIndex = 2;
+
+    var headingLabel = document.createElement("h4");
+    headingLabel.id=="" + focusList[j] + "_h4";
+    focusLabel.appendChild(headingLabel);
+    headingLabel.innerHTML = focusList[j];
+  }
+
+  for (i=0;i<orgList.length;i++) {
+    var orgLabel = document.createElement("div");
+    orgLabel.id="" + orgList[i] + "_div";
+    snapshotDiv.appendChild(orgLabel);
+    orgLabel.style.position = "absolute";
+    orgLabel.style.margin = "0px";
+    orgLabel.style.width = cellWidth + "px";
+    orgLabel.style.left = baseLeft + "px";
+    orgLabel.style.top = baseTop + i * cellWidth + "px";
+    orgLabel.style.zIndex = 2;
+
+    headingLabel = document.createElement("h4");
+    headingLabel.id=="" + orgList[i] + "_h4";
+    orgLabel.appendChild(headingLabel);
+    headingLabel.innerHTML = orgList[i];
+  }
+}
+
 function drawSnapshot() {
   var snapshotDiv = document.getElementById("snapshot");
   var width = window.innerWidth;
@@ -36,29 +124,9 @@ function drawSnapshot() {
   var baseTop = snapshotDiv.style.top;
   var baseLeft = snapshotDiv.style.left;
 
-  for (j=0;j<focusList.length;j++) {
-    var focusLabel = document.createElement("div");
-    focusLabel.id="" + focusList[j] + "_div";
-    snapshotDiv.appendChild(focusLabel);
-    focusLabel.style.position = "absolute";
-    focusLabel.style.margin = "0px";
-    focusLabel.innerHTML = focusList[j];
-    focusLabel.style.width = cellWidth + "px";
-    focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
-    focusLabel.style.top = (baseTop + height) +  "px";
-  }
+  drawBorders(focusList, orgList, snapshotDiv, width);
 
-  for (i=0;i<orgList.length;i++) {
-    var orgLabel = document.createElement("div");
-    orgLabel.id="" + orgList[j] + "_div";
-    snapshotDiv.appendChild(orgLabel);
-    orgLabel.style.position = "absolute";
-    orgLabel.style.margin = "0px";
-    orgLabel.innerHTML = orgList[i];
-    orgLabel.style.width = cellWidth + "px";
-    orgLabel.style.left = baseLeft + "px";
-    orgLabel.style.top = baseTop + i * cellWidth + "px";
-  }
+  drawLabels(focusList, orgList, snapshotDiv, width);
 
   for (i=0;i<orgList.length;i++) {
     var org = orgList[i];
@@ -111,6 +179,8 @@ function putLogo(left, top, src, hoverText, addTo) {
   miniDiv.style.left = left + "px";
   miniDiv.style.top = top + "px";
   miniDiv.style.position = "absolute";
+  miniDiv.style.zIndex = 2;
+
 
   addTo.appendChild(miniDiv);
 
