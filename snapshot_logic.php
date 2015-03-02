@@ -19,7 +19,7 @@ function drawSnapshot() {
 
   var sizer = parseInt (width / focusList.length / 3);
   var cellWidth = sizer * 3;
-  var height = cellWidth * (orgList.length +1);
+  var height = cellWidth * (orgList.length);
   snapshotDiv.style.height = height + "px";
 
   var baseTop = snapshotDiv.style.top;
@@ -111,6 +111,8 @@ function putLogo(left, top, src, hoverText, addTo) {
   logoImage.src = src;
   logoImage.style.border = "0";
   anchor.appendChild(logoImage);
+
+  //TODO: This is where we need to add the hover div.
 }
 
 xmlhttp.onreadystatechange = function() {
