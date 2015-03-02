@@ -11,6 +11,17 @@ var layout;
 function drawSnapshot() {
   var snapshotDiv = document.getElementById("snapshot");
   var width = window.innerWidth;
+
+  //Handle the template width (GAR!)
+  var containerWidth = document.getElementsByClassName("container")[0].clientWidth;
+  if (containerWidth < width) {
+    console.log("Adjusting width to:" + containerWidth);
+    width = containerWidth;
+  } else {
+    console.log("Keeping width at " + width + " instead of " + containerWidth);
+  }
+  console.log("width:" + width);
+
   var orgCount = Object.keys(orgs).length;
 
   var orgList = layout["orgs"];
