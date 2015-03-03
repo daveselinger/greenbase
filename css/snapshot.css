@@ -1,0 +1,44 @@
+#org-labels-background {
+    background-color: #4674a2 !important;
+    z-index: 1;
+    margin: 0px;
+    position: absolute;
+}
+
+#focus-labels-background {
+    background-color: #919191;
+    z-index: 1;
+    margin: 0px;
+    position: absolute;
+}
+
+#data-background {
+    background-color: #ffffff;
+    z-index: 1;
+    margin: 0px;
+    position: absolute;
+}
+
+.heading-div {
+    z-index: 2;
+    position: absolute;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+.heading-label {
+    z-index: 2;
+    position: absolute;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+.hover-box {
+    z-index: 3;
+    position: absolute;
+    margin: 0px;
+    border-style: dotted;
+    border-width: medium;
+    background-color: #00b3ee;
+    visibility: hidden;
+}

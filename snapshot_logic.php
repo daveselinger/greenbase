@@ -9,7 +9,6 @@ var orgs;
 var layout;
 
 function drawBorders(focusList, orgList, snapshotDiv, width) {
-  //TODO: Populate
   var baseTop = snapshotDiv.style.top;
   var baseLeft = snapshotDiv.style.left;
 
@@ -19,37 +18,27 @@ function drawBorders(focusList, orgList, snapshotDiv, width) {
 
   var orgBackground = document.createElement("div");
   snapshotDiv.appendChild(orgBackground);
-  orgBackground.style.zIndex=1;
-  orgBackground.style.position="absolute";
-  orgBackground.style.margin="0px";
+  orgBackground.id="org-labels-background";
   orgBackground.style.width= cellWidth + "px";
   orgBackground.style.left = (baseLeft) + "px";
   orgBackground.style.top=(baseTop - cellWidth) + "px";
   orgBackground.style.height=((orgList.length + 2) * cellWidth) + "px";
-  orgBackground.style.backgroundColor = "#4674a2";
 
   var dataBackground = document.createElement("div");
   snapshotDiv.appendChild(dataBackground);
-  dataBackground.style.zIndex=1;
-  dataBackground.style.position="absolute";
-  dataBackground.style.margin="0px";
+  dataBackground.id="data-background";
   dataBackground.style.width= (focusList.length * cellWidth) + "px";
   dataBackground.style.left = (baseLeft + cellWidth) + "px";
   dataBackground.style.top=(baseTop - cellWidth) + "px";
   dataBackground.style.height=((orgList.length + 1) * cellWidth) + "px";
-  dataBackground.style.backgroundColor = "#ffffff";
 
   var focusBackground = document.createElement("div");
   snapshotDiv.appendChild(focusBackground);
-  focusBackground.style.zIndex=1;
-  focusBackground.style.position="absolute";
-  focusBackground.style.margin="0px";
+  focusBackground.id="focus-labels-background";
   focusBackground.style.width= (focusList.length * cellWidth) + "px";
   focusBackground.style.left = (baseLeft + cellWidth) + "px";
   focusBackground.style.top= ((orgList.length) * cellWidth) + "px";
   focusBackground.style.height=(cellWidth) + "px";
-  focusBackground.style.backgroundColor = "#919191";
-
 }
 
 function drawLabels(focusList, orgList, snapshotDiv, width) {
@@ -65,15 +54,15 @@ function drawLabels(focusList, orgList, snapshotDiv, width) {
     var focusLabel = document.createElement("div");
     focusLabel.id="" + focusList[j] + "_div";
     snapshotDiv.appendChild(focusLabel);
-    focusLabel.style.position = "absolute";
-    focusLabel.style.margin = "0px";
+    focusLabel.className = "heading-div";
     focusLabel.style.width = cellWidth + "px";
     focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
+    focusLabel.style.height = cellWidth + "px";
     focusLabel.style.top = (baseTop + height) +  "px";
-    focusLabel.style.zIndex = 2;
 
     var headingLabel = document.createElement("h4");
-    headingLabel.id=="" + focusList[j] + "_h4";
+    headingLabel.id="" + focusList[j] + "_h4";
+    headingLabel.className = "heading-label";
     focusLabel.appendChild(headingLabel);
     headingLabel.innerHTML = focusList[j];
   }
@@ -82,15 +71,15 @@ function drawLabels(focusList, orgList, snapshotDiv, width) {
     var orgLabel = document.createElement("div");
     orgLabel.id="" + orgList[i] + "_div";
     snapshotDiv.appendChild(orgLabel);
-    orgLabel.style.position = "absolute";
-    orgLabel.style.margin = "0px";
+    orgLabel.className = "heading-div";
     orgLabel.style.width = cellWidth + "px";
+    orgLabel.style.height = cellWidth + "px";
     orgLabel.style.left = baseLeft + "px";
     orgLabel.style.top = baseTop + i * cellWidth + "px";
-    orgLabel.style.zIndex = 2;
 
     headingLabel = document.createElement("h4");
-    headingLabel.id=="" + orgList[i] + "_h4";
+    headingLabel.id="" + orgList[i] + "_h4";
+    headingLabel.className = "heading-label";
     orgLabel.appendChild(headingLabel);
     headingLabel.innerHTML = orgList[i];
   }
@@ -103,12 +92,9 @@ function drawSnapshot() {
   //Handle the template width (GAR!)
   var containerWidth = document.getElementsByClassName("container")[0].clientWidth;
   if (containerWidth < width) {
-    console.log("Adjusting width to:" + containerWidth);
     width = containerWidth;
   } else {
-    console.log("Keeping width at " + width + " instead of " + containerWidth);
   }
-  console.log("width:" + width);
 
   var orgCount = Object.keys(orgs).length;
 
@@ -139,11 +125,8 @@ function drawSnapshot() {
       }
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
-      var totalInCell = cellLayout[0];
 
-      var cellSizer = sizer;
-
-      printCell(cellLayout, cellLeft, cellTop, cellSizer, snapshotDiv);
+      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv);
     }
   }
   var loadingDiv = document.getElementById("loading").innerHTML="";
@@ -164,16 +147,48 @@ function printCell(cellLayout,  left, top, sizer, addTo) {
       var newLeft = parseInt(left) + colNum * sizer;
       var newTop = parseInt(top) + rowNum * sizer;
       if (value > 0) {
-        putLogo(newLeft, newTop, "./localimage.php?org=" + value + "&width=" + sizer, "hovertext", addTo)
+        putLogo(newLeft, newTop, value, sizer, addTo)
       }
     }
   }
 }
 
-function putLogo(left, top, src, hoverText, addTo) {
+function hideToolTip(event) {
+  console.log ("Target:" + event.target);
 
-  var logoImage = document.createElement("img");
-  logoImage.src = src;
+  var id = event.target.id;
+  setToolTipVisible(id, "hidden");
+}
+
+function showToolTip(event) {
+  console.log("Target:" + event.target);
+
+  var id = event.target.id;
+  setToolTipVisible(id, "visible");
+}
+
+function setToolTipVisible(id, visible){
+  console.log("Visible:"+ id + "=" + visible);
+
+  var toolTip = document.getElementById("" + id + "_tooltip");
+  toolTip.style.visibility = visible;
+}
+
+function putLogo(left, top, id, size, addTo) {
+  var src= "./localimage.php?org=" + id + "&";
+  var org = orgs[id];
+  var ending = "";
+  if (org["orientation"] == "square") {
+    ending = "width=" + size;
+  } else if (org["orientation"] = "horizontal") {
+    ending = "width=" + size;
+  } else if (org["orientation"] = "vertical") {
+    ending = "height=" + size;
+  } else {
+    console.log( "INVALID ORIENTATION:" + org["orientation"]);
+    ending = "width="+size;
+  }
+  src = src + ending;
 
   var miniDiv = document.createElement("div");
   miniDiv.style.left = left + "px";
@@ -184,16 +199,21 @@ function putLogo(left, top, src, hoverText, addTo) {
 
   addTo.appendChild(miniDiv);
 
-  var anchor = document.createElement("a");
-  anchor.title = hoverText;
-  miniDiv.appendChild(anchor);
+  var toolTip = document.createElement("div");
+  toolTip.id = id + "_tooltip" ;
+  toolTip.className= "hover-box";
+  addTo.appendChild(toolTip);
+  toolTip.innerHTML=org["description"];
+  toolTip.style.left = (left + size) + "px";
+  toolTip.style.top = (top) + "px";
 
   var logoImage = document.createElement("img");
+  logoImage.id = id;
   logoImage.src = src;
   logoImage.style.border = "0";
-  anchor.appendChild(logoImage);
-
-  //TODO: This is where we need to add the hover div.
+  logoImage.onmouseover = showToolTip;
+  logoImage.onmouseout = hideToolTip;
+  miniDiv.appendChild(logoImage);
 }
 
 xmlhttp.onreadystatechange = function() {
