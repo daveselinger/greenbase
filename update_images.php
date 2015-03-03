@@ -2,14 +2,6 @@
 include 'database_init.php';
 $con = getDBConnection($db_config);
 
-function updateOrg($con, $id, $valid, $orientation, $stmt) {
-  $stmt->bind_param("isi", $valid, $orientation, $id);
-  if (!$stmt->execute() ){
-    echo $con->error;
-    exit ("Unable to update id=" . $id ." valid=". $valid ." orientation=".$orientation);
-  }
-}
-
 /**
  *
  * Used to set up all of the filesystem directory tree
@@ -69,8 +61,6 @@ if (is_null($results)) {
   echo $con->error;
   exit ("Unable to access logo_details_temp");
 }
-$logos = [];
-$img = new Imagick();
 initFilesystem();
 
 while ($row = $results->fetch_assoc()) {
@@ -81,73 +71,13 @@ while ($row = $results->fetch_assoc()) {
   $logo["valid"] = $row["valid"];
   $logo["orientation"] = $row["orientation"];
 
-  echo "<li>- Logo ID (" . $logo["id"] . "): ";
+  echo "". $logo["id"] . ": <iframe src='./update_single_image.php?logo=" . $logo["id"] . "'></iframe><br><br>";
 //Default value
-  $width = 100;
-
-  $handle = fopen($logo["logo_url"], 'rb');
-  $loaded = false;
-    echo "loading,";
-  try {
-    $loaded =$img->readImageFile($handle);
-  }  catch (Exception $e) {
-    echo("FAILED:" . $e->getMessage() . "<br>");
-  }
-  if ($loaded){
-    echo "loaded, ";
-    //Read image was a success
-    $width = $img->getImageWidth();
-    $height = $img->getImageHeight();
-    $ratio = $width / $height;
-
-    if ($ratio < .85) {
-      $logo["orientation"] = "vertical";
-    } else if ($ratio >  1.17) {
-      $logo["orientation"] = "horizontal";
-    } else {
-      $logo["orientation"] = "square";
-    }
-    echo "orientation(" . $logo["orientation"] ."), ";
-    $img->setImageFormat("png");
-    $img->writeImage("./remoteimages/originals/logo_" . $logo["id"] . ".png");
-    echo "stored.";
-    $logo["valid"] = 1;
-    $img->clear();
-  } else {
-    // Invalid image
-    $logo["valid"] = 0;
-  }
-
-  $logos[] = $logo;
 }
 $results->free_result();
-echo "</ol>\nEND<br>";
-
-echo "Updating details\n<ol>";
-$query = "UPDATE logo_details_temp SET valid = ?, orientation=? where id=?";
-$stmt = $con->prepare($query);
-foreach ($logos as $v) {
-  flush();
-  $id = $v["id"];
-  echo "<li>Logo (" . $id .")";
-  $valid = $v["valid"];
-  $logo_url = $v["logo_url"];
-  $orientation = $v["orientation"];
-//  echo "LOGO ROW: $id = $valid, $logo_url.<br>\n";
-  updateOrg($con, $id, $valid, $orientation, $stmt);
-  echo " UPDATED";
-}
-$stmt->close();
-echo "</ol>END\n<br>";
-
-echo "Executing table swap from logo_details to logo_details_old, and from temp to logo_details\n<br>";
-$query = "RENAME TABLE logo_details to logo_details_old, logo_details_temp to logo_details";
-if (!$con->query($query)) {
-  echo $con->error;
-  exit ("FATAL ERROR Unable to execute table swaps during image update". $con->error);
-}
-echo "done<br><br>\n\n";
+echo "\nEND<br>";
 
 echo 'complete--success';
 $con->close();
 ?>
+When all images are updated, click <a href="./update_images_complete.php">here</a>.n
