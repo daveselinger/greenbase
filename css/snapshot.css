@@ -37,8 +37,12 @@
     z-index: 3;
     position: absolute;
     margin: 0px;
-    border-style: dotted;
+    border-style: groove;
     border-width: medium;
-    background-color: #00b3ee;
+    border-color: #00a0d1;
+    background-color: #ffffff;
+    font-family: Arial;
+    font-size:small;
+    line-height: normal;
     visibility: hidden;
 }

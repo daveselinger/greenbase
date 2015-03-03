@@ -102,6 +102,7 @@ function drawSnapshot() {
   var focusList = layout["focus_types"];
   var tableLayout = layout["layout"];
 
+  //TODO: Need to change this from being hard-coded to 3
   var sizer = parseInt (width / focusList.length / 3);
   var cellWidth = sizer * 3;
   var height = cellWidth * (orgList.length);
@@ -126,13 +127,13 @@ function drawSnapshot() {
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
 
-      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv);
+      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv, cellWidth);
     }
   }
   var loadingDiv = document.getElementById("loading").innerHTML="";
 }
 
-function printCell(cellLayout,  left, top, sizer, addTo) {
+function printCell(cellLayout,  left, top, sizer, addTo, cellWidth) {
   var totalInCell = cellLayout[0];
 
   var rowNum;
@@ -147,34 +148,28 @@ function printCell(cellLayout,  left, top, sizer, addTo) {
       var newLeft = parseInt(left) + colNum * sizer;
       var newTop = parseInt(top) + rowNum * sizer;
       if (value > 0) {
-        putLogo(newLeft, newTop, value, sizer, addTo)
+        putLogo(newLeft, newTop, value, sizer, addTo, cellWidth)
       }
     }
   }
 }
 
 function hideToolTip(event) {
-  console.log ("Target:" + event.target);
-
   var id = event.target.id;
   setToolTipVisible(id, "hidden");
 }
 
 function showToolTip(event) {
-  console.log("Target:" + event.target);
-
   var id = event.target.id;
   setToolTipVisible(id, "visible");
 }
 
 function setToolTipVisible(id, visible){
-  console.log("Visible:"+ id + "=" + visible);
-
   var toolTip = document.getElementById("" + id + "_tooltip");
   toolTip.style.visibility = visible;
 }
 
-function putLogo(left, top, id, size, addTo) {
+function putLogo(left, top, id, size, addTo, cellWidth) {
   var src= "./localimage.php?org=" + id + "&";
   var org = orgs[id];
   var ending = "";
@@ -204,8 +199,24 @@ function putLogo(left, top, id, size, addTo) {
   toolTip.className= "hover-box";
   addTo.appendChild(toolTip);
   toolTip.innerHTML=org["description"];
-  toolTip.style.left = (left + size) + "px";
-  toolTip.style.top = (top) + "px";
+  var hMidpoint = addTo.offsetLeft + addTo.offsetWidth / 2;
+  var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
+
+  console.log(org["name"] + ": Left (" + left + ") compare to midpoint (" + hMidpoint + ") top (" + top + ") to midpoint(" + vMidpoint + ")");
+  if (left < hMidpoint) {
+    toolTip.style.left = (left + (size * 5/4)) + "px";
+  } else {
+    toolTip.style.left = (left - (size / 4) - cellWidth * 2) + "px";
+  }
+
+  if (top < vMidpoint) {
+    toolTip.style.top = (top) + "px";
+  } else {
+    toolTip.style.top = (top - cellWidth * 2 + size) + "px";
+  }
+
+  toolTip.style.width = (cellWidth * 2) + "px";
+  toolTip.style.height = (cellWidth * 2) + "px";
 
   var logoImage = document.createElement("img");
   logoImage.id = id;
@@ -216,13 +227,16 @@ function putLogo(left, top, id, size, addTo) {
   miniDiv.appendChild(logoImage);
 }
 
+//TODO: Show an error instead
+
 xmlhttp.onreadystatechange = function() {
   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {  
 
     try {
       orgs = JSON.parse(xmlhttp.responseText);
     } catch (e) {
-      alert (e);
+      alert("Apologies, there is a problem connecting with the database.");
+      console.log(e);
    }
 
     done++;
@@ -237,8 +251,8 @@ xmlhttp2.onreadystatechange = function() {
     try {
       layout = JSON.parse(xmlhttp2.responseText);
     } catch (e) {
-      alert("2");
-      alert(e);
+      alert("Apologies, there is a problem connecting with the database. (errorno: 2)");
+      console.log(e);
     }
     done++;
     if (done == 2) {
