@@ -32,19 +32,7 @@
 			<div class="main-container">
 		<section class="video-inline">
 				<div class="container">
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
-							<p class="lead space-bottom-medium">
-								Short description. Visual presentation of the different organizations by Organization Type and Area of Focus
-						  </p>
-						</div>
-					</div>
-						
-				<section class="article-single">
-          <p>
 <?php include 'snapshot_logic.php'; ?>
-</p>
-                </section>
 		</div></section></div>
 		
 		<div class="footer-container">

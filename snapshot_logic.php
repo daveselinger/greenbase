@@ -1,4 +1,4 @@
-<div id="snapshot"><div id="loading">Snapshot loading... <img src="./img/lightbox/loading.gif"></div></div>
+<div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... <img src="./img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "./snapshot_orgs.php";
@@ -8,45 +8,39 @@ var url2 = "./snapshot_layout.php";
 var orgs;
 var layout;
 
-function drawBorders(focusList, orgList, snapshotDiv, width) {
-  var baseTop = snapshotDiv.style.top;
-  var baseLeft = snapshotDiv.style.left;
-
-  var sizer = parseInt (width / focusList.length / 3);
-  var cellWidth = sizer * 3;
-  var height = cellWidth * (orgList.length);
+function drawBorders(focusList, orgList, snapshotDiv, cellWidth) {
+  var baseTop = snapshotDiv.offsetTop;
+  var baseLeft = snapshotDiv.offsetLeft;
 
   var orgBackground = document.createElement("div");
   snapshotDiv.appendChild(orgBackground);
   orgBackground.id="org-labels-background";
   orgBackground.style.width= cellWidth + "px";
   orgBackground.style.left = (baseLeft) + "px";
-  orgBackground.style.top=(baseTop - cellWidth) + "px";
-  orgBackground.style.height=((orgList.length + 2) * cellWidth) + "px";
+  orgBackground.style.top=(baseTop) + "px";
+  orgBackground.style.height=((orgList.length + 1) * cellWidth) + "px";
 
   var dataBackground = document.createElement("div");
   snapshotDiv.appendChild(dataBackground);
   dataBackground.id="data-background";
   dataBackground.style.width= (focusList.length * cellWidth) + "px";
   dataBackground.style.left = (baseLeft + cellWidth) + "px";
-  dataBackground.style.top=(baseTop - cellWidth) + "px";
-  dataBackground.style.height=((orgList.length + 1) * cellWidth) + "px";
+  dataBackground.style.top=(baseTop) + "px";
+  dataBackground.style.height=(orgList.length * cellWidth) + "px";
 
   var focusBackground = document.createElement("div");
   snapshotDiv.appendChild(focusBackground);
   focusBackground.id="focus-labels-background";
   focusBackground.style.width= (focusList.length * cellWidth) + "px";
   focusBackground.style.left = (baseLeft + cellWidth) + "px";
-  focusBackground.style.top= ((orgList.length) * cellWidth) + "px";
+  focusBackground.style.top= (baseTop + (orgList.length) * cellWidth) + "px";
   focusBackground.style.height=(cellWidth) + "px";
 }
 
-function drawLabels(focusList, orgList, snapshotDiv, width) {
-  var baseTop = snapshotDiv.style.top;
-  var baseLeft = snapshotDiv.style.left;
+function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
+  var baseTop = snapshotDiv.offsetTop;
+  var baseLeft = snapshotDiv.offsetLeft;
 
-  var sizer = parseInt (width / focusList.length / 3);
-  var cellWidth = sizer * 3;
   var height = cellWidth * (orgList.length);
   snapshotDiv.style.height = height + "px";
 
@@ -58,7 +52,8 @@ function drawLabels(focusList, orgList, snapshotDiv, width) {
     focusLabel.style.width = cellWidth + "px";
     focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
     focusLabel.style.height = cellWidth + "px";
-    focusLabel.style.top = (baseTop + height) +  "px";
+
+    focusLabel.style.top = (baseTop + height + cellWidth / 5) +  "px";
 
     var headingLabel = document.createElement("h4");
     headingLabel.id="" + focusList[j] + "_h4";
@@ -90,10 +85,9 @@ function drawSnapshot() {
   var width = window.innerWidth;
 
   //Handle the template width (GAR!)
-  var containerWidth = document.getElementsByClassName("container")[0].clientWidth;
+  var containerWidth = snapshotDiv.clientWidth;
   if (containerWidth < width) {
     width = containerWidth;
-  } else {
   }
 
   var orgCount = Object.keys(orgs).length;
@@ -103,17 +97,17 @@ function drawSnapshot() {
   var tableLayout = layout["layout"];
 
   //TODO: Need to change this from being hard-coded to 3
-  var sizer = parseInt (width / focusList.length / 3);
-  var cellWidth = sizer * 3;
+  var cellWidth = parseInt (width / focusList.length);
+  var sizer = cellWidth / 3;
   var height = cellWidth * (orgList.length);
   snapshotDiv.style.height = height + "px";
 
-  var baseTop = snapshotDiv.style.top;
-  var baseLeft = snapshotDiv.style.left;
+  var baseTop = snapshotDiv.offsetTop;
+  var baseLeft = snapshotDiv.offsetLeft;
 
-  drawBorders(focusList, orgList, snapshotDiv, width);
+  drawBorders(focusList, orgList, snapshotDiv, cellWidth);
 
-  drawLabels(focusList, orgList, snapshotDiv, width);
+  drawLabels(focusList, orgList, snapshotDiv, cellWidth);
 
   for (i=0;i<orgList.length;i++) {
     var org = orgList[i];
@@ -162,6 +156,7 @@ function hideToolTip(event) {
 function showToolTip(event) {
   var id = event.target.id;
   setToolTipVisible(id, "visible");
+  console.log("showing:" + event.target.id);
 }
 
 function setToolTipVisible(id, visible){
@@ -173,15 +168,24 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   var src= "./localimage.php?org=" + id + "&";
   var org = orgs[id];
   var ending = "";
+  var tooltipending = "";
+  var tooltipWidth = cellWidth * 5 / 2;
+  var tooltipHeight = cellWidth * 2;
+
   if (org["orientation"] == "square") {
     ending = "width=" + size;
-  } else if (org["orientation"] = "horizontal") {
+    tooltipending = "width=" + cellWidth + "&height=" +  cellWidth;
+  } else if (org["orientation"] == "horizontal") {
+    console.log("horizontal:"  + id);
     ending = "width=" + size;
-  } else if (org["orientation"] = "vertical") {
+    tooltipending = "height=" + (tooltipHeight/3) + "&width=" + (tooltipWidth * 3 / 4) ;
+  } else if (org["orientation"] == "vertical") {
     ending = "height=" + size;
+    tooltipending = "width=" + (tooltipWidth / 3) + "&height=" + (tooltipHeight * 3 / 4) ;
   } else {
     console.log( "INVALID ORIENTATION:" + org["orientation"]);
     ending = "width="+size;
+    tooltipending = "width=" + cellWidth + "&height=" +  cellWidth;
   }
   src = src + ending;
 
@@ -194,29 +198,42 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
 
   addTo.appendChild(miniDiv);
 
+  //Create the tooltip
+  var hMidpoint = addTo.offsetLeft + addTo.offsetWidth / 2;
+  var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
+
   var toolTip = document.createElement("div");
   toolTip.id = id + "_tooltip" ;
   toolTip.className= "hover-box";
   addTo.appendChild(toolTip);
-  toolTip.innerHTML=org["description"];
-  var hMidpoint = addTo.offsetLeft + addTo.offsetWidth / 2;
-  var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
+  var toolTipImage = document.createElement("img");
+  toolTip.appendChild(toolTipImage);
+  toolTipImage.className="tooltip-left";
+  var logosrc="./localimage.php?org=" + id + "&" + tooltipending;
+  toolTipImage.src = logosrc;
+  toolTip.innerHTML = toolTip.innerHTML + org["description"];
+//  var toolTipText = document.createElement("div");
+//  toolTip.appendChild(toolTipText);
+//  toolTipText.innerHTML=org["description"];
 
-  console.log(org["name"] + ": Left (" + left + ") compare to midpoint (" + hMidpoint + ") top (" + top + ") to midpoint(" + vMidpoint + ")");
+  //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
     toolTip.style.left = (left + (size * 5/4)) + "px";
   } else {
-    toolTip.style.left = (left - (size / 4) - cellWidth * 2) + "px";
+    toolTip.style.left = (left - (size / 4) - tooltipWidth) + "px";
   }
 
   if (top < vMidpoint) {
     toolTip.style.top = (top) + "px";
   } else {
-    toolTip.style.top = (top - cellWidth * 2 + size) + "px";
+    toolTip.style.top = (top - tooltipHeight + (size * 3 / 2)) + "px";
   }
+  toolTip.style.width = tooltipWidth + "px";
+  toolTip.style.height = tooltipHeight + "px";
 
-  toolTip.style.width = (cellWidth * 2) + "px";
-  toolTip.style.height = (cellWidth * 2) + "px";
+  var anchor = document.createElement("a");
+  anchor.href="./single_org.php?org=" + id;
+  miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");
   logoImage.id = id;
@@ -224,7 +241,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   logoImage.style.border = "0";
   logoImage.onmouseover = showToolTip;
   logoImage.onmouseout = hideToolTip;
-  miniDiv.appendChild(logoImage);
+  anchor.appendChild(logoImage);
 }
 
 //TODO: Show an error instead

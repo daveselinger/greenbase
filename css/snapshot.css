@@ -19,6 +19,10 @@
     position: absolute;
 }
 
+.snapshot {
+    width: 90%;
+}
+
 .heading-div {
     z-index: 2;
     position: absolute;
@@ -42,7 +46,26 @@
     border-color: #00a0d1;
     background-color: #ffffff;
     font-family: Arial;
-    font-size:small;
+    font-size: small;
     line-height: normal;
     visibility: hidden;
+    padding: 1%;
+}
+
+.tooltip-top {
+    border: solid;
+    border-width: thin;
+    padding: 5%;
+    float: left;
+    margin: 5%;
+    margin-top: 0%;
+}
+
+.tooltip-left {
+    border: solid;
+    border-width: thin;
+    padding: 5%;
+    float: left;
+    margin: 0%;
+    margin-right: 5%;
 }
