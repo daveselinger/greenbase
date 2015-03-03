@@ -98,7 +98,6 @@ function drawSnapshot() {
 
   //TODO: Need to change this from being hard-coded to 3
   var cellWidth = parseInt (width / focusList.length);
-  var sizer = cellWidth / 3;
   var height = cellWidth * (orgList.length);
   snapshotDiv.style.height = height + "px";
 
@@ -121,14 +120,24 @@ function drawSnapshot() {
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
 
-      printCell(cellLayout, cellLeft, cellTop, sizer, snapshotDiv, cellWidth);
+      printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv, cellWidth);
     }
   }
   var loadingDiv = document.getElementById("loading").innerHTML="";
 }
 
-function printCell(cellLayout,  left, top, sizer, addTo, cellWidth) {
+function printCell(cellLayout,  left, top, cellWidth, addTo, cellWidth) {
+  var sizer = cellWidth / 3;
   var totalInCell = cellLayout[0];
+  if (totalInCell < 4) {
+    sizer = cellWidth / 2;
+  } else if (totalInCell > 9 && totalInCell < 16) {
+    sizer = cellWidth / 4;
+  } else {
+    console.log ("TOO MINY ITEMS IN CELL: " + cellLayout);
+    sizer = cellWidth / 5;
+  }
+
 
   var rowNum;
   // Start at 1 to skip the total in the first array value
@@ -243,8 +252,6 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   logoImage.onmouseout = hideToolTip;
   anchor.appendChild(logoImage);
 }
-
-//TODO: Show an error instead
 
 xmlhttp.onreadystatechange = function() {
   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {  
