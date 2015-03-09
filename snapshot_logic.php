@@ -1,4 +1,4 @@
-<div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... <img src="./img/lightbox/loading.gif"></div></div>
+<div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="./img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "./snapshot_orgs.php";
@@ -120,13 +120,13 @@ function drawSnapshot() {
       var cellLeft = j * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
 
-      printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv, cellWidth);
+      printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv);
     }
   }
   var loadingDiv = document.getElementById("loading").innerHTML="";
 }
 
-function printCell(cellLayout,  left, top, cellWidth, addTo, cellWidth) {
+function printCell(cellLayout,  left, top, cellWidth, addTo) {
   var sizer = cellWidth / 3;
   var totalInCell = cellLayout[0];
   if (totalInCell < 4) {

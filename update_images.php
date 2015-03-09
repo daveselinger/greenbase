@@ -19,43 +19,78 @@ function initFilesystem() {
   makeDirIfNeeded('./remoteimages/snapshot/');
 }
 
-echo "Dropping old logo_details_temp and logo_details_old tables<br>\n";
-// Init and drop old tables if they're hanging around.
-$query = "DROP TABLE IF EXISTS logo_details_temp, logo_details_old";
-if (!$con->query($query)) {
-  echo $con->error;
-  exit ("Basic table dropping initialization failed.");
-}
-echo "done<br><br>\n\n";
+$restart = isset($_GET["restart"]);
 
-echo "Creating logo_details table if needed<br>\n";
-// Init and drop old tables if they're hanging around.
-$query = "CREATE TABLE IF NOT EXISTS logo_details (ID int)";
-if (!$con->query($query)) {
-  echo $con->error;
-  exit ("error creating skeleton table if needed.");
-}
-echo "done<br><br>\n\n";
+if ($restart) {
+  // ONLY DROP THE TEMP TABLE IF DOING FROM SCRATCH
+  echo "Dropping old logo_details_temp tables<br>\n";
+  // Init and drop old tables if they're hanging around.
+  $query = "DROP TABLE IF EXISTS logo_details_temp";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Basic table dropping initialization failed.");
+  }
+  echo "done<br><br>\n\n";
+  echo "Creating logo_details table if needed<br>\n";
+  // Init and drop old tables if they're hanging around.
+  $query = "CREATE TABLE IF NOT EXISTS logo_details (ID int)";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("error creating skeleton table if needed.");
+  }
+  echo "done<br><br>\n\n";
 
-echo "Populating logo_details_temp and creating it<br>\n";
-// Create a table with the image details -- named temp so we do the swap one time only.
-$query = "CREATE TABLE logo_details_temp AS SELECT id, logo_url, 0 as valid, 'horizontal123123123123' as orientation FROM orgs WHERE org_status = 1";
-if (!$con->query($query)) {
-  echo $con->error;
-  exit ("Unable to make table logo_details_temp");
-}
-echo "done<br><br>\n\n";
+  echo "Creating logo_details_temp and populating it from scratch<br>\n";
+  // Create a table with the image details -- named temp so we do the swap one time only.
+  $query = "CREATE TABLE logo_details_temp AS SELECT id, logo_url, 0 AS valid, 'horizontal123123123123' AS orientation FROM orgs WHERE org_status = 1";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Unable to make table logo_details_temp");
+  }
+  echo "done<br><br>\n\n";
 
-echo "Creating index on logo_details_temp";
-$query = "ALTER TABLE logo_details_temp ADD INDEX (id)";
-if (!$con->query($query)) {
-  echo $con->error;
-  exit ("Temp table index add failed.");
-}
-echo "done<br><br>\n\n";
+  echo "Creating index on logo_details_temp";
+  $query = "ALTER TABLE logo_details_temp ADD INDEX (id)";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Temp table index add failed.");
+  }
+  echo "done<br><br>\n\n";
+} else {
+  echo "Dropping old logo_details_temp<br>\n";
+  // Init and drop old tables if they're hanging around.
+  $query = "DROP TABLE IF EXISTS logo_details_temp";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Basic table dropping initialization failed.");
+  }
+  echo "done<br><br>\n\n";
 
+  // True update case
+  echo "Creating logo_details_temp and populating it from current logo_details<br>\n";
+  // Create a table with the image details -- named temp so we do the swap one time only.
+  $query = "CREATE TABLE logo_details_temp AS SELECT * FROM logo_details WHERE valid = 1";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Unable to make table logo_details_temp");
+  }
+
+  echo "Adding in the logos for formerly invalid files, newly added organizations. These will be the files added/downloaded.";
+  $query = "INSERT INTO logo_details_temp (id, logo_url, valid, orientation) ".
+    "SELECT orgs.id, orgs.logo_url, 0 AS valid, 'horizontal123123123123' AS orientation " .
+    "FROM orgs LEFT JOIN logo_details_temp ON orgs.id = logo_details_temp.id WHERE logo_details_temp.id IS NULL;";
+  if (!$con->query($query)) {
+    echo $con->error;
+    exit ("Unable to complete populating table logo_details_temp with the logos to update");
+  }
+
+  echo "done<br><br>\n\n";
+}
+
+//Doesn't need to be specific as in restart all valid will=0 no matter what.
 echo "BEGIN Iterating logos\n<ol>";
-$query = "SELECT id, logo_url, valid, orientation FROM logo_details_temp";
+$query = "SELECT id, logo_url, valid, orientation FROM logo_details_temp WHERE valid = 0";
+
 $results = $con->query($query);
 if (is_null($results)) {
   echo $con->error;

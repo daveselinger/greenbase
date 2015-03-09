@@ -8,7 +8,7 @@
         <div class="col-md-10 col-sm-9 columns">
           <ul class="menu ui-sortable">
           <li><a href="index.php">Home<br></a></li>
-          <li><a href="signup.php">Add an Organization</a></li>
+          <li><a href="register.php">Add an Organization</a></li>
           <li><a href="snapshot.php">Visual Snapshot</a></li>
           <li><a href="organizations.php">Search Organizations</a></li>
           <li><a href="about.php">About</a></li>
