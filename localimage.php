@@ -9,6 +9,8 @@ if (!isset($_GET['org'])) {
 	exit ('No org id');
 }
 
+//TODO: If the image fails to load, set logo_details valid = 0;
+
 $org_id = $_GET['org'];
 $width = 0;
 $height = 0;
