@@ -50,7 +50,7 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     snapshotDiv.appendChild(focusLabel);
     focusLabel.className = "heading-div";
     focusLabel.style.width = cellWidth + "px";
-    focusLabel.style.left = (j * cellWidth  + baseLeft) + "px";
+    focusLabel.style.left = ((j+1) * cellWidth  + baseLeft) + "px";
     focusLabel.style.height = cellWidth + "px";
 
     focusLabel.style.top = (baseTop + height + cellWidth / 5) +  "px";
@@ -96,7 +96,6 @@ function drawSnapshot() {
   var focusList = layout["focus_types"];
   var tableLayout = layout["layout"];
 
-  //TODO: Need to change this from being hard-coded to 3
   var cellWidth = parseInt (width / focusList.length);
   var height = cellWidth * (orgList.length);
   snapshotDiv.style.height = height + "px";
@@ -117,7 +116,7 @@ function drawSnapshot() {
         //no items
         continue;
       }
-      var cellLeft = j * cellWidth + baseLeft;
+      var cellLeft = (j+1) * cellWidth + baseLeft;
       var cellTop = i * cellWidth + baseTop;
 
       printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv);
@@ -129,12 +128,14 @@ function drawSnapshot() {
 function printCell(cellLayout,  left, top, cellWidth, addTo) {
   var sizer = cellWidth / 3;
   var totalInCell = cellLayout[0];
-  if (totalInCell < 4) {
+  if (totalInCell <= 4) {
     sizer = cellWidth / 2;
-  } else if (totalInCell > 9 && totalInCell < 16) {
+  } else if (totalInCell <=9) {
+    sizer = cellWidth / 3;
+  }else if (totalInCell > 9 && totalInCell < 16) {
     sizer = cellWidth / 4;
   } else {
-    console.log ("TOO MINY ITEMS IN CELL: " + cellLayout);
+    console.log ("TOO MANY ITEMS IN CELL: " + cellLayout);
     sizer = cellWidth / 5;
   }
 
