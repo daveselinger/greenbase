@@ -15,8 +15,6 @@
 include 'database_init.php';
 $con = getDBConnection($db_config);
 
-/*
- * REMOVE THESE COMMENTS
 if (!isset($_POST["todo"])) {
   $message = 'Failed to submit form: ';
   foreach ($_POST as $key => $value) {
@@ -25,7 +23,7 @@ if (!isset($_POST["todo"])) {
   error_log($message);
   exit ("Form submission failed. We are logging this error and will get back to you ASAP. Our apologies for any inconvenience.");
 }
-*/
+$todo = $_POST["todo"];
 
 function getPostParameters($post) {
   $message = '';
@@ -82,10 +80,11 @@ function createOrg(mysqli $con, $name, $headline, $org_status, $founding_year, $
  */
 
 $result = "";
-if (true) {
+if ("register_org" == $todo) {
   //Process the add organization form
   if (!(isset($_POST["org_type"]) && isset($_POST["focus"]))) {
     echo("INCOMPLETE POST PARAMETERS:" . getPostParameters($_POST));
+    exit;
   }
   $org_type = getOrgType($con, $_POST["org_type"]);
   $focus = getFocus($con, $_POST["focus"]);
@@ -99,6 +98,9 @@ if (true) {
   $result = "" . (createOrg($con, $_POST["name"], $_POST["headline"], 0, $_POST["year_founded"], $_POST["logo_url"],
       $_POST["description"], $_POST["address"], $_POST["city"], $_POST["state"], $_POST["website"], $_POST["phone"],
       $org_type, $focus, $_POST["twitter"], $_POST["facebook"]));
+} else if ("register_user" == $todo) {
+  // Process the add a user form
+  $result=1;
 }
 
 $con->close();
