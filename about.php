@@ -62,23 +62,7 @@
 						</div>
 						
 						<div class="col-sm-4">
-							<h5>Leave A Message</h5>
-							<div class="form-wrapper clearfix">
-								<form class="form-contact email-form" method="post">
-									<div class="inputs-wrapper">
-										<input class="form-name validate-required" type="text" placeholder="Your Name" name="name">
-										<input class="form-email validate-required validate-email" type="text" placeholder="Your Email Address" name="email">
-										<textarea class="form-message validate-required" name="message" placeholder="Your Message"></textarea>
-									</div>
-									<input type="submit" class="send-form contact-submit" value="Submit Message">
-									<div class="form-success">
-										<span class="text-white">Message sent - Thanks for your enquiry</span>
-									</div>
-									<div class="form-error">
-										<span class="text-white">Please complete all fields correctly</span>
-									</div>
-								</form>
-							</div>
+<?php include "contact_form.php" ?>
 						</div>
 					</div>
 				</div>

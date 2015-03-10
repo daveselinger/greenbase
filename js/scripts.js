@@ -277,15 +277,15 @@ $(document).ready(function(){
     }
     
     // Contact form
-    $('form.email-form').submit(function (e) {
+    $('form.submit-form').submit(function (e) {
 		// return false so form submits through jQuery rather than reloading page.
 		if(e.preventDefault) e.preventDefault(); else e.returnValue = false;
 		
 		console.log('We have a submission...');
-		var thisForm 		= $(this).closest('.email-form'),
+		var thisForm 		= $(this).closest('.submit-form'),
 			error 			= 0,
 			originalError 	= thisForm.attr('original-error');
-			
+
 			if (typeof originalError !== typeof undefined && originalError !== false) {
 				thisForm.find('.form-error').text(originalError); 
 			}
@@ -313,12 +313,12 @@ $(document).ready(function(){
 		
 
         if (error === 1){
-            $(this).closest('.email-form').find('.form-error').fadeIn(200);
+            $(this).closest('.submit-form').find('.form-error').fadeIn(200);
         }
 		else{
             jQuery.ajax({
                 type: "POST",
-                url: "mail/mail.php",
+                url: "submit.php",
                 data: thisForm.serialize(),
                 success: function (response) {
                 	// Swiftmailer always sends back a number representing numner of emails sent.
@@ -327,7 +327,8 @@ $(document).ready(function(){
 						if(parseInt(response) > 0){
 							thisForm.find('.form-success').fadeIn(1000);
 							thisForm.find('.form-error').fadeOut(1000);
-							setTimeout(function(){ thisForm.find('.form-success').fadeOut(500); }, 5000);
+							thisForm.find('.form-message').text(response).fadeIn(1000);
+							setTimeout(function(){ thisForm.find('.form-success').fadeOut(500); thisForm.find('.form-message').fadeOut(500); }, 10000);
 						}
 					}
 					// If error text was returned, put the text in the .form-error div and show it.
