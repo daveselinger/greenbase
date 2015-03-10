@@ -11,10 +11,6 @@ include 'database_init.php';
 $con = getDBConnection($db_config);
 
 // PHP code
-function writeOrg($orgName, $id, $description, $orientation) {
-  echo("\"$id\": { \"id\": \"$id\", \"name\": \"$orgName\", \"logo\": \"./localimage.php?org=$id\", \"description\": \"$description\", \"orientation\": \"$orientation\"}");
-}
-
 function writeFocusList($con) {
   $query = "SELECT focus AS name, id FROM focus_list ORDER BY focus_order, focus";
   writeList($con, $query);
