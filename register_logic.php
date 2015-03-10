@@ -34,7 +34,7 @@ function writeList ($con, $query) {
 }
 
 function writeOptionRow($title, $value) {
-  echo '  <option value="' . $value .'">' . $title . '</option>\n';
+  echo '  <option value="' . $value .'">' . $title . '</option>';
 }
 ?>
   <div class="form-wrapper clearfix">
