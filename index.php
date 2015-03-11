@@ -39,17 +39,28 @@
                     <td><a href="signup.php" class="btn btn-primary btn-filled">Add an Organization</a></h6></td>
               </tr></table>
 						</div>
-						
+
 						<div class="col-sm-6 text-center">
 							<a href="./snapshot.php"><img alt="Product Image" class="product-image" src="img/home_lumascape.gif"></a>
 						</div>
 					</div>
 				</div>
-  </section>
-		
-		<div class="footer-container">
-		</div>
-				
+    <section class="contact-thirds">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+      <h2>What's happening now in climate change?</h2> (<a href="./signup.php">Sign up</a> with Greenbase to get a curated weekly newsletter)
+            </div>
+      <div class="col-sm-4">
+        <a class="twitter-timeline" href="https://twitter.com/halineflow" data-widget-id="575417537745174528">Tweets by @halineflow</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
+        </div>
+      </div>
+    </section>
+    </div>
+      <?php include '_templates/footer.php'; ?>
+
 		<script src="https://www.youtube.com/iframe_api"></script>
 		<script src="js/jquery.min.js"></script>
         <script src="js/jquery.plugin.min.js"></script>

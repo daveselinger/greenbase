@@ -39,7 +39,8 @@
 			</section>
 		</div>
 
-				
+    <?php include '_templates/footer.php'; ?>
+
 		<script src="https://www.youtube.com/iframe_api"></script>
 		<script src="js/jquery.min.js"></script>
         <script src="js/jquery.plugin.min.js"></script>
