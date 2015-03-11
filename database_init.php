@@ -1,13 +1,20 @@
 <?php
+
+//Read the default configuration first
 try {
 	include 'config.php';
 } catch (Exception $e) {
-	exit ('Error reading "config.php". Database configuration required here: db_username and db_password:' . $e->getMessage());
+}
+
+// Read the site-specific configuration next.
+try {
+	include '../config.php';
+} catch (Exception $e) {
 }
 
 if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
 	|| ($db_username == '') || ($db_password == '')  || ($db_name == '') ) {
-	exit( 'No database configuration in "config.php"');
+	exit( 'No database configuration in "config.php" or config file not found. Please place the config file in ./.. relative to the greenbase root directory');
 }
 $db_config = [];
 $db_config["url"] = $db_url;
