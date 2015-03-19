@@ -43,29 +43,38 @@
     margin: 0px;
     border-style: groove;
     border-width: medium;
-    border-color: #00a0d1;
+    border-color: #000000;
     background-color: #ffffff;
     font-family: Arial;
     font-size: small;
     line-height: normal;
     visibility: hidden;
-    padding: 1%;
-}
-
-.tooltip-top {
-    border: solid;
-    border-width: thin;
-    padding: 5%;
-    float: left;
-    margin: 5%;
-    margin-top: 0%;
+    padding: 0px;
 }
 
 .tooltip-left {
     border: solid;
     border-width: thin;
-    padding: 5%;
+    padding: 1%;
     float: left;
     margin: 0%;
-    margin-right: 5%;
+    margin-right: 3%;
+}
+
+.toolTipHeader {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding: 0px;
+    border:0px;
+    border-bottom: 5px;
+    border-color: #000000;
+    background-color: #dddddd;
+    position: absolute;
+}
+
+.toolTipCell {
+    padding: 2px;
+    border: thin;
 }

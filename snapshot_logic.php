@@ -79,6 +79,13 @@ function drawCanvas(width, height, snapshotDiv) {
   return canvas;
 }
 
+/**
+ * Draws the gray borders around the snapshot
+ * @param focusList
+ * @param orgList
+ * @param snapshotDiv
+ * @param cellWidth
+ */
 function drawBorders(focusList, orgList, snapshotDiv, cellWidth) {
   var baseTop = snapshotDiv.offsetTop;
   var baseLeft = snapshotDiv.offsetLeft;
@@ -192,11 +199,10 @@ function hideToolTip(event) {
 function showToolTip(event) {
   var id = event.target.id;
   setToolTipVisible(id, "visible");
-  console.log("showing:" + event.target.id);
 }
 
 function setToolTipVisible(id, visible){
-  var toolTip = document.getElementById("" + id + "_tooltip");
+  var toolTip = document.getElementById("org_" + id + "_tooltip");
   toolTip.style.visibility = visible;
 }
 
@@ -238,18 +244,35 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
 
   var toolTip = document.createElement("div");
-  toolTip.id = id + "_tooltip" ;
+  toolTip.id = "org_" + id + "_tooltip" ;
   toolTip.className= "hover-box";
   addTo.appendChild(toolTip);
+
   var toolTipImage = document.createElement("img");
   toolTip.appendChild(toolTipImage);
   toolTipImage.className="tooltip-left";
   var logosrc="./localimage.php?org=" + id + "&" + tooltipending;
   toolTipImage.src = logosrc;
   toolTip.innerHTML = toolTip.innerHTML + org["description"];
-//  var toolTipText = document.createElement("div");
-//  toolTip.appendChild(toolTipText);
-//  toolTipText.innerHTML=org["description"];
+
+  //Create the tooltip header
+  var toolTipHeader = document.createElement("table");
+  toolTip.appendChild(toolTipHeader);
+  toolTipHeader.className = "toolTipHeader";
+  var headerRow = document.createElement("tr");
+  toolTipHeader.appendChild(headerRow);
+  var firstCell = document.createElement("td");
+  headerRow.appendChild(firstCell);
+  firstCell.style.width="50%";
+  var firstFont = document.createElement("span");
+  firstCell.appendChild(firstFont);
+  firstFont.innerHTML = "<b>Focus:</b><br>" + org["focus"];
+  var secondCell = document.createElement("td");
+  headerRow.appendChild(secondCell);
+  secondCell.style.width="50%";
+  var secondFont = document.createElement("span");
+  secondCell.appendChild(secondFont);
+  secondFont.innerHTML = "<b>Org-Type:</b><br>" + org["org_type"];
 
   //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
@@ -277,6 +300,9 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   logoImage.onmouseover = showToolTip;
   logoImage.onmouseout = hideToolTip;
   anchor.appendChild(logoImage);
+
+  //correct tooltip header now...
+  toolTipHeader.style.top = (toolTip.clientHeight + - toolTipHeader.clientHeight) + "px";
 }
 
 xmlhttp.onreadystatechange = function() {

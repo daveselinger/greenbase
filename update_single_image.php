@@ -56,9 +56,9 @@ while ($row = $results->fetch_assoc()) {
     $height = $img->getImageHeight();
     $ratio = $width / $height;
 
-    if ($ratio < .85) {
+    if ($ratio < .9) {
       $logo["orientation"] = "vertical";
-    } else if ($ratio >  1.17) {
+    } else if ($ratio >  1.11) {
       $logo["orientation"] = "horizontal";
     } else {
       $logo["orientation"] = "square";
