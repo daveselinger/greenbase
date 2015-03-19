@@ -215,7 +215,7 @@ foreach ($org_type_list as $org_type) {
         $cell["0"] = $row0;
       }
     } else {
-      $size = intval(sqrt($total)) + 1;
+      $size = intval(ceil(sqrt($total)));
 
       $width = $height = $size;
       $index = 0;
