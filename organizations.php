@@ -6,7 +6,7 @@
 <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>Greenbase Snapshot</title>
+        <title>Greenbase: Registered Organizations</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,6 @@
     </head>
     <style>
 #listbox img {
-	width: 200px;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -38,7 +37,7 @@
 #listbox {
 	margin: 6px;
 	padding: 11px;
-	height: 100px;
+	height: 150px;
 	width: 220px;
 	float: left;
 	border: 1px solid #C8C8C8;
