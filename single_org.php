@@ -1,5 +1,7 @@
 <?php
 include 'database_init.php';
+include "_templates/events.php";
+
 if (!isset($_GET['org'])) {
     exit ('No org id');
 }
@@ -18,8 +20,9 @@ $stmt->bind_result($name, $org_status, $founding_year, $headline, $description, 
 if (!$stmt->fetch()) {
     exit ("Invalid org");
 }
+$stmt->close();
 
-$con->close();
+$events = getEventsForOrg($org_id, $con);
 ?>
 
 <!DOCTYPE html>
@@ -81,32 +84,27 @@ $con->close();
                         <blockquote>
                             <?php echo(htmlspecialchars($headline)); ?>
                         </blockquote>
-
-                        <?php
-                        if (is_null($twitter_handle) || "" == $twitter_handle) {
-                            echo "<h2>Organization description</h2>";
-                            echo(htmlspecialchars($description));
-                        } else {
-                            ?>
                             <section class="contact-thirds">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <h2>Organization detailed description</h2>
-                                            <?php echo (htmlspecialchars($description)); ?>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <!--            INSERT TWITTER FEED HERE SOON!
-                <a class="twitter-timeline" href="https://twitter.com/<?php echo $twitter_handle; ?>" data-widget-id="575417537745174528">Tweets by @<?php echo $twitter_handle; ?></a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
--->              </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h2>Organization detailed description</h2>
+                                        <?php echo (htmlspecialchars($description)); ?>
                                     </div>
-                                </div>
+                                    <div class="col-sm-4">
+                                        <?php
+                                        if (!is_null($events)) {
+                                            foreach ($events as $event) {
+                                                printSimpleEventBlock($event);
+                                                echo ("<br>");
+                                            }
+                                        }
+                                        ?>
+                                        <!--            INSERT TWITTER FEED HERE SOON!
+            <a class="twitter-timeline" href="https://twitter.com/<?php echo $twitter_handle; ?>" data-widget-id="575417537745174528">Tweets by @<?php echo $twitter_handle; ?></a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    -->              </div>
+                            </div>
                             </section>
-                        <?php
-                        }
-                        ?>
-
                     </div>
                 </div>
             </div>
@@ -131,5 +129,7 @@ $con->close();
         <script src="js/jquery.countdown.min.js"></script>
         <script src="js/scripts.js"></script>
     </body>
-</html>
+</html><?php
+$con->close();
+?>
 				
