@@ -52,9 +52,8 @@
       <h2>What's happening now in climate change?</h2> (<a href="./signup.php">Sign up</a> with Greenbase to get a curated weekly newsletter)
             </div>
       <div class="col-sm-4">
-        <a class="twitter-timeline" href="https://twitter.com/halineflow" data-widget-id="575417537745174528">Tweets by @halineflow</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-      </div>
+        <a class="twitter-timeline" href="https://twitter.com/search?q=%40halineflow%20OR%20%23greenbase" data-widget-id="575508953368494080">Our climate change tweets</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>      </div>
         </div>
       </div>
     </section>

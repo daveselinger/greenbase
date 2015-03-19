@@ -1,15 +1,19 @@
 <?php
 
 //Read the default configuration first
-try {
-	include 'config.php';
-} catch (Exception $e) {
-}
 
+if (file_exists('config.php')) {
+	try {
+		include 'config.php';
+	} catch (Exception $e) {
+	}
+}
 // Read the site-specific configuration next.
-try {
-	include '../config.php';
-} catch (Exception $e) {
+if (file_exists('../config.php')) {
+	try {
+		include '../config.php';
+	} catch (Exception $e) {
+	}
 }
 
 if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
