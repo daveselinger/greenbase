@@ -8,6 +8,77 @@ var url2 = "./snapshot_layout.php";
 var orgs;
 var layout;
 
+/**
+ * The main snapshot function.
+ * This function assumes that snapshot_orgs and snapshot_layout have already been called populating "layout" and "orgs" as global variables
+ *
+ * First, it finds the snapshot div within the document to orient itself to the width available
+ * Then it draws the borders (the gray boxes under the titles) and the titles themselves
+ * Finally it iterates through the list of organizations by focus-types and prints each individual cell ("PrintCell");
+ */
+function drawSnapshot() {
+  var snapshotDiv = document.getElementById("snapshot");
+  var width = window.innerWidth;
+
+  //Handle the template width (GAR!)
+  var containerWidth = snapshotDiv.clientWidth;
+  if (containerWidth < width) {
+    width = containerWidth;
+  }
+
+  var orgCount = Object.keys(orgs).length;
+
+  var orgList = layout["orgs"];
+  var focusList = layout["focus_types"];
+  var tableLayout = layout["layout"];
+
+  var cellWidth = parseInt (width / (focusList.length+1));
+  var height = cellWidth * ((orgList.length+1));
+  snapshotDiv.style.height = height + "px";
+
+  var baseTop = snapshotDiv.offsetTop;
+  var baseLeft = snapshotDiv.offsetLeft;
+
+  var canvas = drawCanvas(width, height, snapshotDiv);
+
+  drawBorders(focusList, orgList, snapshotDiv, cellWidth);
+
+  drawLabels(focusList, orgList, snapshotDiv, cellWidth);
+
+  for (i=0;i<orgList.length;i++) {
+    var org = orgList[i];
+    for (j=0;j<focusList.length;j++) {
+      var focus = focusList[j];
+      var cellLayout = tableLayout[org][focus];
+      if (cellLayout == null) {
+        //no items
+        continue;
+      }
+      var cellLeft = (j+1) * cellWidth + baseLeft;
+      var cellTop = i * cellWidth + baseTop;
+
+      printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv);
+    }
+  }
+  var loadingDiv = document.getElementById("loading").innerHTML="";
+}
+
+function drawCanvas(width, height, snapshotDiv) {
+  //First add the canvas at the very back.
+  console.log("Drawing canvas (" + width + "," + height + ")");
+  var canvas = document.createElement("canvas");
+  canvas.style.left = snapshotDiv.offsetLeft + "px";
+  canvas.style.top = snapshotDiv.offsetTop + "px";
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.position = "absolute";
+  canvas.style.zIndex = -1;
+
+  snapshotDiv.appendChild(canvas);
+
+  return canvas;
+}
+
 function drawBorders(focusList, orgList, snapshotDiv, cellWidth) {
   var baseTop = snapshotDiv.offsetTop;
   var baseLeft = snapshotDiv.offsetLeft;
@@ -80,51 +151,6 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
   }
 }
 
-function drawSnapshot() {
-  var snapshotDiv = document.getElementById("snapshot");
-  var width = window.innerWidth;
-
-  //Handle the template width (GAR!)
-  var containerWidth = snapshotDiv.clientWidth;
-  if (containerWidth < width) {
-    width = containerWidth;
-  }
-
-  var orgCount = Object.keys(orgs).length;
-
-  var orgList = layout["orgs"];
-  var focusList = layout["focus_types"];
-  var tableLayout = layout["layout"];
-
-  var cellWidth = parseInt (width / focusList.length);
-  var height = cellWidth * (orgList.length);
-  snapshotDiv.style.height = height + "px";
-
-  var baseTop = snapshotDiv.offsetTop;
-  var baseLeft = snapshotDiv.offsetLeft;
-
-  drawBorders(focusList, orgList, snapshotDiv, cellWidth);
-
-  drawLabels(focusList, orgList, snapshotDiv, cellWidth);
-
-  for (i=0;i<orgList.length;i++) {
-    var org = orgList[i];
-    for (j=0;j<focusList.length;j++) {
-      var focus = focusList[j];
-      var cellLayout = tableLayout[org][focus];
-      if (cellLayout == null) {
-        //no items
-        continue;
-      }
-      var cellLeft = (j+1) * cellWidth + baseLeft;
-      var cellTop = i * cellWidth + baseTop;
-
-      printCell(cellLayout, cellLeft, cellTop, cellWidth, snapshotDiv);
-    }
-  }
-  var loadingDiv = document.getElementById("loading").innerHTML="";
-}
-
 function printCell(cellLayout,  left, top, cellWidth, addTo) {
   var sizer = cellWidth / 3;
   var totalInCell = cellLayout[0];
@@ -186,7 +212,6 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
     ending = "width=" + size;
     tooltipending = "width=" + cellWidth + "&height=" +  cellWidth;
   } else if (org["orientation"] == "horizontal") {
-    console.log("horizontal:"  + id);
     ending = "width=" + size;
     tooltipending = "height=" + (tooltipHeight/3) + "&width=" + (tooltipWidth * 3 / 4) ;
   } else if (org["orientation"] == "vertical") {
