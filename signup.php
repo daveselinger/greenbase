@@ -48,6 +48,7 @@
 						<li>A weekly newsletter written by the Greenbase Team (most likely Sundeep to be honest)
 						<li>Invitations to special events sponsored by the White House and other partnered government agencies (Check out our upcoming Climate Data hackathon at <a href="http://cdhack.org/">cdhack.org</a>)
 						<li>Join the community--if you're interested in volunteering to help out growing and vetting the climate change community, your help would be more than welcome. Our goal is to create the most robust and complete virtual directory of people and organizations focused on changing our current climate change trajectory.
+						<li><h3>Special note for users working with registered organizations</h3>Greenbase also helps to act as a community, connecting like-minded people. If you work with a validated and verified organization, you can access our community features--update the status feed of your organization, access names and contact information for the people in your organization working on climate change, and connect with other individuals at similar organizations.
 					</ul>
 				</div></p>
 			</div>
