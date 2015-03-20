@@ -124,25 +124,28 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
 
   for (j=0;j<focusList.length;j++) {
     var focusLabel = document.createElement("div");
-    focusLabel.id="" + focusList[j] + "_div";
+    focusLabel.id="focus_" + j;
     snapshotDiv.appendChild(focusLabel);
     focusLabel.className = "heading-div";
     focusLabel.style.width = cellWidth + "px";
     focusLabel.style.left = ((j+1) * cellWidth  + baseLeft) + "px";
     focusLabel.style.height = cellWidth + "px";
-
     focusLabel.style.top = (baseTop + height + cellWidth / 5) +  "px";
+    focusLabel.onmouseover = showToolTip;
+    focusLabel.onmouseout = hideToolTip;
 
     var headingLabel = document.createElement("h4");
-    headingLabel.id="" + focusList[j] + "_h4";
+    headingLabel.id="focus_" + j + "_heading";
     headingLabel.className = "heading-label";
     focusLabel.appendChild(headingLabel);
     headingLabel.innerHTML = focusList[j];
+
+    createLabelToolTip(j, "focus text", focusLabel.style.left, focusLabel.style.top, cellWidth, snapshotDiv, "focus");
   }
 
   for (i=0;i<orgList.length;i++) {
     var orgLabel = document.createElement("div");
-    orgLabel.id="" + orgList[i] + "_div";
+    orgLabel.id="org_" + [i];
     snapshotDiv.appendChild(orgLabel);
     orgLabel.className = "heading-div";
     orgLabel.style.width = cellWidth + "px";
@@ -151,11 +154,41 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     orgLabel.style.top = baseTop + i * cellWidth + "px";
 
     headingLabel = document.createElement("h4");
-    headingLabel.id="" + orgList[i] + "_h4";
+    headingLabel.id="org_" + i + "_heading";
     headingLabel.className = "heading-label";
     orgLabel.appendChild(headingLabel);
     headingLabel.innerHTML = orgList[i];
   }
+}
+
+function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) {
+  //Create the tooltip
+  var hMidpoint = addTo.offsetLeft + addTo.offsetWidth / 2;
+  var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
+  var tooltipWidth = cellSize;
+  var tooltipHeight = cellSize;
+
+  var toolTip = document.createElement("div");
+  toolTip.id = focusOrType + "_" + id + "_tooltip" ;
+  toolTip.className= "hover-box";
+  addTo.appendChild(toolTip);
+
+  toolTip.innerHTML = text;
+
+  //Compute its position relative to the midpoint.
+  if (left < hMidpoint) {
+    toolTip.style.left = (left + (cellSize * 5/4)) + "px";
+  } else {
+    toolTip.style.left = (left - (cellSize / 4) - tooltipWidth) + "px";
+  }
+
+  if (top < vMidpoint) {
+    toolTip.style.top = (top) + "px";
+  } else {
+    toolTip.style.top = (top - tooltipHeight + (cellSize * 3 / 2)) + "px";
+  }
+  toolTip.style.width = tooltipWidth + "px";
+  toolTip.style.height = tooltipHeight + "px";
 }
 
 function printCell(cellLayout,  left, top, cellWidth, addTo) {
@@ -192,17 +225,48 @@ function printCell(cellLayout,  left, top, cellWidth, addTo) {
 }
 
 function hideToolTip(event) {
-  var id = event.target.id;
-  setToolTipVisible(id, "hidden");
+  setToolTipVisible(event.target, "hidden");
 }
 
 function showToolTip(event) {
-  var id = event.target.id;
-  setToolTipVisible(id, "visible");
+  setToolTipVisible(event.target, "visible");
 }
 
-function setToolTipVisible(id, visible){
-  var toolTip = document.getElementById("org_" + id + "_tooltip");
+function findValidToolTipParent(element) {
+  while (element != null) {
+    if (element.id != null && element.id.length >= 1) {
+      var substring = element.id.substr(element.id.length - 1);
+      console.log("Parsing:" + substring);
+      if (!isNaN(parseInt(substring))){
+        console.log("Success:"+ substring +"="+ parseInt(substring));
+        return element;
+      }
+    }
+    if (element.parentNode == document) {
+      //At the top and didn't make it
+      return null;
+    }
+    element = element.parentNode;
+  }
+  return element;
+}
+
+/**
+ * Searches for the first parent with a numeric last element of the id and then makes its tooltip visible.
+ * @param id
+ * @param visible
+ */
+function setToolTipVisible(element, visible){
+  targetElement = findValidToolTipParent(element);
+  if (targetElement == null) {
+    console.log("Unable to find a valid parent for element");
+    console.log(element);
+    return;
+  }
+
+  var target_id = targetElement.id + "_tooltip";
+  console.log("Setting " + target_id + "to visible: " + visible);
+  var toolTip = document.getElementById(target_id);
   toolTip.style.visibility = visible;
 }
 
@@ -235,7 +299,6 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   miniDiv.style.top = top + "px";
   miniDiv.style.position = "absolute";
   miniDiv.style.zIndex = 2;
-
 
   addTo.appendChild(miniDiv);
 
@@ -294,7 +357,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");
-  logoImage.id = id;
+  logoImage.id = "org_" + id;
   logoImage.src = src;
   logoImage.style.border = "0";
   logoImage.onmouseover = showToolTip;
