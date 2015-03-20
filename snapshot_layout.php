@@ -72,7 +72,12 @@ function writeList($name, $list)
       echo(",");
     }
     $first = false;
-    echo "\"".htmlspecialchars($item)."\"";
+    echo "[\"";
+    echo htmlspecialchars($item["name"]);
+    echo "\",";
+    echo "\"";
+    echo htmlspecialchars($item["description"]);
+    echo "\"]";
   }
   echo "]";
 }
@@ -106,17 +111,23 @@ function printLayout($focus, $total, $width, $height, $cell)
 
 // Now populate 2 local arrays (focus_list and org_type_list with these in the right order)
 $focus_list = array();
-$query = "SELECT focus FROM focus_list ORDER BY focus_order, focus";
+$query = "SELECT focus, description FROM focus_list ORDER BY focus_order, focus";
 $results = $con->query($query);
 while ($row = $results->fetch_assoc()) {
-  $focus_list[] = $row["focus"];
+  $focus_data = [];
+  $focus_data["name"] = $row["focus"];
+  $focus_data["description"] = $row["description"];
+  $focus_list[] = $focus_data;
 }
 $results->free_result();
 $org_type_list = array();
-$query = "SELECT org_type FROM org_type_list ORDER BY org_type_order, org_type";
+$query = "SELECT org_type, description FROM org_type_list ORDER BY org_type_order, org_type";
 $results = $con->query($query);
 while ($row = $results->fetch_assoc()) {
-  $org_type_list[] = $row["org_type"];
+  $org_type_data = [];
+  $org_type_data["name"] = $row["org_type"];
+  $org_type_data["description"] = $row["description"];
+  $org_type_list[] = $org_type_data;
 }
 $results->free_result();
 
@@ -126,7 +137,8 @@ writeList("focus_types", $focus_list);
 echo ",\n\"layout\": {\n";
 
 $first_org = true;
-foreach ($org_type_list as $org_type) {
+foreach ($org_type_list as $org_type_data) {
+  $org_type = $org_type_data["name"];
   if (!$first_org) {
     echo ",\n";
   }
@@ -134,7 +146,8 @@ foreach ($org_type_list as $org_type) {
   echo("  \"". htmlspecialchars($org_type) ."\": {\n");
 
   $first_focus = true;
-  foreach ($focus_list as $focus) {
+  foreach ($focus_list as $focus_data) {
+    $focus = $focus_data["name"];
     $orgs = getAllOrgs($con, $org_type, $focus);
     $total = $orgs["total"];
     $h = $orgs["horizontal"];

@@ -46,9 +46,9 @@ function drawSnapshot() {
   drawLabels(focusList, orgList, snapshotDiv, cellWidth);
 
   for (i=0;i<orgList.length;i++) {
-    var org = orgList[i];
+    var org = orgList[i][0];
     for (j=0;j<focusList.length;j++) {
-      var focus = focusList[j];
+      var focus = focusList[j][0];
       var cellLayout = tableLayout[org][focus];
       if (cellLayout == null) {
         //no items
@@ -138,9 +138,10 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     headingLabel.id="focus_" + j + "_heading";
     headingLabel.className = "heading-label";
     focusLabel.appendChild(headingLabel);
-    headingLabel.innerHTML = focusList[j];
+    //Name of the focus
+    headingLabel.innerHTML = focusList[j][0];
 
-    createLabelToolTip(j, "focus text", focusLabel.offsetLeft, focusLabel.offsetTop, cellWidth, snapshotDiv, "focus");
+    createLabelToolTip(j, focusList[j][1], focusLabel.offsetLeft, focusLabel.offsetTop, cellWidth, snapshotDiv, "focus");
   }
 
   for (i=0;i<orgList.length;i++) {
@@ -159,9 +160,9 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     headingLabel.id="org_" + i + "_heading";
     headingLabel.className = "heading-label";
     orgLabel.appendChild(headingLabel);
-    headingLabel.innerHTML = orgList[i];
+    headingLabel.innerHTML = orgList[i][0];
 
-    createLabelToolTip(i, "org text", orgLabel.offsetLeft, orgLabel.offsetTop, cellWidth, snapshotDiv, "org");
+    createLabelToolTip(i, orgList[i][1], orgLabel.offsetLeft, orgLabel.offsetTop, cellWidth, snapshotDiv, "org");
   }
 }
 
@@ -169,8 +170,14 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
   //Create the tooltip
   var hMidpoint = addTo.offsetLeft + addTo.offsetWidth / 2;
   var vMidpoint = addTo.offsetTop + addTo.offsetHeight/ 2;
-  var tooltipWidth = cellSize;
+  var tooltipWidth = cellSize * 2;
   var tooltipHeight = cellSize;
+
+  if (text == null || text.length == 0) {
+    tooltipWidth = tooltipHeight = 0;
+  } else if (text.length < 75) {
+    tooltipWidth = tooltipHeight = cellSize;
+  }
 
   console.log("Left:" + left + "; Top:" + top);
 
