@@ -65,7 +65,7 @@ function drawSnapshot() {
 
 function drawCanvas(width, height, snapshotDiv) {
   //First add the canvas at the very back.
-  console.log("Drawing canvas (" + width + "," + height + ")");
+//  console.log("Drawing canvas (" + width + "," + height + ")");
   var canvas = document.createElement("canvas");
   canvas.style.left = snapshotDiv.offsetLeft + "px";
   canvas.style.top = snapshotDiv.offsetTop + "px";
@@ -134,7 +134,7 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     focusLabel.onmouseover = showToolTip;
     focusLabel.onmouseout = hideToolTip;
 
-    var headingLabel = document.createElement("h4");
+    var headingLabel = document.createElement("h5");
     headingLabel.id="focus_" + j + "_heading";
     headingLabel.className = "heading-label";
     focusLabel.appendChild(headingLabel);
@@ -156,7 +156,7 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     orgLabel.onmouseover = showToolTip;
     orgLabel.onmouseout = hideToolTip;
 
-    headingLabel = document.createElement("h4");
+    headingLabel = document.createElement("h5");
     headingLabel.id="org_" + i + "_heading";
     headingLabel.className = "heading-label";
     orgLabel.appendChild(headingLabel);
@@ -179,11 +179,9 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
     tooltipWidth = tooltipHeight = cellSize;
   }
 
-  console.log("Left:" + left + "; Top:" + top);
-
   var toolTip = document.createElement("div");
   toolTip.id = focusOrType + "_" + id + "_tooltip" ;
-  toolTip.className= "hover-box";
+  toolTip.className= "hover-box-light";
   addTo.appendChild(toolTip);
 
   toolTip.innerHTML = text;
@@ -244,13 +242,16 @@ function showToolTip(event) {
   setToolTipVisible(event.target, "visible");
 }
 
+/**
+ * This function assumes that the "id" of the elements of valid objects with tooltips ends with a digit and those
+ * which do not have tooltips end with a non-numeric character. This makes it easy to traverse the DOM to find the parent
+ * which has the tooltip. In this way, we can also ensure that we can add children without worrying about still having the tooltips work.
+ */
 function findValidToolTipParent(element) {
   while (element != null) {
     if (element.id != null && element.id.length >= 1) {
       var substring = element.id.substr(element.id.length - 1);
-      console.log("Parsing:" + substring);
       if (!isNaN(parseInt(substring))){
-        console.log("Success:"+ substring +"="+ parseInt(substring));
         return element;
       }
     }
@@ -277,7 +278,6 @@ function setToolTipVisible(element, visible){
   }
 
   var target_id = targetElement.id + "_tooltip";
-  console.log("Setting " + target_id + "to visible: " + visible);
   var toolTip = document.getElementById(target_id);
   toolTip.style.visibility = visible;
 }

@@ -37,7 +37,7 @@
     vertical-align: middle;
 }
 
-.hover-box {
+.hover-box, .hover-box-light {
     z-index: 3;
     position: absolute;
     margin: 0px;
@@ -50,6 +50,10 @@
     line-height: normal;
     visibility: hidden;
     padding: 0px;
+}
+
+.hover-box-light {
+    border-width: thin;
 }
 
 .tooltip-left {
