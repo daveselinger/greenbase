@@ -176,7 +176,8 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
   if (text == null || text.length == 0) {
     tooltipWidth = tooltipHeight = 0;
   } else if (text.length < 75) {
-    tooltipWidth = tooltipHeight = cellSize;
+    tooltipWidth = cellSize * 3 / 2;
+    tooltipHeight = cellSize * 3 / 4;
   }
 
   var toolTip = document.createElement("div");
