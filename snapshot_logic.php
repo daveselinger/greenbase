@@ -140,7 +140,6 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     focusLabel.appendChild(headingLabel);
     headingLabel.innerHTML = focusList[j];
 
-    //TODO: Somehow the left and top aren't working
     createLabelToolTip(j, "focus text", focusLabel.offsetLeft, focusLabel.offsetTop, cellWidth, snapshotDiv, "focus");
   }
 
@@ -153,12 +152,16 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     orgLabel.style.height = cellWidth + "px";
     orgLabel.style.left = baseLeft + "px";
     orgLabel.style.top = baseTop + i * cellWidth + "px";
+    orgLabel.onmouseover = showToolTip;
+    orgLabel.onmouseout = hideToolTip;
 
     headingLabel = document.createElement("h4");
     headingLabel.id="org_" + i + "_heading";
     headingLabel.className = "heading-label";
     orgLabel.appendChild(headingLabel);
     headingLabel.innerHTML = orgList[i];
+
+    createLabelToolTip(i, "org text", orgLabel.offsetLeft, orgLabel.offsetTop, cellWidth, snapshotDiv, "org");
   }
 }
 
@@ -180,7 +183,7 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
 
   //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
-    toolTip.style.left = (left + (cellSize / 4)) + "px";
+    toolTip.style.left = (left + (cellSize * 10 / 9)) + "px";
   } else {
     toolTip.style.left = (left - (cellSize / 4) - tooltipWidth) + "px";
   }
