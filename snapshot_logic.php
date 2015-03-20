@@ -140,7 +140,8 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     focusLabel.appendChild(headingLabel);
     headingLabel.innerHTML = focusList[j];
 
-    createLabelToolTip(j, "focus text", focusLabel.style.left, focusLabel.style.top, cellWidth, snapshotDiv, "focus");
+    //TODO: Somehow the left and top aren't working
+    createLabelToolTip(j, "focus text", focusLabel.offsetLeft, focusLabel.offsetTop, cellWidth, snapshotDiv, "focus");
   }
 
   for (i=0;i<orgList.length;i++) {
@@ -168,6 +169,8 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
   var tooltipWidth = cellSize;
   var tooltipHeight = cellSize;
 
+  console.log("Left:" + left + "; Top:" + top);
+
   var toolTip = document.createElement("div");
   toolTip.id = focusOrType + "_" + id + "_tooltip" ;
   toolTip.className= "hover-box";
@@ -177,7 +180,7 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
 
   //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
-    toolTip.style.left = (left + (cellSize * 5/4)) + "px";
+    toolTip.style.left = (left + (cellSize / 4)) + "px";
   } else {
     toolTip.style.left = (left - (cellSize / 4) - tooltipWidth) + "px";
   }
@@ -185,7 +188,7 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
   if (top < vMidpoint) {
     toolTip.style.top = (top) + "px";
   } else {
-    toolTip.style.top = (top - tooltipHeight + (cellSize * 3 / 2)) + "px";
+    toolTip.style.top = (top - tooltipHeight) + "px";
   }
   toolTip.style.width = tooltipWidth + "px";
   toolTip.style.height = tooltipHeight + "px";
@@ -204,7 +207,6 @@ function printCell(cellLayout,  left, top, cellWidth, addTo) {
     console.log ("TOO MANY ITEMS IN CELL: " + cellLayout);
     sizer = cellWidth / 5;
   }
-
 
   var rowNum;
   // Start at 1 to skip the total in the first array value
