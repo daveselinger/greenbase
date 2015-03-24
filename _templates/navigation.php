@@ -20,6 +20,7 @@
         <i class="icon icon_menu"></i>
       </div>
     </div>
+    <div class="blue-bar"></div>
   </nav>
 </div>
 

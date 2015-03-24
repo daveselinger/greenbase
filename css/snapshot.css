@@ -35,6 +35,11 @@
     position: absolute;
     margin: 0px;
     vertical-align: middle;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .hover-box, .hover-box-light {
@@ -56,9 +61,8 @@
     border-width: thin;
 }
 
-.tooltip-left {
-    border: solid;
-    border-width: thin;
+.tooltip-logo {
+    border: none;
     padding: 1%;
     float: left;
     margin: 0%;

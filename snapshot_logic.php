@@ -134,7 +134,7 @@ function drawLabels(focusList, orgList, snapshotDiv, cellWidth) {
     focusLabel.onmouseover = showToolTip;
     focusLabel.onmouseout = hideToolTip;
 
-    var headingLabel = document.createElement("h5");
+    var headingLabel = document.createElement("span");
     headingLabel.id="focus_" + j + "_heading";
     headingLabel.className = "heading-label";
     focusLabel.appendChild(headingLabel);
@@ -326,9 +326,10 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
 
   var toolTipImage = document.createElement("img");
   toolTip.appendChild(toolTipImage);
-  toolTipImage.className="tooltip-left";
+  toolTipImage.className="tooltip-logo";
   var logosrc="./localimage.php?org=" + id + "&" + tooltipending;
   toolTipImage.src = logosrc;
+  toolTip.innerHTML = toolTip.innerHTML + "<h3>" + org["name"] + "</h3>";
   toolTip.innerHTML = toolTip.innerHTML + org["description"];
 
   //Create the tooltip header
