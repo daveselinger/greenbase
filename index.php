@@ -34,9 +34,11 @@
 					<div class="row">
 						<div class="col-sm-6 align-vertical no-align-mobile">
 							<h1>Discover organizations working to address climate change.</h1>
+              Greenbase offers a dynamic visualization of key organizations in the climate change ecosystem. We take what was once a confusing landscape and translate it into an organizational map with clearly defined sectors and market participants. This is a living, crowd-sourced tool, so feel free to contribute by adding any organizations we may have missed
+              <br><br>
 							  <table><tr>
-                    <td><a href="organizations.php" class="btn btn-primary btn-filled">Research Organizations</a></td><td>&nbsp;</td>
-                    <td><a href="signup.php" class="btn btn-primary btn-filled">Add an Organization</a></h6></td>
+                    <td><a href="snapshot.php" class="btn btn-primary btn-filled">View the Snapshot</a></td><td>&nbsp;</td>
+                    <td><a href="register.php" class="btn btn-primary btn-filled">Join Greenbase</a></h6></td>
               </tr></table>
 						</div>
 

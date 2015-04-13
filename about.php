@@ -39,25 +39,32 @@
 					
 					<div class="row">
 						<div class="col-sm-4">
-							<h5>About Us</h5>
+							<h2>Our Mission:</h2>
+
+							<p>Greenbase is a part of Climate Collaborative, a non-profit working to spur innovation at the intersection of Silicon Valley and climate change. Our mission is to bring awareness and context to climate change abatement efforts, and to drive investment and partnership in addressing the biggest issue facing humanity.
+
+							As a part of that mission, Greenbase is a “living” map of what will ultimately be hundreds—if not thousands—of organizations working to address climate change across a number of dimensions. It brings clarity to a previously unstructured ecosystem to improve our understanding of the many contributions being made.</p>
+							</p><h2>Our Team:</h2>
 							<p>
-								In a recent conversation with a Silicon Valley billionaire with a genuine desire to donate substantial
-								sums of capital to make the world a better place, when the topic of climate change came up the shocking
-								response was "I have no idea who is doing what, or even what can be done,
-								so I'm not allocating any capital to it."</p>
+							Greenbase is a collaborative effort involving concerned organizations and individuals around the world dedicated to solving the impending climate change crisis. We hope that you’ll join us in our fight against the biggest issue facing humanity.
+
+							Greenbase is coordinated by the Climate Collaborate team that operates out of the San Francisco Bay Area:
+
+							</p>
+							<h2>Our Advisors:</h2>
 							<p>
-								It was then that the idea for Greenbase was born: a living "map" of the hundreds of organizations
-								working to address the massive threat of climate change in order to drive investment as well as
-								partnership.</p>
-								<p>
-									Greenbase is a part of Climate Collaborative, a non-profit working to spur innovation at the
-									intersection of Silicon Valley and climate change. We'd be delighted to hear your input on how we
-									can improve greenbase, or stories of how it has helped you do what you do. Please get in touch!
-									</p>
+
+							</p>
+							<h2>Our History:</h2>
+
+							<p>We started organizing in 2014—not as a group of climate change experts but as concerned citizens wanting to secure the survival of future generations. In discussing the crisis with our peers and luminaries in Silicon Valley, we quickly realized that climate change is such a broad issue, that individuals with the resources to help are oftentimes too paralyzed to take action. The apex of this realization came during a conversation with a prominent Silicon Valley billionaire with the genuine desire and means to shift substantial capital to make the world a better place. When the topic of climate change came up, the shocking response was "I have no idea who is doing what, or even what can be done, so I'm not allocating any capital to it."
+
+							It was then that the idea of Greenbase was born—to organize the landscape of contributors to the climate change movement so that we can visualize activity and opportunity.
+
 							<p></p>
 							<p></p>
 							<p>
-								Sundeep Ahuja & David Selinger
+
 							</p>
 						</div>
 						
