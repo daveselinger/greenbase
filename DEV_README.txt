@@ -9,7 +9,17 @@ To get this image working on OS X:
 - Create a user with access
 - Load the schema and data into the database
 6. Update "config.php" to include the correct username/password/database information
-- Remember if you use "Localhost" php will look for a UNIX socket--so using 127.0.0.1 has better luck
+- Remember if you use "Localhost" php will look for a UNIX socket--so using 127.0.0.1 frequently has better luck
+- The file should look something like this (or heck could look exactly like that if you'd like :)  to do that, follow directions at the bottom)
+
+
+$db_url='127.0.0.1';
+$db_username='greenbase';
+$db_password='abc';
+$db_name='greenbase';
+
+
+
 7. Start up apache.
 
 ----
@@ -29,3 +39,15 @@ AllowOverride None
 Order allow,deny
 Allow from all
 </Directory>
+
+
+----
+
+To set up a dev machine which has an unchanged config.php:
+
+After installing MySQL,
+
+mysql -u root
+CREATE DATABASE greenbase;
+GRANT ALL ON greenbase.* to 'greenbase'@'localhost' IDENTIFIED BY 'abc';
+GRANT ALL ON greenbase.* to 'greenbase' IDENTIFIED BY 'abc';
