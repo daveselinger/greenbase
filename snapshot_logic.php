@@ -414,11 +414,19 @@ xmlhttp2.onreadystatechange = function() {
   }
 }
 
-window.onload = function() {
+function snapshotLoad() {
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
   xmlhttp2.open("GET", url2, true);
   xmlhttp2.send();
 };
+
+if (window.onload == null) {
+   window.onload = function() {
+    snapshotLoad();
+   }
+} else {
+  window.onload = window.onload + ";\n" + "shapshotLoad()";
+}
 </script>
