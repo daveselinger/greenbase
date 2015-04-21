@@ -18,9 +18,9 @@ $db_username='greenbase';
 $db_password='abc';
 $db_name='greenbase';
 
-
-
 7. Start up apache.
+8. Install WordPress
+9. Call Greenbase from wordPress
 
 ----
 
