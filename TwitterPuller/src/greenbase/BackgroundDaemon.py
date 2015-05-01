@@ -71,78 +71,83 @@ class BackgroundDaemon (object):
         exit -1
     
     def runProgram(self):
-        while(True): # Loop forever, and ever, and ever.
-            try:
-                db=self.getConnection()
-                cursor=db.cursor()
-                orgcount = cursor.execute ("SELECT id, twitter_handle FROM orgs WHERE twitter_handle IS NOT NULL ORDER BY id DESC")
-                orgs = cursor.fetchall()
-                cursor.close()
-                db.close()
-
-                for org in orgs:
-                    if (self.verbose > 0): print "Processing org {} with Twitter Handle {}".format(org[0], org[1])
-                    user = None
-                    for i in [1, 2, 3, 4]:
+        try:
+            while(True): # Loop forever, and ever, and ever.
+                try:
+                    db=self.getConnection()
+                    cursor=db.cursor()
+                    orgcount = cursor.execute ("SELECT id, twitter_handle FROM orgs WHERE twitter_handle IS NOT NULL ORDER BY id DESC")
+                    orgs = cursor.fetchall()
+                    cursor.close()
+                    db.close()
+    
+                    for org in orgs:
+                        if (self.verbose > 0): print "Processing org {} with Twitter Handle {}".format(org[0], org[1])
+                        user = None
+                        for i in [1, 2, 3, 4]:
+                            try:
+                                api = twitter.Api(consumer_key = 'iHRUdbaEW0gXB4ZNAB9nr0nky', consumer_secret = 'wpLUqW1NZ6F1InXlNlscTNpSn2ZWQ0nUL35FhX31uvczfJLLPF', access_token_key='22303636-hvyrAmD8ttzxXTGd5rGtV6LBT0hCz3AyPgQ9KkbOs', access_token_secret='YTvoTwkHYS8rpueoXybTZG5YL6IucfRcaVkUwKdAiUPeY')
+                                user = api.VerifyCredentials()
+                                if user: break
+                            except Exception:
+                                print "Error validating Twitter credentials, trying again, attempt {}".format(i)
+                        if not user:
+                            print "NO USER, exiting"
+                            exit -1
+                            
                         try:
-                            api = twitter.Api(consumer_key = 'iHRUdbaEW0gXB4ZNAB9nr0nky', consumer_secret = 'wpLUqW1NZ6F1InXlNlscTNpSn2ZWQ0nUL35FhX31uvczfJLLPF', access_token_key='22303636-hvyrAmD8ttzxXTGd5rGtV6LBT0hCz3AyPgQ9KkbOs', access_token_secret='YTvoTwkHYS8rpueoXybTZG5YL6IucfRcaVkUwKdAiUPeY')
-                            user = api.VerifyCredentials()
-                            if user: break
-                        except Exception:
-                            print "Error validating Twitter credentials, trying again, attempt {}".format(i)
-                    if not user:
-                        print "NO USER, exiting"
-                        exit -1
-                        
-                    try:
-                        statuses = api.GetUserTimeline (screen_name = org[1])
-                        if (self.verbose >0):
-                            print "Statuses returned {}".format(len(statuses))
-                    except Exception as e:
-                        print "Error retrieving timeline for user {}".format(org[1])
-                        print e
-                        print e.args                       
-                    if (statuses):
-                        try:
-                            statuses_list = []
-                            for status in statuses:
-                                if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text, status.created_at)
-                                statuses_list.append([org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
-                                               status.user.url])
-                            if self.verbose > 0: print "Values pulled from API. Length: {}".format(len(statuses_list))
-                            if len(statuses_list) > 0: 
+                            statuses = api.GetUserTimeline (screen_name = org[1])
+                            if (self.verbose >0):
+                                print "Statuses returned {}".format(len(statuses))
+                        except Exception as e:
+                            print "Error retrieving timeline for user {}".format(org[1])
+                            print e
+                            print e.args                       
+                        if (statuses):
+                            try:
+                                statuses_list = []
+                                for status in statuses:
+                                    if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text, status.created_at)
+                                    statuses_list.append([org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
+                                                   status.user.url])
+                                if self.verbose > 0: print "Values pulled from API. Length: {}".format(len(statuses_list))
+                                if len(statuses_list) > 0: 
+                                    db = self.getConnection()
+                                    cursor = db.cursor()
+                                    cursor.execute("DELETE FROM twitter_feed WHERE org_id = {}".format(org[0]))
+                                    cursor.executemany("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
+                                    user_description, user_url)
+                                    VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", statuses_list)
+                                    cursor.close()
+                                    db.close()
+                                '''
+                                # in case we have trouble with the executemany version...
                                 db = self.getConnection()
                                 cursor = db.cursor()
                                 cursor.execute("DELETE FROM twitter_feed WHERE org_id = {}".format(org[0]))
-                                cursor.executemany("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
-                                user_description, user_url)
-                                VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", statuses_list)
+                                for status in statuses:
+                                    if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text, status.created_at)
+                                    cursor.execute("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
+                                    user_description, user_url)
+                                    VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", 
+                                    [org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
+                                                   status.user.url])
                                 cursor.close()
                                 db.close()
-                            '''
-                            # in case we have trouble with the executemany version...
-                            db = self.getConnection()
-                            cursor = db.cursor()
-                            cursor.execute("DELETE FROM twitter_feed WHERE org_id = {}".format(org[0]))
-                            for status in statuses:
-                                if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text, status.created_at)
-                                cursor.execute("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
-                                user_description, user_url)
-                                VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", 
-                                [org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
-                                               status.user.url])
-                            cursor.close()
-                            db.close()
-                            '''
-                        except Exception as e:
-                            print "Exception while storing statuses in db."
-                            print e
-                    time.sleep(65)
-                
-            except KeyboardInterrupt:
-                return 0
-            except Exception:
-                return -1
+                                '''
+                            except Exception as e:
+                                print "Exception while storing statuses in db."
+                                print e
+                        time.sleep(65)
+                    
+                except KeyboardInterrupt:
+                    return 0
+                except Exception:
+                    return -1
+        except Exception as e:
+            print "Exception caught in main daemon thread, exiting hard"
+            print e
+            exit -1
 
 def main(argv=None): # IGNORE:C0111
     '''Command line options.'''
