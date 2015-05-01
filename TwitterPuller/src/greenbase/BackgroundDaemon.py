@@ -59,8 +59,16 @@ class BackgroundDaemon (object):
         print "Configuring host as {}".format(self.config.mysqlHost)
     
     def getConnection(self):
-        return MySQLdb.connect(host=self.config.mysqlHost,user=self.config.mysqlUser,
-                          passwd=self.config.mysqlPassword,db=self.config.mysqlDb)
+        for i in [1,2,3,4]:
+            try:
+                return MySQLdb.connect(host=self.config.mysqlHost,user=self.config.mysqlUser,
+                                  passwd=self.config.mysqlPassword,db=self.config.mysqlDb)
+            except Exception as e:
+                print e
+                print "Exception getting connection, retry {}".format(i)
+        
+        print "Exiting because database acquisition failed"
+        exit -1
     
     def runProgram(self):
         while(True): # Loop forever, and ever, and ever.
