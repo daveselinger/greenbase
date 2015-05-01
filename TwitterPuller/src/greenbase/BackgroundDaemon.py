@@ -63,6 +63,8 @@ class BackgroundDaemon (object):
             try:
                 result = MySQLdb.connect(host=self.config.mysqlHost,user=self.config.mysqlUser,
                                   passwd=self.config.mysqlPassword,db=self.config.mysqlDb,use_unicode=True)
+                # Credit here goes to http://www.dasprids.de/blog/2007/12/17/python-mysqldb-and-utf-8 for figuring out the unicode issues with Twitter
+                
                 result.set_character_set('utf8')
                 dbc = result.cursor()
                 dbc.execute('SET NAMES utf8;')
