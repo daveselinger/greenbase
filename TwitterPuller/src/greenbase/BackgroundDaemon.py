@@ -107,7 +107,7 @@ class BackgroundDaemon (object):
                             try:
                                 statuses_list = []
                                 for status in statuses:
-                                    if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text, status.created_at)
+                                    if (self.verbose > 0): print "{} tweeted {} on date {}".format(org[1], status.text.encode('utf-8'), status.created_at)
                                     statuses_list.append([org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
                                                    status.user.url])
                                 if self.verbose > 0: print "Values pulled from API. Length: {}".format(len(statuses_list))
