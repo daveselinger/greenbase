@@ -102,7 +102,7 @@ class BackgroundDaemon (object):
                         print "Error retrieving timeline for user {}".format(org[1])
                         print e
                         print e.args                       
-                    if (statuses and len(statuses) > 0):
+                    if (statuses):
                         try:
                             statuses_list = []
                             for status in statuses:
@@ -110,14 +110,15 @@ class BackgroundDaemon (object):
                                 statuses_list.append([org[0], status.created_at, status.text, status.user.profile_image_url, status.user.description,
                                                status.user.url])
                             if self.verbose > 0: print "Values pulled from API. Length: {}".format(len(statuses_list))
-                            db = self.getConnection()
-                            cursor = db.cursor()
-                            cursor.execute("DELETE FROM twitter_feed WHERE org_id = {}".format(org[0]))
-                            cursor.executemany("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
-                            user_description, user_url)
-                            VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", statuses_list)
-                            cursor.close()
-                            db.close()
+                            if len(statuses_list) > 0: 
+                                db = self.getConnection()
+                                cursor = db.cursor()
+                                cursor.execute("DELETE FROM twitter_feed WHERE org_id = {}".format(org[0]))
+                                cursor.executemany("""INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url, 
+                                user_description, user_url)
+                                VALUES (%s, STR_TO_DATE(%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s, %s, %s, %s)""", statuses_list)
+                                cursor.close()
+                                db.close()
                             '''
                             # in case we have trouble with the executemany version...
                             db = self.getConnection()
