@@ -51,3 +51,28 @@ mysql -u root
 CREATE DATABASE greenbase;
 GRANT ALL ON greenbase.* to 'greenbase'@'localhost' IDENTIFIED BY 'abc';
 GRANT ALL ON greenbase.* to 'greenbase' IDENTIFIED BY 'abc';
+
+
+
+-----
+Integration with Wordpress:
+- Install the plugin "Shortcode Exec PHP"
+- pull the git repository into the "wp-content" directory. i.e., WP_CONTENT_DIR/greenbase/...
+- Put the config.php into wp-content/ and edit it to work with this database.
+
+- Log into wp-admin and create a shortcode using shortcode exec php.
+- The shortcode *MUST* change directories first, so here's the twitter-feed shortcode:
+
+------
+
+$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "Tweet.php";
+}
+chdir ($pre_working_directory);
+
+---------
+
+You'll see the github root referenced in the 3rd line "WP_CONTENT_DIR . '/greenbase/'". This location is critical for making things work
+

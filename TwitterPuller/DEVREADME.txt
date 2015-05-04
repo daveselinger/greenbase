@@ -124,8 +124,3 @@ INSERT INTO twitter_feed (org_id, created_at, text, user_profile_image_url,
                                 user_description, user_url)
                                 VALUES (%s, STR_TO_DATE('%s, '%%a %%b %%d %%k:%%i:%%s +0000 %%Y'), %s
                                 
-                                
------
-Integration with Wordpress:
-- Install the plugin "Shortcode Exec PHP"
-- 
