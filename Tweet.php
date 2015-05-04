@@ -13,17 +13,16 @@ if (!isset($_GET["org_id"])) {
   return;
 }
 $org_id = intval($_GET["org_id"]);
-echo "Org:" . $org_id;
 
 $con = getDBConnection($db_config);
 
-echo "<HTML><HEAD></HEAD><BODY>";
+echo "<link rel='stylesheet' type='text/css' href='css/twitter.css'>";
 $tweets = Tweet::getTweetsForOrg($org_id, $con);
 echo ("<UL>");
 foreach ($tweets as $tweet) {
-  echo ("<LI><A HREF='" . $tweet->userUrl . "'><IMG SRC='" . $tweet->userProfileImageUrl . "'></A> Tweeted ". $tweet->text . "<BR>" . $tweet->createdAt);
+  echo ("<LI><A HREF='" . $tweet->userUrl . "'><IMG SRC='" . $tweet->userProfileImageUrl . "'></A> Tweeted <blockquote class='twitter-tweet'>". $tweet->text . "</blockquote><BR>" . $tweet->createdAt);
 }
-echo "</UL></BODY>";
+echo "</UL>";
 
 class Tweet
 {
@@ -32,10 +31,10 @@ class Tweet
   public static function getTweetsForOrg($orgId, $con)
   {
     $results = [];
-    $query = "SELECT org_id, created_at, text, user_profile_image_url, user_description, user_url FROM twitter_feed WHERE org_id = ?";
+    $query = "SELECT org_id, created_at, text, user_profile_image_url, user_description, user_url FROM twitter_feed WHERE org_id = ? ORDER BY created_at DESC";
     $stmt = $con->prepare($query);
     if ($stmt == null || $stmt == false) {
-      echo "Null statement";
+      echo "Oops! We had a problem: Null statement";
       return results;
     }
     $tweet = new Tweet();
@@ -43,18 +42,17 @@ class Tweet
       if ($stmt->execute()) {
         $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
       } else {
-        echo "Query failed";
+        echo "Oops! We had a problem: Query failed";
         echo $con->error;
       }
 
       while ($stmt->fetch()) {
-        echo("Fetching");
         $results[] = $tweet;
         $tweet = new Tweet();
         $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
       }
     } else {
-      echo "Failure to bind";
+      echo "Oops! We had a problem: Failure to bind";
     }
     return $results;
   }
