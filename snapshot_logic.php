@@ -1,4 +1,4 @@
-<?php include 'get_config.php' ?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="./img/lightbox/loading.gif"></div></div>
+<?php include 'get_config.php' ?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="<?php echo $greenbase_root; ?>/img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "<?php echo $greenbase_root; ?>/snapshot_orgs.php";
@@ -367,7 +367,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   toolTip.style.height = tooltipHeight + "px";
 
   var anchor = document.createElement("a");
-  anchor.href="./single_org.php?org=" + id;
+  anchor.href="<?php echo $greenbase_root; ?>/single_org.php?org_id=" + id;
   miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");

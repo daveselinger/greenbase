@@ -80,5 +80,5 @@ For the visual snapshot:
 x 1. Add the AJAX root directory to the config file. Use this config parameter in the snapshot.
 x 2. Update the Organization.php to work.
 3. Call brad to get most recent snapshot.
-4. Process URL's in tweets to highlight them and turn them to links.
+x 4. Process URL's in tweets to highlight them and turn them to links.
 5.
