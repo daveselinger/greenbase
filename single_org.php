@@ -48,10 +48,6 @@ $events = greenbase\Event::getEventsForOrg($org_id, $con);
         }
     }
     ?>
-    <!--            INSERT TWITTER FEED HERE SOON!
-    <a class="twitter-timeline" href="https://twitter.com/<?php echo $org->twitter_handle; ?>" data-widget-id="575417537745174528">Tweets by @<?php echo $org->twitter_handle; ?></a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
--->
 </div>
 <?php
 $con->close();

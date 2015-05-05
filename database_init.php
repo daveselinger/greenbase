@@ -1,7 +1,7 @@
 <?php
 
 //Read the default configuration first
-include 'get_config.php';
+include_once 'get_config.php';
 
 if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
 	|| ($db_username == '') || ($db_password == '')  || ($db_name == '') ) {
