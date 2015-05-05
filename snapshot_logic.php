@@ -1,10 +1,10 @@
 <?php include 'get_config.php' ?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="./img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
-var url = "<?php echo $ajax_root; ?>/snapshot_orgs.php";
+var url = "<?php echo $greenbase_root; ?>/snapshot_orgs.php";
 var done = 0;
 var xmlhttp2 = new XMLHttpRequest();
-var url2 = "<?php echo $ajax_root; ?>/snapshot_layout.php";
+var url2 = "<?php echo $greenbase_root; ?>/snapshot_layout.php";
 var orgs;
 var layout;
 
@@ -284,7 +284,7 @@ function setToolTipVisible(element, visible){
 }
 
 function putLogo(left, top, id, size, addTo, cellWidth) {
-  var src= "./localimage.php?org=" + id + "&";
+  var src= "<?php echo $greenbase_root; ?>/localimage.php?org=" + id + "&";
   var org = orgs[id];
   var ending = "";
   var tooltipending = "";
@@ -327,7 +327,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   var toolTipImage = document.createElement("img");
   toolTip.appendChild(toolTipImage);
   toolTipImage.className="tooltip-logo";
-  var logosrc="./localimage.php?org=" + id + "&" + tooltipending;
+  var logosrc="<?php echo $greenbase_root; ?>/localimage.php?org=" + id + "&" + tooltipending;
   toolTipImage.src = logosrc;
   toolTip.innerHTML = toolTip.innerHTML + "<h3>" + org["name"] + "</h3>";
   toolTip.innerHTML = toolTip.innerHTML + org["description"];
