@@ -19,7 +19,11 @@ $con = getDBConnection($db_config);
 
 $org = Organization::getOrg($org_id, $con);
 
-echo $org->$id . ";" . $org->$name . ";" . $org->$headline . ";" . $org->$org_status . ";" . $org->$founding_year . ";" . $org->$logo_url . ";" . $org->$description . ";" . $org->$address . ";" . $org->$city . ";" . $org->$state . ";" . $org->$website . ";" . $org->$email_suffix . ";" . $org->$phone . ";" . $org->$org_type . ";" . $org->$focus . ";" . $org->$subgroup . ";" . $org->$twitter_handle . ";" . $org->$facebook_page;
+if (is_null($org)) {
+  echo "NULL RESULTS";
+} else {
+  echo $org->$id . ";" . $org->$name . ";" . $org->$headline . ";" . $org->$org_status . ";" . $org->$founding_year . ";" . $org->$logo_url . ";" . $org->$description . ";" . $org->$address . ";" . $org->$city . ";" . $org->$state . ";" . $org->$website . ";" . $org->$email_suffix . ";" . $org->$phone . ";" . $org->$org_type . ";" . $org->$focus . ";" . $org->$subgroup . ";" . $org->$twitter_handle . ";" . $org->$facebook_page;
+}
 
 class Organization {
   public $id, $name, $headline, $org_status, $founding_year, $logo_url, $description, $address, $city, $state, $website, $email_suffix, $phone, $org_type, $focus, $subgroup, $twitter_handle, $facebook_page;
@@ -27,11 +31,11 @@ class Organization {
   public static function getOrg($orgId, $con)
   {
     $result = null;
-    $query = "SELECT id, name, headline, org_status, founding_year, logo_url, description, address, city, state, website, email_suffix, phone, org_type, focus, subgroup, twitter_handle, facebook_page FROM orgs WHERE org_id = ? ";
+    $query = "SELECT id, name, headline, org_status, founding_year, logo_url, description, address, city, state, website, email_suffix, phone, org_type, focus, subgroup, twitter_handle, facebook_page FROM orgs WHERE id = ? ";
     $stmt = $con->prepare($query);
     if ($stmt == null || $stmt == false) {
       echo "Oops! We had a problem: Null statement";
-      return results;
+      return null;
     }
     $org = new Organization();
     if ($stmt->bind_param("i", $orgId)) {

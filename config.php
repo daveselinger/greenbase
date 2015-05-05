@@ -10,4 +10,5 @@ $db_url='127.0.0.1';
 $db_username='greenbase';
 $db_password='greenbase';
 $db_name='greenbase';
+$ajax_root='/~selly'
 ?>
