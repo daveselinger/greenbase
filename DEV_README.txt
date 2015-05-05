@@ -76,3 +76,7 @@ chdir ($pre_working_directory);
 
 You'll see the github root referenced in the 3rd line "WP_CONTENT_DIR . '/greenbase/'". This location is critical for making things work
 
+For the visual snapshot:
+1. Add the AJAX root directory to the config file. Use this config parameter in the snapshot.
+2. Update the Organization.php to work.
+3. Call brad to get most recent snapshot.

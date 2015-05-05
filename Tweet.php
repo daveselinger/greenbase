@@ -54,6 +54,7 @@ class Tweet
     } else {
       echo "Oops! We had a problem: Failure to bind";
     }
+    $stmt->close();
     return $results;
   }
 }
