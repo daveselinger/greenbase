@@ -22,7 +22,7 @@ $org = Organization::getOrg($org_id, $con);
 if (is_null($org)) {
   echo "NULL RESULTS";
 } else {
-  echo $org->$id . ";" . $org->$name . ";" . $org->$headline . ";" . $org->$org_status . ";" . $org->$founding_year . ";" . $org->$logo_url . ";" . $org->$description . ";" . $org->$address . ";" . $org->$city . ";" . $org->$state . ";" . $org->$website . ";" . $org->$email_suffix . ";" . $org->$phone . ";" . $org->$org_type . ";" . $org->$focus . ";" . $org->$subgroup . ";" . $org->$twitter_handle . ";" . $org->$facebook_page;
+  echo $org->id . ";" . $org->name . ";" . $org->headline . ";" . $org->org_status . ";" . $org->founding_year . ";" . $org->logo_url . ";" . $org->description . ";" . $org->address . ";" . $org->city . ";" . $org->state . ";" . $org->website . ";" . $org->email_suffix . ";" . $org->phone . ";" . $org->org_type . ";" . $org->focus . ";" . $org->subgroup . ";" . $org->twitter_handle . ";" . $org->facebook_page;
 }
 
 class Organization {
@@ -40,7 +40,7 @@ class Organization {
     $org = new Organization();
     if ($stmt->bind_param("i", $orgId)) {
       if ($stmt->execute()) {
-        $stmt->bind_result($org->$id, $org->$name, $org->$headline, $org->$org_status, $org->$founding_year, $org->$logo_url, $org->$description, $org->$address, $org->$city, $org->$state, $org->$website, $org->$email_suffix, $org->$phone, $org->$org_type, $org->$focus, $org->$subgroup, $org->$twitter_handle, $org->$facebook_page);
+        $stmt->bind_result($org->id, $org->name, $org->headline, $org->org_status, $org->founding_year, $org->logo_url, $org->description, $org->address, $org->city, $org->state, $org->website, $org->email_suffix, $org->phone, $org->org_type, $org->focus, $org->subgroup, $org->twitter_handle, $org->facebook_page);
       } else {
         echo "Oops! We had a problem: Query failed";
         echo $con->error;
