@@ -21,7 +21,7 @@ function getDBConnection($db_config) {
 
 	if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
 		|| ($db_username == '') || ($db_password == '')  || ($db_name == '') ) {
-		exit( 'No database configuration in "config.php"');
+		exit( 'No database configuration in "config.php".' . $db_url . ';' . $db_username . ';' . $db_password . ';' . $db_name);
 	}
 
 	// exit ("Url: " . $db_url . "; username:" . $db_username . "; password:". $db_password);
