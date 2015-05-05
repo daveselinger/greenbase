@@ -1,4 +1,6 @@
 <?php
+namespace greenbase;
+
 header('Content-Type: application/json');
 ?>
 {

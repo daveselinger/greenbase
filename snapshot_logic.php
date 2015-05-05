@@ -1,4 +1,8 @@
-<?php include_once 'get_config.php' ?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="<?php echo $greenbase_root; ?>/img/lightbox/loading.gif"></div></div>
+<?php
+namespace greenbase;
+include_once 'get_config.php';
+
+?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="<?php echo $greenbase_root; ?>/img/lightbox/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "<?php echo $greenbase_root; ?>/snapshot_orgs.php";

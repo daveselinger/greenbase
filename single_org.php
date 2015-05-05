@@ -1,4 +1,6 @@
 <?php
+namespace greenbase;
+
 include_once 'database_init.php';
 include 'Organization.php';
 include 'Event.php';
@@ -9,13 +11,13 @@ if (!isset($_GET['org_id'])) {
 $org_id = $_GET['org_id'];
 
 $con = getDBConnection($db_config);
-$org = greenbase\Organization::getOrg($org_id, $con);
+$org = Organization::getOrg($org_id, $con);
 if (is_null($org)) {
     echo "NULL ORG";
     return;
 }
 
-$events = greenbase\Event::getEventsForOrg($org_id, $con);
+$events = Event::getEventsForOrg($org_id, $con);
 ?>
 
 <img alt="<?php echo(htmlspecialchars($org->name)); ?> Logo" src="remoteimage.php?org=<?php echo ($org_id);?>">

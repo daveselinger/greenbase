@@ -1,10 +1,10 @@
 <?php
-header('Content-Type: application/json');
-?>
-{
-<?php
+namespace greenbase;
 include 'database_init.php';
+
+header('Content-Type: application/json');
 $con = getDBConnection($db_config);
+echo "{";
 
 //TODO: Move all this logic into a nonruntime function and store the layout in the database at some point.
 
@@ -14,7 +14,7 @@ $con = getDBConnection($db_config);
  * @param $org_type
  * @return array
  */
-function getAllOrgs(mysqli $con, $org_type, $focus)
+function getAllOrgs(\mysqli $con, $org_type, $focus)
 {
   $orgs = [];
   $h = [];

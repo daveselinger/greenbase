@@ -1,4 +1,6 @@
 <?php
+namespace greenbase;
+
 /**
  * Created by PhpStorm.
  * User: selly

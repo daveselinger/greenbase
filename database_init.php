@@ -1,4 +1,5 @@
 <?php
+namespace greenbase;
 
 //Read the default configuration first
 include_once 'get_config.php';
@@ -25,7 +26,7 @@ function getDBConnection($db_config) {
 	}
 
 	// exit ("Url: " . $db_url . "; username:" . $db_username . "; password:". $db_password);
-  $con = new mysqli($db_url, $db_username, $db_password);
+  $con = new \mysqli($db_url, $db_username, $db_password);
 	if ($con->connect_error) {
 		exit ('Connect error (' .mysqli_connect_errno() .') '.mysqli_connect_error());
 	} else {

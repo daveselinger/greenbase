@@ -1,4 +1,6 @@
 <?php
+namespace greenbase;
+
 if (file_exists('config.php')) {
   try {
     include_once 'config.php';
