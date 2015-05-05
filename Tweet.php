@@ -20,10 +20,6 @@ $org_id = intval($_GET["org_id"]);
 $con = getDBConnection($db_config);
 
 echo "<link rel='stylesheet' type='text/css' href='css/twitter.css'>";
-echo (URL_REGEX);
-echo ("\n");
-echo (URL_REPLACEMENT);
-echo ("\n");
 $tweets = Tweet::getTweetsForOrg($org_id, $con);
 echo ("<UL>");
 foreach ($tweets as $tweet) {
