@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<shortcode-exec-php><shortcode name="twitter_org" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "tweets.php";
+}
+chdir ($pre_working_directory);]]></shortcode><shortcode name="greenbase_snapshot" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "snapshot_logic.php";
+}
+chdir ($pre_working_directory);]]></shortcode><shortcode name="single_org" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "single_org.php";
+}
+chdir ($pre_working_directory);]]></shortcode><shortcode name="snapshot_browse" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "snapshot_browse.php";
+}
+chdir ($pre_working_directory);]]></shortcode><shortcode name="register_org" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "register_logic.php";
+}
+chdir ($pre_working_directory);]]></shortcode><shortcode name="greenbase_ecosystem" enabled="true" buffer="true" description=""><![CDATA[$pre_working_directory = getcwd();
+
+if (chdir( WP_CONTENT_DIR . '/greenbase/')) {
+	include "snapshot_ecosystem.php";
+}
+chdir ($pre_working_directory);]]></shortcode></shortcode-exec-php>
