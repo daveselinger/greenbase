@@ -8,7 +8,7 @@
  * Register an individual user
  */
 
-include_once 'database_init.php';
+include_once 'Database.php';
 
 $con = Database::getDefaultDBConnection();
 

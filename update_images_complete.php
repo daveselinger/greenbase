@@ -6,7 +6,7 @@
  * Time: 12:28 AM
  */
 
-include_once 'database_init.php';
+include_once 'Database.php';
 $con = Database::getDefaultDBConnection();
 
 echo "Dropping old logo_details_old tables<br>\n";

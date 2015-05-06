@@ -1,6 +1,6 @@
 <?php
 namespace greenbase;
-include_once 'database_init.php';
+include_once 'Database.php';
 
 header('Content-Type: application/json');
 $con = Database::getDefaultDBConnection();

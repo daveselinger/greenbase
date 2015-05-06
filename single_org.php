@@ -1,7 +1,7 @@
 <?php
 namespace greenbase;
 
-include_once 'database_init.php';
+include_once 'Database.php';
 include_once 'Organization.php';
 include_once 'Event.php';
 

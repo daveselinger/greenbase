@@ -1,5 +1,5 @@
 <?php
-include 'database_init.php';
+include 'Database.php';
 
 function makeDirIfNeeded($path) {
   if (!file_exists($path)) {

@@ -3,7 +3,7 @@ namespace greenbase;
 
 header('Content-Type: application/json');
 echo "{";
-include_once 'database_init.php';
+include_once 'Database.php';
 
 // PHP code
 function writeOrg($orgName, $id, $description, $orientation, $focus, $org_type) {

@@ -7,7 +7,7 @@
  */
 
 namespace greenbase;
-include_once 'database_init.php';
+include_once 'Database.php';
 
 if (!isset($_GET["org_id"])) {
   echo "USAGE (for test): Organization.php?org_id=x where x is your org id";

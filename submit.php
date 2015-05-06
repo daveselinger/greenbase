@@ -12,7 +12,7 @@
  *  2. An error message
  */
 
-include 'database_init.php';
+include 'Database.php';
 $con = Database::getDefaultDBConnection();
 
 if (!isset($_POST["todo"])) {
