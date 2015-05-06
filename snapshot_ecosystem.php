@@ -3,7 +3,7 @@ namespace greenbase;
 
 include 'get_config.php';
 
-?><!DOCTYPE html>
+?>
 <html lang="">
 <head>
   <meta charset="utf-8">
