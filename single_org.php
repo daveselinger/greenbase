@@ -5,8 +5,9 @@ include_once 'Database.php';
 include_once 'Organization.php';
 include_once 'Event.php';
 
-if (!isset($_GET['org_id'])) {
-    exit ('No org id');
+if (!isset($_GET["org_id"])) {
+    echo "USAGE (for test): single_org.php?org_id=x where x is your org id";
+    return;
 }
 $org_id = $_GET['org_id'];
 

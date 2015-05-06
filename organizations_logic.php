@@ -1,6 +1,10 @@
+<?php
+namespace greenbase;
+?>
 <div class="row">
 <?php
 include_once 'Database.php';
+include_once 'Organization.php';
 
 function writeOrg ($id, $orgName, $logoUrl, $description) {
   echo '<a href="./single_org.php?org=' . $id . '">';
@@ -11,9 +15,9 @@ function writeOrg ($id, $orgName, $logoUrl, $description) {
   echo '<p>' . $orgName . '</p></div></div></a>';
 }
 
-include 'Database.php';
-include 'Organization.php';
-
 $con = Database::getDefaultDBConnection();
+
+$orgs = Organization::getOrgs($con, 1, 1);
+
 ?>
 </div>
