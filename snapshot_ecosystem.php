@@ -121,7 +121,7 @@ $(function() {
   orgTypeIds=[];
 
   // perform request for list of orgs
-  var jqxhr = $.getJSON( "./snapshot_orgs.php", function(data) {    
+  var jqxhr = $.getJSON( "<?php echo Config::$greenbase_root ?>/snapshot_orgs.php", function(data) {
   }).done(function(data) {
     // for each org, create a focus id, org type id, and push each into an array
     $.each( data, function( key, value ) {
