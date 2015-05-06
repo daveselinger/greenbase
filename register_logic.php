@@ -5,6 +5,7 @@
  * Date: 3/3/15
  * Time: 1:28 PM
  */
+namespace greenbase;
 
 include_once 'Database.php';
 
