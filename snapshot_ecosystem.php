@@ -19,7 +19,7 @@ include 'get_config.php';
 	<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/reset.css">
 	<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/snapshot.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="<?php echo Config::$greenbase_root ?>/http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
   <link href='<?php echo Config::$greenbase_root ?>/css/Roboto.css' rel='stylesheet' type='text/css'>
 </head>
 <body>

@@ -6,9 +6,8 @@ if (file_exists('Config.php')) {
     include_once 'Config.php';
   } catch (Exception $e) {
   }
-}
+} else if (file_exists('../Config.php')) {
 // Read the site-specific configuration next.
-if (file_exists('../Config.php')) {
   try {
     include_once '../Config.php';
   } catch (Exception $e) {
