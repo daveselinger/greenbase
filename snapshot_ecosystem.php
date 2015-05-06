@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+namespace greenbase;
+
+include 'get_config.php';
+
+?><!DOCTYPE html>
 <html lang="">
 <head>
   <meta charset="utf-8">
@@ -7,15 +12,15 @@
 	<meta name="keywords" content="" />
 	<meta name="robots" content="" />
 
-	<script src="js/jquery.min.js"></script>
+	<script src="<?php echo Config::$greenbase_root ?>/js/jquery.min.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src="js/masonry.pkgd.min.js"></script>
-  <script src="js/imagesloaded.pkgd.min.js"></script>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/snapshot.css">
+	<script src="<?php echo Config::$greenbase_root ?>/js/masonry.pkgd.min.js"></script>
+  <script src="<?php echo Config::$greenbase_root ?>/js/imagesloaded.pkgd.min.js"></script>
+	<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/reset.css">
+	<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/snapshot.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-  <link href='css/Roboto.css' rel='stylesheet' type='text/css'>
+  <script src="<?php echo Config::$greenbase_root ?>/http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  <link href='<?php echo Config::$greenbase_root ?>/css/Roboto.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -134,7 +139,7 @@ $(function() {
 
       // create org elemtns with data type set for focus id 
       b = '<div data-focusid="' + focusId + '" data-orgtype="' + orgTypeId + '" class="eco" data-details="' + details + '">';
-      b += '<img class="logo" style="opacity:0;" src="remoteimages/originals/logo_' + value.logo.replace("./localimage.php?org=","") + '.png" />';
+      b += '<img class="logo" style="opacity:0;" src="<?php echo Config::$greenbase_root ?>/remoteimages/originals/logo_' + value.logo.replace("./localimage.php?org_id=","") + '.png" />';
       b += '</div>';
 
       $( '#ecosystem' ).append( b );
