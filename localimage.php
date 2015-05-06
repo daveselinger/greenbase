@@ -1,17 +1,20 @@
 <?php
+namespace greenbase;
+
+include_once 'get_config.php';
+
 function makeDirIfNeeded($path) {
   if (!file_exists($path)) {
     mkdir($path, 0777, true);
   }
 }
 
-if (!isset($_GET['org'])) {
+if (!isset($_GET['org_id'])) {
 	exit ('No org id');
 }
-
 //TODO: If the image fails to load, set logo_details valid = 0;
 
-$org_id = $_GET['org'];
+$org_id = $_GET['org_id'];
 $width = 0;
 $height = 0;
 if (isset($_GET['width'])) {
@@ -27,11 +30,15 @@ if ($width == 0 && $height == 0) {
 $logo_url = './remoteimages/originals/logo_' . $org_id . '.png';
 
 if (!file_exists($logo_url)) {
-  exit ("ERROR IMAGES NOT INITIALIZED: " + $logo_url);
+  $logo_url = './img/no_logo.png';
+  if (!file_exists($logo_url)) {
+    echo (getcwd());
+    exit ("Invalid file.");
+  }
 }
 
 $handle = fopen($logo_url, 'rb');
-$img = new Imagick();
+$img = new \Imagick();
 //exit ( "version" . $img->getVersion()['versionString']);
 $img->readImageFile($handle);
 if (!$img->trimImage(0.4)) {

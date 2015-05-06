@@ -4,6 +4,7 @@ namespace greenbase;
 include_once 'Database.php';
 include_once 'Organization.php';
 include_once 'Event.php';
+include 'get_config.php';
 
 if (!isset($_GET["org_id"])) {
     echo "USAGE (for test): single_org.php?org_id=x where x is your org id";
@@ -21,7 +22,7 @@ if (is_null($org)) {
 $events = Event::getEventsForOrg($org_id, $con);
 ?>
 
-<img alt="<?php echo(htmlspecialchars($org->name)); ?> Logo" src="remoteimage.php?org=<?php echo ($org_id);?>">
+<img alt="<?php echo(htmlspecialchars($org->name)); ?> Logo" src="<?php echo Config::$greenbase_root ?>/localimage.php?org_id=<?php echo ($org_id);?>">
 <p ><?php echo (htmlspecialchars($org->name)); ?> (founded <?php echo($org->founding_year); ?>)</p>
 
 <p><a href="<?php echo ($org->website);?>"><?php echo ($org->website);?></a></p>

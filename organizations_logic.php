@@ -7,7 +7,7 @@ include_once 'Database.php';
 include_once 'Organization.php';
 
 function writeOrg ($id, $orgName, $logoUrl, $description) {
-  echo '<a href="./single_org.php?org=' . $id . '">';
+  echo '<a href="./single_org.php?org_id=' . $id . '">';
   echo '<div id="listbox">';
   echo ' <div id="logobox"><img src="' . $logoUrl . '">';
   echo ' </div> ';

@@ -7,7 +7,7 @@ include_once 'Database.php';
 
 // PHP code
 function writeOrg($orgName, $id, $description, $orientation, $focus, $org_type) {
-  echo("\"$id\": { \"id\": \"$id\", \"name\": \"$orgName\", \"logo\": \"./localimage.php?org=$id\", \"description\": \"$description\", \"orientation\": \"$orientation\", \"focus\": \"$focus\", \"org_type\": \"$org_type\"}");
+  echo("\"$id\": { \"id\": \"$id\", \"name\": \"$orgName\", \"logo\": \"./localimage.php?org_id=$id\", \"description\": \"$description\", \"orientation\": \"$orientation\", \"focus\": \"$focus\", \"org_type\": \"$org_type\"}");
 }
 
 $con = Database::getDefaultDBConnection();

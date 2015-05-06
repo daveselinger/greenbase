@@ -14,5 +14,6 @@ class Config {
   public static $db_username = 'greenbase';
   public static $db_password = 'greenbase';
   public static $greenbase_root = '/~selly';
+  public static $default_logo;
 }
 ?>

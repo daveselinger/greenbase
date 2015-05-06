@@ -9,6 +9,7 @@ namespace greenbase;
 
 include_once 'Database.php';
 include_once 'Tweet.php';
+include 'get_config.php';
 
 if (!isset($_GET["org_id"])) {
   echo "USAGE (for test): tweets.php?org_id=x where x is your org id";
@@ -18,7 +19,7 @@ $org_id = intval($_GET["org_id"]);
 
 $con = Database::getDefaultDBConnection();
 
-echo "<link rel='stylesheet' type='text/css' href='css/twitter.css'>";
+echo "<link rel='stylesheet' type='text/css' href='" . Config::$greenbase_root . "/css/twitter.css'>";
 $tweets = Tweet::getTweetsForOrg($org_id, $con);
 echo ("<UL>");
 foreach ($tweets as $tweet) {

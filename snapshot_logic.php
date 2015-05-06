@@ -290,7 +290,7 @@ function setToolTipVisible(element, visible){
 }
 
 function putLogo(left, top, id, size, addTo, cellWidth) {
-  var src= "<?php echo $greenbase_root; ?>/localimage.php?org=" + id + "&";
+  var src= "<?php echo $greenbase_root; ?>/localimage.php?org_id=" + id + "&";
   var org = orgs[id];
   var ending = "";
   var tooltipending = "";
@@ -333,7 +333,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   var toolTipImage = document.createElement("img");
   toolTip.appendChild(toolTipImage);
   toolTipImage.className="tooltip-logo";
-  var logosrc="<?php echo $greenbase_root; ?>/localimage.php?org=" + id + "&" + tooltipending;
+  var logosrc="<?php echo $greenbase_root; ?>/localimage.php?org_id=" + id + "&" + tooltipending;
   toolTipImage.src = logosrc;
   toolTip.innerHTML = toolTip.innerHTML + "<h3>" + org["name"] + "</h3>";
   toolTip.innerHTML = toolTip.innerHTML + org["description"];
