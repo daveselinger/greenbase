@@ -2,17 +2,15 @@
 namespace greenbase;
 
 header('Content-Type: application/json');
-?>
-{
-<?php
-include 'database_init.php';
+echo "{";
+include_once 'database_init.php';
 
 // PHP code
 function writeOrg($orgName, $id, $description, $orientation, $focus, $org_type) {
   echo("\"$id\": { \"id\": \"$id\", \"name\": \"$orgName\", \"logo\": \"./localimage.php?org=$id\", \"description\": \"$description\", \"orientation\": \"$orientation\", \"focus\": \"$focus\", \"org_type\": \"$org_type\"}");
 }
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 $query = "SELECT orgs.id, name, headline, description, org_type, focus, logo_details.orientation, focus, org_type FROM orgs LEFT JOIN logo_details ON (orgs.id = logo_details.id) WHERE orgs.org_status = 1 AND logo_details.valid = 1";
 $results = $con->query($query);

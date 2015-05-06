@@ -4,25 +4,42 @@ namespace greenbase;
 //Read the default configuration first
 include 'get_config.php';
 
-function getDBConnection($db_config) {
-	$db_url = $db_config["url"];
-	$db_username = $db_config["username"];
-	$db_name = $db_config["db"];
-	$db_password = $db_config["password"];
+class Database {
+	public static $default_config;
 
-	if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
-		|| ($db_username == '') || ($db_password == '')  || ($db_name == '') ) {
-		exit( 'No database configuration in "config.php".' . $db_url . ';' . $db_username . ';' . $db_password . ';' . $db_name);
+	public static function getDefaultDBConnection() {
+		if (is_null(Database::$default_config)) {
+			Database::$default_config = [];
+			Database::$default_config["url"] = Config::$db_url;
+			Database::$default_config["username"] = Config::$db_username;
+			Database::$default_config["db"] = Config::$db_name;
+			Database::$default_config["password"] = Config::$db_password;
+		}
+		return Database::getDBConnection(Database::$default_config);
 	}
 
-	// exit ("Url: " . $db_url . "; username:" . $db_username . "; password:". $db_password);
-  $con = new \mysqli($db_url, $db_username, $db_password);
-	if ($con->connect_error) {
-		exit ('Connect error (' .mysqli_connect_errno() .') '.mysqli_connect_error());
-	} else {
+	public static function getDBConnection($db_config)
+	{
+		$db_url = $db_config["url"];
+		$db_username = $db_config["username"];
+		$db_name = $db_config["db"];
+		$db_password = $db_config["password"];
+
+		if (!isset($db_url) || !isset($db_username) || !isset($db_password) || !isset($db_name) || ($db_url == '')
+			|| ($db_username == '') || ($db_password == '') || ($db_name == '')
+		) {
+			exit('No database configuration in "config.php".' . $db_url . ';' . $db_username . ';' . $db_password . ';' . $db_name);
+		}
+
+		// exit ("Url: " . $db_url . "; username:" . $db_username . "; password:". $db_password);
+		$con = new \mysqli($db_url, $db_username, $db_password);
+		if ($con->connect_error) {
+			exit ('Connect error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
+		} else {
+		}
+		$con->select_db($db_name);
+		return $con;
 	}
-	$con->select_db($db_name);
-	return $con;
 }
 
 /*

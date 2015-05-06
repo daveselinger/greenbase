@@ -1,9 +1,9 @@
 <?php
 namespace greenbase;
-include 'database_init.php';
+include_once 'database_init.php';
 
 header('Content-Type: application/json');
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 echo "{";
 
 //TODO: Move all this logic into a nonruntime function and store the layout in the database at some point.

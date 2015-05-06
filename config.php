@@ -7,11 +7,12 @@ namespace greenbase;
  * Date: 1/29/15
  * Time: 1:11 PM
  */
-// VERY IMPORTANT: Localhost leads to using a local socket.
-$db_url='127.0.0.1';
-$db_username='greenbase';
-$db_password='greenbase';
-$db_name='greenbase';
-$greenbase_root='/~selly';
-
+// VERY IMPORTANT: using a value of 'localhost' directs MySQL to use a local socket. so use 127.0.0.1 instead.
+class Config {
+  public static $db_url = '127.0.0.1';
+  public static $db_username = 'greenbase';
+  public static $db_password = 'greenbase';
+  public static $db_name = 'greenbase';
+  public static $greenbase_root = '/~selly';
+}
 ?>

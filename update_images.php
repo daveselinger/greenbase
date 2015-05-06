@@ -1,6 +1,6 @@
 <?php
-include 'database_init.php';
-$con = getDBConnection($db_config);
+include_once 'database_init.php';
+$con = Database::getDefaultDBConnection();
 
 /**
  *

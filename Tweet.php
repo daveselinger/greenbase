@@ -18,7 +18,7 @@ if (!isset($_GET["org_id"])) {
 }
 $org_id = intval($_GET["org_id"]);
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 echo "<link rel='stylesheet' type='text/css' href='css/twitter.css'>";
 $tweets = Tweet::getTweetsForOrg($org_id, $con);

@@ -8,9 +8,9 @@
  * Register an individual user
  */
 
-include 'database_init.php';
+include_once 'database_init.php';
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 // PHP code
 function writeFocusList($con) {

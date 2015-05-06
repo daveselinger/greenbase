@@ -2,15 +2,15 @@
 namespace greenbase;
 
 include_once 'database_init.php';
-include 'Organization.php';
-include 'Event.php';
+include_once 'Organization.php';
+include_once 'Event.php';
 
 if (!isset($_GET['org_id'])) {
     exit ('No org id');
 }
 $org_id = $_GET['org_id'];
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 $org = Organization::getOrg($org_id, $con);
 if (is_null($org)) {
     echo "NULL ORG";

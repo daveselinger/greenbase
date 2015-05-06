@@ -23,7 +23,7 @@ if (!isset($width) || $width <= 0) {
   //Default value just in case
 }
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 // First see if the file is available locally. If not, then download and revise.
 makeDirIfNeeded('./remoteimages/');

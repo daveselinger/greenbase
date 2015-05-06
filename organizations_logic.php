@@ -1,5 +1,6 @@
 <div class="row">
 <?php
+include_once 'database_init.php';
 
 function writeOrg ($id, $orgName, $logoUrl, $description) {
   echo '<a href="./single_org.php?org=' . $id . '">';
@@ -13,7 +14,6 @@ function writeOrg ($id, $orgName, $logoUrl, $description) {
 include 'database_init.php';
 include 'Organization.php';
 
-$con = getDBConnection($db_config);
-
+$con = Database::getDefaultDBConnection();
 ?>
 </div>

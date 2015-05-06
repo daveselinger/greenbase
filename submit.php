@@ -13,7 +13,7 @@
  */
 
 include 'database_init.php';
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 if (!isset($_POST["todo"])) {
   $message = 'Failed to submit form: ';

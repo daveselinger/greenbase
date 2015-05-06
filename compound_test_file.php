@@ -6,9 +6,9 @@
  * Time: 4:47 PM
  */
 
-include 'single_org.php';
+eval("include 'single_org.php';");
 
 echo "<HR>";
 
-include 'Tweet.php';
+eval("include 'Tweet.php';");
 ?>

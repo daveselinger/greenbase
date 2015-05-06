@@ -15,7 +15,7 @@ if (!isset($_GET["org_id"])) {
 }
 $org_id = intval($_GET["org_id"]);
 
-$con = getDBConnection($db_config);
+$con = Database::getDefaultDBConnection();
 
 $org = Organization::getOrg($org_id, $con);
 

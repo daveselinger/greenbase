@@ -6,8 +6,8 @@
  * Time: 12:28 AM
  */
 
-include 'database_init.php';
-$con = getDBConnection($db_config);
+include_once 'database_init.php';
+$con = Database::getDefaultDBConnection();
 
 echo "Dropping old logo_details_old tables<br>\n";
 // Init and drop old tables if they're hanging around.

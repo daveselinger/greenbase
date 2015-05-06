@@ -6,8 +6,8 @@
  * Time: 12:28 AM
  */
 
-include 'database_init.php';
-$con = getDBConnection($db_config);
+include_once 'database_init.php';
+$con = Database::getDefaultDBConnection();
 
 function updateOrg($con, $id, $valid, $orientation, $stmt) {
   $stmt->bind_param("isi", $valid, $orientation, $id);
