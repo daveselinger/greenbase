@@ -28,34 +28,66 @@ class Tweet
     return preg_replace(TWITTER_HANDLE_REGEX, TWITTER_HANDLE_REPLACEMENT, $tempText);
   }
 
-  public static function getTweetsForOrg($orgId, $con)
-  {
+  public static function getTweets(\mysqli_stmt $stmt) {
     $results = [];
-    $query = "SELECT org_id, created_at, text, user_profile_image_url, user_description, user_url FROM twitter_feed WHERE org_id = ? ORDER BY created_at DESC";
-    $stmt = $con->prepare($query);
     if ($stmt == null || $stmt == false) {
       echo "Oops! We had a problem: Null statement";
-      return results;
+      return $results;
     }
     $tweet = new Tweet();
-    if ($stmt->bind_param("i", $orgId)) {
-      if ($stmt->execute()) {
-        $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
-      } else {
-        echo "Oops! We had a problem: Query failed";
-        echo $con->error;
-      }
+    if ($stmt->execute()) {
+      $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
+    } else {
+      echo "Oops! We had a problem: Query failed";
+      echo $con->error;
+    }
 
-      while ($stmt->fetch()) {
-        $results[] = $tweet;
-        $tweet = new Tweet();
-        $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
-      }
+    while ($stmt->fetch()) {
+      $results[] = $tweet;
+      $tweet = new Tweet();
+      $stmt->bind_result($tweet->orgId, $tweet->createdAt, $tweet->text, $tweet->userProfileImageUrl, $tweet->userDescription, $tweet->userUrl);
+    }
+    return $results;
+  }
+
+  public static function getTweetsForOrg($orgId, \mysqli $con)
+  {
+    $result = null;
+    $query = "SELECT org_id, created_at, text, user_profile_image_url, user_description, user_url FROM twitter_feed WHERE org_id = ? ORDER BY created_at DESC";
+    $stmt = $con->prepare($query);
+    if ($stmt->bind_param("i", $orgId)) {
+      $result = Tweet::getTweets($stmt);
     } else {
       echo "Oops! We had a problem: Failure to bind";
     }
     $stmt->close();
-    return $results;
+    return $result;
+  }
+
+  public static function getRecentTweets(\mysqli $con)
+  {
+    $result = null;
+    $query = "SELECT org_id, created_at, text, user_profile_image_url, user_description, user_url FROM twitter_feed ORDER BY created_at DESC LIMIT 10";
+    $stmt = $con->prepare($query);
+    $result = Tweet::getTweets($stmt);
+    $stmt->close();
+    return $result;
+  }
+
+  /**
+   * Turns an array of tweets into their corresponding HTML.
+   * @param $tweets
+   * @return string
+   */
+  public static function htmlizeTweets($tweets) {
+    $result = '';
+    $result = $result . "<link rel='stylesheet' type='text/css' href='" . Config::$greenbase_root . "/css/twitter.css'>";
+    $result = $result . "<UL>";
+    foreach ($tweets as $tweet) {
+      $result = $result . "<LI><A HREF='" . $tweet->userUrl . "'><IMG SRC='" . $tweet->userProfileImageUrl . "'></A> Tweeted <blockquote class='twitter-tweet'>". $tweet->getHtmlIzedText() . "</blockquote><BR>" . $tweet->createdAt;
+    }
+    $result = $result . "</UL>";
+    return $result;
   }
 }
 
