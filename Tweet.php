@@ -13,15 +13,19 @@ define ('URL_REGEX', "{(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-z
 define ('URL_REPLACEMENT', '<a href="$0">$0</a>');
 
 define ('TWITTER_HANDLE_REGEX', "/@([A-Za-z0-9_]{1,15})/");
-define ('URL_REPLACEMENT', '<a href="http://twitter.com/$1">$0</a>');
+define ('TWITTER_HANDLE_REPLACEMENT', '<a href="http://twitter.com/$1">$0</a>');
 
+define ('TWITTER_HASHTAG_REGEX', "/#([A-Za-z0-9_]{1,15})/");
+define ('TWITTER_HASHTAG_REPLACEMENT', '<a href="http://twitter.com/search?q=%23$1">$0</a>');
 
 class Tweet
 {
   public $orgId, $createdAt, $text, $userProfileImageUrl, $userDescription, $userUrl;
 
   public function getHtmlIzedText() {
-    return preg_replace(URL_REGEX, URL_REPLACEMENT, $this->text);
+    $tempText = preg_replace(URL_REGEX, URL_REPLACEMENT, $this->text);
+    $tempText = preg_replace(TWITTER_HASHTAG_REGEX, TWITTER_HASHTAG_REPLACEMENT, $tempText);
+    return preg_replace(TWITTER_HANDLE_REGEX, TWITTER_HANDLE_REPLACEMENT, $tempText);
   }
 
   public static function getTweetsForOrg($orgId, $con)
