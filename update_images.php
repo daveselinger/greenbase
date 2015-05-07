@@ -1,4 +1,6 @@
 <?php
+namespace greenbase;
+
 include_once 'Database.php';
 $con = Database::getDefaultDBConnection();
 

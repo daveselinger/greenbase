@@ -5,11 +5,12 @@
  * Date: 3/3/15
  * Time: 12:28 AM
  */
+namespace greenbase;
 
 include_once 'Database.php';
 $con = Database::getDefaultDBConnection();
 
-function updateOrg($con, $id, $valid, $orientation, $stmt) {
+function updateOrg($con, $id, $valid, $orientation, \mysqli_stmt $stmt) {
   $stmt->bind_param("isi", $valid, $orientation, $id);
   if (!$stmt->execute() ){
     echo $con->error;
@@ -27,7 +28,7 @@ if (is_null($results)) {
   exit ("Unable to access logo_details_temp");
 }
 $logos = [];
-$img = new Imagick();
+$img = new \Imagick();
 
 while ($row = $results->fetch_assoc()) {
   flush();
@@ -46,7 +47,7 @@ while ($row = $results->fetch_assoc()) {
   echo "loading,";
   try {
     $loaded =$img->readImageFile($handle);
-  }  catch (Exception $e) {
+  }  catch (\Exception $e) {
     echo("FAILED:" . $e->getMessage() . "<br>");
   }
   if ($loaded){
@@ -66,6 +67,11 @@ while ($row = $results->fetch_assoc()) {
     echo "orientation(" . $logo["orientation"] ."), ";
     $img->setImageFormat("png");
     $img->writeImage("./remoteimages/originals/logo_" . $logo["id"] . ".png");
+
+    // Resize and store as a 100x100 thumbnail
+    $img->thumbnailImage(100, 100, true);
+    $img->writeImage("./remoteimages/snapshot/logo_" . $logo["id"] . ".png");
+
     echo "stored.";
     $logo["valid"] = 1;
     $img->clear();
