@@ -4,14 +4,13 @@ namespace greenbase;
 include 'get_config.php';
 
 ?>
-  <script src="js/jquery.min.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src="js/masonry.pkgd.min.js"></script>
-  <script src="js/imagesloaded.pkgd.min.js"></script>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/snapshot.css">
-	
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="<?php echo Config::$greenbase_root ?>/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="<?php echo Config::$greenbase_root ?>/js/masonry.pkgd.min.js"></script>
+<script src="<?php echo Config::$greenbase_root ?>/js/imagesloaded.pkgd.min.js"></script>
+<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/reset.css">
+<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/snapshot.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <div id="snapshot" class="snapshot">
   <div id="orgTypes"></div>

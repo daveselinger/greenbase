@@ -4,7 +4,10 @@ include_once 'get_config.php';
 
 $greenbase_root = Config::$greenbase_root;
 
-?><div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="<?php echo $greenbase_root; ?>/img/loading.gif"></div></div>
+?>
+
+<link rel="stylesheet" href="<?php echo Config::$greenbase_root ?>/css/snapshot.css">
+<div id="snapshot" class="snapshot"><div id="loading">Snapshot loading... [This takes a while--please be patient we're building the climate change universe just for you!] <img src="<?php echo $greenbase_root; ?>/img/loading.gif"></div></div>
 <script language="javascript">
 var xmlhttp = new XMLHttpRequest();
 var url = "<?php echo $greenbase_root; ?>/snapshot_orgs.php";
@@ -195,18 +198,18 @@ function createLabelToolTip (id, text, left, top, cellSize, addTo, focusOrType) 
 
   //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
-    toolTip.style.left = (left + (cellSize * 10 / 9)) + "px";
+    toolTip.style.left = parseInt(left + (cellSize * 10 / 9)) + "px";
   } else {
-    toolTip.style.left = (left - (cellSize / 4) - tooltipWidth) + "px";
+    toolTip.style.left = parseInt(left - (cellSize / 4) - tooltipWidth) + "px";
   }
 
   if (top < vMidpoint) {
-    toolTip.style.top = (top) + "px";
+    toolTip.style.top = parseInt(top) + "px";
   } else {
-    toolTip.style.top = (top - tooltipHeight) + "px";
+    toolTip.style.top = parseInt(top - tooltipHeight) + "px";
   }
-  toolTip.style.width = tooltipWidth + "px";
-  toolTip.style.height = tooltipHeight + "px";
+  toolTip.style.width = tooltipWidth.toString() + "px";
+  toolTip.style.height = tooltipHeight.toString() + "px";
 }
 
 function printCell(cellLayout,  left, top, cellWidth, addTo) {
@@ -359,21 +362,21 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
 
   //Compute its position relative to the midpoint.
   if (left < hMidpoint) {
-    toolTip.style.left = (left + (size * 5/4)) + "px";
+    toolTip.style.left = parseInt(left + (size * 5/4)) + "px";
   } else {
-    toolTip.style.left = (left - (size / 4) - tooltipWidth) + "px";
+    toolTip.style.left = parseInt(left - (size / 4) - tooltipWidth) + "px";
   }
 
   if (top < vMidpoint) {
-    toolTip.style.top = (top) + "px";
+    toolTip.style.top = parseInt(top) + "px";
   } else {
-    toolTip.style.top = (top - tooltipHeight + (size * 3 / 2)) + "px";
+    toolTip.style.top = parseInt(top - tooltipHeight + (size * 3 / 2)) + "px";
   }
-  toolTip.style.width = tooltipWidth + "px";
-  toolTip.style.height = tooltipHeight + "px";
+  toolTip.style.width = tooltipWidth.toString() + "px";
+  toolTip.style.height = tooltipHeight.toString() + "px";
 
   var anchor = document.createElement("a");
-  anchor.href="<?php echo $greenbase_root; ?>/single_org.php?org_id=" + id;
+  anchor.href="<?php echo $greenbase_root; ?>/organization-detail-page/?org_id=" + id;
   miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");
