@@ -5,6 +5,7 @@
  * Date: 3/3/15
  * Time: 12:28 AM
  */
+namespace greenbase;
 
 include_once 'Database.php';
 $con = Database::getDefaultDBConnection();
