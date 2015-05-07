@@ -12,6 +12,10 @@ include_once 'Database.php';
 define ('URL_REGEX', "{(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*}");
 define ('URL_REPLACEMENT', '<a href="$0">$0</a>');
 
+define ('TWITTER_HANDLE_REGEX', "/@([A-Za-z0-9_]{1,15})/");
+define ('URL_REPLACEMENT', '<a href="http://twitter.com/$1">$0</a>');
+
+
 class Tweet
 {
   public $orgId, $createdAt, $text, $userProfileImageUrl, $userDescription, $userUrl;
