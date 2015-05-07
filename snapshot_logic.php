@@ -376,7 +376,7 @@ function putLogo(left, top, id, size, addTo, cellWidth) {
   toolTip.style.height = tooltipHeight.toString() + "px";
 
   var anchor = document.createElement("a");
-  anchor.href="<?php echo $greenbase_root; ?>/organization-detail-page/?org_id=" + id;
+  anchor.href="/organization-detail-page/?org_id=" + id;
   miniDiv.appendChild(anchor);
 
   var logoImage = document.createElement("img");
