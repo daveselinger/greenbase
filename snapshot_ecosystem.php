@@ -139,7 +139,7 @@ $(function() {
 
       // create org elemtns with data type set for focus id 
       b = '<div data-focusid="' + focusId + '" data-orgtype="' + orgTypeId + '" class="eco" data-details="' + details + '">';
-      b += '<img class="logo" style="opacity:0;" src="<?php echo Config::$greenbase_root ?>/remoteimages/originals/logo_' + value.logo.replace("./localimage.php?org_id=","") + '.png" />';
+      b += '<img class="logo" style="opacity:0;" src="<?php echo Config::$greenbase_root ?>/remoteimages/snapshot/logo_' + value.logo.replace("./localimage.php?org_id=","") + '.png" />';
       b += '</div>';
 
       $( '#ecosystem' ).append( b );

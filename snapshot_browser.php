@@ -92,7 +92,7 @@ $(function() {
       // create org elemtns with data type set for focus id 
       b = '<div data-focusid="' + focusId + '" data-orgtype="' + orgTypeId + '" class="org" data-details="' + details + '">';
 //      b += '<img class="logo" src="' + value.logo + '" />';
-      b += '<img style="width:150px;" src="remoteimages/originals/logo_' + value.logo.replace("./localimage.php?org=","") + '.png" />';
+      b += '<img style="width:150px;" src="remoteimages/snapshot/logo_' + value.logo.replace("./localimage.php?org=","") + '.png" />';
       b += '</div>';
       
       $( '#orgs' ).append( b );
