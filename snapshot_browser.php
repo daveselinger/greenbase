@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="">
-<head>
-  <meta charset="utf-8">
-	<title>Snapshot Browser</title>
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<meta name="robots" content="" />
-	<script src="js/jquery.min.js"></script>
+<?php
+namespace greenbase;
+
+include 'get_config.php';
+
+?>
+  <script src="js/jquery.min.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="js/masonry.pkgd.min.js"></script>
   <script src="js/imagesloaded.pkgd.min.js"></script>
@@ -14,10 +12,6 @@
 	<link rel="stylesheet" href="css/snapshot.css">
 	
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-	
-</head>
-<body>
 
 <div id="snapshot" class="snapshot">
   <div id="orgTypes"></div>
@@ -92,7 +86,7 @@ $(function() {
       // create org elemtns with data type set for focus id 
       b = '<div data-focusid="' + focusId + '" data-orgtype="' + orgTypeId + '" class="org" data-details="' + details + '">';
 //      b += '<img class="logo" src="' + value.logo + '" />';
-      b += '<img style="width:150px;" src="remoteimages/snapshot/logo_' + value.logo.replace("./localimage.php?org=","") + '.png" />';
+      b += '<img style="width:150px;" src="<?php echo Config::$greenbase_root ?>/' + value.logo + '" />';
       b += '</div>';
       
       $( '#orgs' ).append( b );
@@ -191,8 +185,3 @@ var msnry;
 
 
 </script>
-
-  
-
-</body>
-</html>

@@ -4,14 +4,6 @@ namespace greenbase;
 include 'get_config.php';
 
 ?>
-<html lang="">
-<head>
-  <meta charset="utf-8">
-	<title>Snapshot Ecosystem</title>
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<meta name="robots" content="" />
-
 	<script src="<?php echo Config::$greenbase_root ?>/js/jquery.min.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="<?php echo Config::$greenbase_root ?>/js/masonry.pkgd.min.js"></script>
@@ -21,8 +13,6 @@ include 'get_config.php';
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
   <link href='<?php echo Config::$greenbase_root ?>/css/Roboto.css' rel='stylesheet' type='text/css'>
-</head>
-<body>
 
 <ul id="nav">
   <li class="navItem navOn" id="all">All</li>
@@ -139,7 +129,7 @@ $(function() {
 
       // create org elemtns with data type set for focus id 
       b = '<div data-focusid="' + focusId + '" data-orgtype="' + orgTypeId + '" class="eco" data-details="' + details + '">';
-      b += '<img class="logo" style="opacity:0;" src="<?php echo Config::$greenbase_root ?>/remoteimages/snapshot/logo_' + value.logo.replace("./localimage.php?org_id=","") + '.png" />';
+      b += '<img class="logo" style="opacity:0;" src="<?php echo Config::$greenbase_root ?>/' + value.logo + '" />';
       b += '</div>';
 
       $( '#ecosystem' ).append( b );
@@ -169,7 +159,3 @@ $(function() {
   });
 });
 </script>
-
-
-</body>
-</html>
